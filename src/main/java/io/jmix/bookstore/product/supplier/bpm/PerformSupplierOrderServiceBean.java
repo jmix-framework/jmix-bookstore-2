@@ -1,6 +1,6 @@
 package io.jmix.bookstore.product.supplier.bpm;
 
-import com.haulmont.yarg.reporting.ReportOutputDocument;
+import io.jmix.reports.yarg.reporting.ReportOutputDocument;
 import io.jmix.bookstore.entity.User;
 import io.jmix.bookstore.product.Product;
 import io.jmix.bookstore.product.supplier.SupplierOrder;

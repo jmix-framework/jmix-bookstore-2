@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-import javax.persistence.Column;
-import javax.persistence.Lob;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotNull;
 
 @Value
 @Builder

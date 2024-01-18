@@ -10,8 +10,8 @@ import lombok.Builder;
 import lombok.Value;
 import org.locationtech.jts.geom.Polygon;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Value
 @Builder

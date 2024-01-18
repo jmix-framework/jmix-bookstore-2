@@ -15,11 +15,11 @@ import lombok.Builder;
 import lombok.Value;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-import javax.persistence.Version;
-import javax.validation.constraints.Email;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
+import jakarta.persistence.Version;
+import jakarta.validation.constraints.Email;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;

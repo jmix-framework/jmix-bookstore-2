@@ -8,7 +8,7 @@
             <fetchPlan extends="_base"/>
             <loader id="usersDl">
                 <query>
-                    <![CDATA[select e from bkst_User e order by e.username]]>
+                    <![CDATA[select e from bookstore_User e order by e.username]]>
                 </query>
             </loader>
         </collection>

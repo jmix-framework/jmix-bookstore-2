@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 @Route(value = "users/:id", layout = MainView.class)
-@ViewController("bkst_User.detail")
+@ViewController("bookstore_User.detail")
 @ViewDescriptor("user-detail-view.xml")
 @EditedEntityContainer("userDc")
 public class UserDetailView extends StandardDetailView<User> {

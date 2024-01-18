@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Component;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import javax.validation.groups.Default;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
+import jakarta.validation.groups.Default;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +26,7 @@ public class Validations {
     }
 
     public String validationMessage(String errorType) {
-        return "{javax.validation.constraints." + errorType + ".message}";
+        return "{jakarta.validation.constraints." + errorType + ".message}";
     }
 
     public <T> void assertExactlyOneViolationWith(T entity, String attribute, String errorType) {
