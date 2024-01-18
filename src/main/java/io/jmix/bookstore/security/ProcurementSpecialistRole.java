@@ -12,8 +12,6 @@ import io.jmix.security.model.EntityPolicyAction;
 import io.jmix.security.role.annotation.EntityAttributePolicy;
 import io.jmix.security.role.annotation.EntityPolicy;
 import io.jmix.security.role.annotation.ResourceRole;
-import io.jmix.securityui.role.annotation.MenuPolicy;
-import io.jmix.securityui.role.annotation.ScreenPolicy;
 
 
 /**
@@ -55,8 +53,8 @@ public interface ProcurementSpecialistRole {
     @EntityPolicy(entityClass = ProductCategory.class, actions = EntityPolicyAction.ALL)
     void productCategory();
 
-    @MenuPolicy(menuIds = {"bookstore_Supplier.browse", "bookstore_SupplierOrder.browse", "bookstore_Product.browse", "bookstore_ProductCategory.browse"})
-    @ScreenPolicy(screenIds = {"bookstore_Supplier.edit", "bookstore_Supplier.browse", "bookstore_SupplierOrderRequest.edit", "bookstore_SupplierOrder.browse", "bookstore_SupplierOrder.edit", "bookstore_SupplierOrder.review", "bookstore_MainScreen", "bookstore_LoginScreen", "bookstore_Product.browse", "bookstore_ProductCategory.browse", "bookstore_Product.edit", "bookstore_ProductCategory.edit"})
+//    @MenuPolicy(menuIds = {"bookstore_Supplier.browse", "bookstore_SupplierOrder.browse", "bookstore_Product.browse", "bookstore_ProductCategory.browse"})
+//    @ScreenPolicy(screenIds = {"bookstore_Supplier.edit", "bookstore_Supplier.browse", "bookstore_SupplierOrderRequest.edit", "bookstore_SupplierOrder.browse", "bookstore_SupplierOrder.edit", "bookstore_SupplierOrder.review", "bookstore_MainScreen", "bookstore_LoginScreen", "bookstore_Product.browse", "bookstore_ProductCategory.browse", "bookstore_Product.edit", "bookstore_ProductCategory.edit"})
     void screens();
 
     @EntityAttributePolicy(entityClass = FulfillmentCenter.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)

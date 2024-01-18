@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://io.jmix.bpmui.screen.mytasks/browseCaption"
-        extends="io/jmix/bpmui/screen/mytasks/my-tasks-browse.xml">
-    <dialogMode height="75%"
-                width="75%"/>
-    <layout/>
-</window>

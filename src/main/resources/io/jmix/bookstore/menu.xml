@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<menu-config xmlns="http://jmix.io/schema/ui/menu">
-    <item screen="bookstore_Order.browse" caption="msg://io.jmix.bookstore.order.screen/orderBrowse.menu" icon="SHOPPING_CART" insertBefore="bpm"/>
-    <item screen="bookstore_Customer.browse" caption="msg://io.jmix.bookstore.customer.screen/customerBrowse.menu" icon="USER_CIRCLE" insertBefore="bpm"/>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
-    <menu id="products" caption="msg://io.jmix.bookstore/menu.products" icon="BOOK" insertBefore="bpm">
-        <item screen="bookstore_Product.browse" caption="msg://io.jmix.bookstore.product.screen/productBrowse.menu" />
-        <item screen="bookstore_SupplierOrder.browse" caption="msg://io.jmix.bookstore.product.supplier.screen.supplierorder/supplierOrderBrowse.menu"/>
-        <item screen="bookstore_ProductCategory.browse" caption="msg://io.jmix.bookstore.product.productcategory.screen/productCategoryBrowse.menu"/>
-        <item screen="bookstore_Supplier.browse" caption="msg://io.jmix.bookstore.product.supplier.screen/supplierBrowse.menu"/>
-    </menu>
-
-    <menu id="hr" caption="msg://io.jmix.bookstore/menu.hr" icon="USERS" insertBefore="bpm">
-        <item screen="bookstore_Employee.browse" caption="msg://io.jmix.bookstore.employee.screen/employeeBrowse.menu"/>
-        <item screen="bookstore_User.browse" caption="msg://io.jmix.bookstore.screen.user/UserBrowse.caption"/>
-        <item screen="bookstore_Position.browse" caption="msg://io.jmix.bookstore.employee.position.screen/positionBrowse.menu"/>
-    </menu>
-
-    <menu id="masterdata" caption="msg://io.jmix.bookstore/menu.masterdata" icon="font-icon:LIST_ALT" insertBefore="bpm">
-        <item screen="bookstore_Region.browse"
-              caption="msg://io.jmix.bookstore.employee.region.screen/regionBrowse.menu"/>
-        <item screen="bookstore_Territory.browse"
-              caption="msg://io.jmix.bookstore.employee.territory.screen/territoryBrowse.menu"/>
-        <item screen="bookstore_FulfillmentCenter.browse"
-              caption="msg://io.jmix.bookstore.fulfillment.screen/fulfillmentCenterBrowse.menu"/>
+    <menu id="application" title="msg://io.jmix.bookstore/menu.application.title" opened="true">
+        <item view="bkst_User.list" title="msg://io.jmix.bookstore.view.user/UserListView.title"/>
     </menu>
 
 </menu-config>

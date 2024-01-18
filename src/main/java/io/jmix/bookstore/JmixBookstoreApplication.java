@@ -1,6 +1,10 @@
 package io.jmix.bookstore;
 
 import com.google.common.base.Strings;
+import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Push;
+import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.theme.Theme;
 import io.jmix.notifications.NotificationType;
 import io.jmix.notifications.NotificationTypesRepository;
 import org.slf4j.LoggerFactory;
@@ -19,9 +23,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+@Push
+@Theme(value = "jmix-bookstore")
+@PWA(name = "Jmix Bookstore", shortName = "Jmix Bookstore")
 @EnableAsync
 @SpringBootApplication
-public class JmixBookstoreApplication {
+public class JmixBookstoreApplication implements AppShellConfigurator {
 
     @Autowired
     private Environment environment;

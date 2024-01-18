@@ -15,8 +15,6 @@ import io.jmix.security.model.EntityPolicyAction;
 import io.jmix.security.role.annotation.EntityAttributePolicy;
 import io.jmix.security.role.annotation.EntityPolicy;
 import io.jmix.security.role.annotation.ResourceRole;
-import io.jmix.securityui.role.annotation.MenuPolicy;
-import io.jmix.securityui.role.annotation.ScreenPolicy;
 
 /**
  * functional role for 'Sales Representative' position
@@ -31,8 +29,8 @@ import io.jmix.securityui.role.annotation.ScreenPolicy;
 public interface SalesRepresentativeRole {
     String CODE = "sales-representative";
 
-    @MenuPolicy(menuIds = {"bookstore_Order.browse", "bookstore_Customer.browse", "bookstore_Product.browse", "bookstore_Territory.browse", "bookstore_Region.browse", "bookstore_Employee.browse", "bookstore_ProductCategory.browse"})
-    @ScreenPolicy(screenIds = {"bookstore_Order.browse", "bookstore_Customer.browse", "bookstore_Product.browse", "bookstore_Territory.browse", "bookstore_Region.browse", "bookstore_Order.edit", "bookstore_OrderLine.edit", "bookstore_Customer.edit", "bookstore_Employee.browse", "bookstore_Employee.edit", "bookstore_ProductCategory.browse", "bookstore_Product.edit", "bookstore_ProductCategory.edit", "bookstore_TrackDeliveryMap", "bookstore_Customer.lookup"})
+//    @MenuPolicy(menuIds = {"bookstore_Order.browse", "bookstore_Customer.browse", "bookstore_Product.browse", "bookstore_Territory.browse", "bookstore_Region.browse", "bookstore_Employee.browse", "bookstore_ProductCategory.browse"})
+//    @ScreenPolicy(screenIds = {"bookstore_Order.browse", "bookstore_Customer.browse", "bookstore_Product.browse", "bookstore_Territory.browse", "bookstore_Region.browse", "bookstore_Order.edit", "bookstore_OrderLine.edit", "bookstore_Customer.edit", "bookstore_Employee.browse", "bookstore_Employee.edit", "bookstore_ProductCategory.browse", "bookstore_Product.edit", "bookstore_ProductCategory.edit", "bookstore_TrackDeliveryMap", "bookstore_Customer.lookup"})
     void screens();
 
     @EntityAttributePolicy(entityClass = Address.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)

@@ -13,7 +13,6 @@ import io.jmix.security.role.annotation.EntityAttributePolicy;
 import io.jmix.security.role.annotation.EntityPolicy;
 import io.jmix.security.role.annotation.ResourceRole;
 import io.jmix.security.role.annotation.SpecificPolicy;
-import io.jmix.securityui.role.annotation.ScreenPolicy;
 
 /**
  * Base role for all employees to get basic system access
@@ -34,7 +33,7 @@ public interface EmployeeRole {
     @EntityPolicy(entityClass = Position.class, actions = EntityPolicyAction.READ)
     void position();
 
-    @ScreenPolicy(screenIds = {"bookstore_bpm_MyTasks.browse", "bookstore_AddressMap", "ntf_UserInAppNotification.browse", "ntf_InAppNotification.view", "ui_DateIntervalDialog", "selectValueDialog", "inputDialog", "backgroundWorkProgressScreen", "singleFileUploadDialog", "bulkEditorWindow", "ui_FilterConfigurationModel.fragment", "ui_GroupFilterCondition.edit", "ui_PropertyFilterCondition.edit", "ui_JpqlFilterCondition.edit", "ui_UiDataFilterConfigurationModel.fragment", "ui_AddConditionScreen", "bookstore_FulfillmentCenter.browse", "bookstore_ProductCategory.browse", "bookstore_Territory.browse", "bookstore_Region.browse", "bookstore_Position.browse", "bookstore_Employee.browse"})
+//    @ScreenPolicy(screenIds = {"bookstore_bpm_MyTasks.browse", "bookstore_AddressMap", "ntf_UserInAppNotification.browse", "ntf_InAppNotification.view", "ui_DateIntervalDialog", "selectValueDialog", "inputDialog", "backgroundWorkProgressScreen", "singleFileUploadDialog", "bulkEditorWindow", "ui_FilterConfigurationModel.fragment", "ui_GroupFilterCondition.edit", "ui_PropertyFilterCondition.edit", "ui_JpqlFilterCondition.edit", "ui_UiDataFilterConfigurationModel.fragment", "ui_AddConditionScreen", "bookstore_FulfillmentCenter.browse", "bookstore_ProductCategory.browse", "bookstore_Territory.browse", "bookstore_Region.browse", "bookstore_Position.browse", "bookstore_Employee.browse"})
     void screens();
 
     @EntityAttributePolicy(entityClass = FulfillmentCenter.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
