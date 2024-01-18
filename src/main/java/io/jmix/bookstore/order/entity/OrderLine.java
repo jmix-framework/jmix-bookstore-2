@@ -2,14 +2,13 @@ package io.jmix.bookstore.order.entity;
 
 import io.jmix.bookstore.entity.Money;
 import io.jmix.bookstore.entity.StandardTenantEntity;
-import io.jmix.bookstore.order.entity.Order;
 import io.jmix.bookstore.product.Product;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_ORDER_LINE", indexes = {

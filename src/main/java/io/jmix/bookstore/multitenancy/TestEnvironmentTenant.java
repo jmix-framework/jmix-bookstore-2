@@ -4,8 +4,8 @@ import io.jmix.core.entity.annotation.ReplaceEntity;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.multitenancy.entity.Tenant;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import java.time.OffsetDateTime;
 
 @JmixEntity

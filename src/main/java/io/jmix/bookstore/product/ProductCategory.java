@@ -4,8 +4,8 @@ import io.jmix.bookstore.entity.StandardTenantEntity;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_PRODUCT_CATEGORY", uniqueConstraints = {

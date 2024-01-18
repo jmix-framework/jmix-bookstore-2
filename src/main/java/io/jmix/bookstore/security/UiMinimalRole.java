@@ -19,7 +19,7 @@ public interface UiMinimalRole {
     void main();
 
     @ViewPolicy(viewIds = "bkst_LoginView")
-    @SpecificPolicy(resources = "flowui.loginToUi")
+    @SpecificPolicy(resources = "ui.loginToUi")
     void login();
 
     @EntityPolicy(entityClass = KeyValueEntity.class, actions = EntityPolicyAction.READ)

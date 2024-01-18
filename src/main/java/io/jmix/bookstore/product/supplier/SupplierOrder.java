@@ -1,6 +1,5 @@
 package io.jmix.bookstore.product.supplier;
 
-import io.jmix.bookstore.entity.StandardEntity;
 import io.jmix.bookstore.entity.StandardTenantEntity;
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.FileRef;
@@ -12,8 +11,8 @@ import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.datatype.DatatypeFormatter;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 

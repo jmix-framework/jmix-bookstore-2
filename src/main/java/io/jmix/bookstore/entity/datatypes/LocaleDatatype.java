@@ -5,7 +5,7 @@ import io.jmix.core.metamodel.annotation.DatatypeDef;
 import io.jmix.core.metamodel.annotation.Ddl;
 import io.jmix.core.metamodel.datatype.Datatype;
 
-import javax.annotation.Nullable;
+import org.springframework.lang.Nullable;
 import java.text.ParseException;
 import java.util.Locale;
 

@@ -2,7 +2,6 @@ package io.jmix.bookstore.fulfillment;
 
 import io.jmix.bookstore.employee.Region;
 import io.jmix.bookstore.entity.Address;
-import io.jmix.bookstore.entity.StandardEntity;
 import io.jmix.bookstore.entity.StandardTenantEntity;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.metamodel.annotation.InstanceName;
@@ -11,8 +10,8 @@ import io.jmix.core.metamodel.annotation.JmixProperty;
 import io.jmix.maps.Geometry;
 import org.locationtech.jts.geom.Point;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_FULFILLMENT_CENTER", indexes = {

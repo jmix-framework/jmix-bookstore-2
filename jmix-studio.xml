@@ -69,4 +69,7 @@
       </list>
     </option>
   </component>
+  <component name="TranslationAddonsNotifySettings">
+    <option name="dontShowAgain" value="true" />
+  </component>
 </project>

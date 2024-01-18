@@ -1,8 +1,8 @@
 package io.jmix.bookstore.order.entity;
 
-import io.jmix.core.metamodel.datatype.impl.EnumClass;
+import io.jmix.core.metamodel.datatype.EnumClass;
 
-import javax.annotation.Nullable;
+import org.springframework.lang.Nullable;
 
 
 public enum OrderStatus implements EnumClass<String> {

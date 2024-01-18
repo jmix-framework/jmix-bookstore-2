@@ -1,16 +1,15 @@
 package io.jmix.bookstore.product.supplier;
 
 import io.jmix.bookstore.entity.Address;
-import io.jmix.bookstore.entity.StandardEntity;
 import io.jmix.bookstore.entity.StandardTenantEntity;
 import io.jmix.bookstore.entity.Title;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_SUPPLIER")

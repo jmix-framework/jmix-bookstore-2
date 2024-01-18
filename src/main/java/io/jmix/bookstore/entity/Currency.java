@@ -1,8 +1,8 @@
 package io.jmix.bookstore.entity;
 
-import io.jmix.core.metamodel.datatype.impl.EnumClass;
+import io.jmix.core.metamodel.datatype.EnumClass;
 
-import javax.annotation.Nullable;
+import org.springframework.lang.Nullable;
 
 
 public enum Currency implements EnumClass<String> {

@@ -7,8 +7,8 @@ import io.jmix.core.metamodel.annotation.PropertyDatatype;
 import io.jmix.maps.Geometry;
 import org.locationtech.jts.geom.Point;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 import static com.google.common.base.Strings.nullToEmpty;
 

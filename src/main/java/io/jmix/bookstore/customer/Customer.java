@@ -11,8 +11,8 @@ import io.jmix.core.metamodel.annotation.*;
 import io.jmix.maps.Geometry;
 import org.locationtech.jts.geom.Point;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import java.util.List;
 
 import static com.google.common.base.Strings.nullToEmpty;

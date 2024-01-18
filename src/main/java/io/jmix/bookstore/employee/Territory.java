@@ -7,8 +7,8 @@ import io.jmix.core.metamodel.annotation.PropertyDatatype;
 import io.jmix.maps.Geometry;
 import org.locationtech.jts.geom.Polygon;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @JmixEntity
