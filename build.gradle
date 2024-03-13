@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '2.1.2'
+    id 'io.jmix' version '2.2.0.1'
     id 'java'
     id 'com.github.fhermansson.assertj-generator' version '1.1.5'
 }
@@ -8,7 +8,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'com.vaadin'
 
 jmix {
-    bomVersion = '2.1.2'
+    bomVersion = '2.2.0'
     projectId = 'bookstore'
 }
 
@@ -35,6 +35,8 @@ vaadin {
 
 dependencies {
     implementation 'io.jmix.core:jmix-core-starter'
+    implementation 'io.jmix.pessimisticlock:jmix-pessimisticlock-starter'
+    implementation 'io.jmix.pessimisticlock:jmix-pessimisticlock-flowui-starter'
     implementation 'io.jmix.data:jmix-eclipselink-starter'
     implementation 'io.jmix.security:jmix-security-starter'
     implementation 'io.jmix.security:jmix-security-flowui-starter'
