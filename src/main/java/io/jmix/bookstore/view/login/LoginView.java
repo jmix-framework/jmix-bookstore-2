@@ -1,20 +1,31 @@
 package io.jmix.bookstore.view.login;
 
+import com.vaadin.flow.component.AbstractField;
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.login.AbstractLogin.LoginEvent;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.i18n.LocaleChangeEvent;
 import com.vaadin.flow.i18n.LocaleChangeObserver;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.Location;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.VaadinSession;
+import io.jmix.bookstore.multitenancy.TestEnvironmentTenants;
 import io.jmix.core.MessageTools;
 import io.jmix.core.security.AccessDeniedException;
 import io.jmix.flowui.component.loginform.JmixLoginForm;
+import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.kit.component.ComponentUtils;
+import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.kit.component.loginform.JmixLoginI18n;
 import io.jmix.flowui.view.*;
+import io.jmix.multitenancy.MultitenancyProperties;
+import io.jmix.multitenancyflowui.MultitenancyUiSupport;
 import io.jmix.securityflowui.authentication.AuthDetails;
 import io.jmix.securityflowui.authentication.LoginViewSupport;
+import jakarta.servlet.http.Cookie;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -34,13 +45,19 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
 
     @Autowired
     private LoginViewSupport loginViewSupport;
-
     @Autowired
     private MessageBundle messageBundle;
-
     @Autowired
     private MessageTools messageTools;
+    @Autowired
+    private TestEnvironmentTenants testEnvironmentTenants;
+    @Autowired
+    private MultitenancyProperties multitenancyProperties;
+    @Autowired
+    private MultitenancyUiSupport multitenancyUiSupport;
 
+    @ViewComponent
+    private TypedTextField<Object> tenantField;
     @ViewComponent
     private JmixLoginForm login;
 
@@ -49,6 +66,38 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
 
     @Value("${ui.login.defaultPassword:}")
     private String defaultPassword;
+
+    private Location currentLocation;
+
+    @Subscribe
+    public void onReady(final ReadyEvent event) {
+        String tenantId = findOrGenerateTenantId();
+        tenantField.setValue(tenantId);
+        setTenantCookie(tenantId);
+    }
+
+    private String findOrGenerateTenantId() {
+        String tenantId = currentLocation.getQueryParameters().getSingleParameter(multitenancyProperties.getTenantIdUrlParamName())
+                .orElse(getTenantCookie());
+        return tenantId != null ? tenantId : testEnvironmentTenants.generateRandomTenantId();
+    }
+
+    private void setTenantCookie(String tenantId) {
+        Cookie cookie = new Cookie("tenantId", tenantId);
+        VaadinService.getCurrentResponse().addCookie(cookie);
+    }
+
+    private String getTenantCookie() {
+        Cookie[] cookies = VaadinService.getCurrentRequest().getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("tenantId".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -73,11 +122,22 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         }
     }
 
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        currentLocation = event.getLocation();
+        super.beforeEnter(event);
+    }
+
     @Subscribe("login")
     public void onLogin(LoginEvent event) {
+        String tenantId = tenantField.getValue();
+        if (!testEnvironmentTenants.isPresent(tenantId)) {
+            testEnvironmentTenants.createTenant(tenantId);
+        }
+        String username = multitenancyUiSupport.getUsernameByTenant(event.getUsername(), tenantId);
         try {
             loginViewSupport.authenticate(
-                    AuthDetails.of(event.getUsername(), event.getPassword())
+                    AuthDetails.of(username, event.getPassword())
                             .withLocale(login.getSelectedLocale())
                             .withRememberMe(login.isRememberMe())
             );
@@ -108,5 +168,15 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         loginI18n.setErrorMessage(errorMessage);
 
         login.setI18n(loginI18n);
+    }
+
+    @Subscribe(id = "editTenantBtn", subject = "clickListener")
+    public void onEditTenantBtnClick(final ClickEvent<JmixButton> event) {
+        tenantField.setReadOnly(false);
+    }
+
+    @Subscribe("tenantField")
+    public void onTenantFieldComponentValueChange(final AbstractField.ComponentValueChangeEvent<TypedTextField<String>, String> event) {
+        setTenantCookie(event.getValue());
     }
 }

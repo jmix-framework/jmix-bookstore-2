@@ -3,6 +3,11 @@
       focusComponent="login"
       title="msg://LoginView.title">
     <layout justifyContent="CENTER" alignItems="CENTER" classNames="jmix-login-main-layout">
+        <textField id="tenantField" datatype="string" readOnly="true">
+            <suffix>
+                <button id="editTenantBtn" icon="vaadin:edit" themeNames="tertiary-inline"/>
+            </suffix>
+        </textField>
         <loginForm id="login"
                    rememberMeVisible="true"
                    forgotPasswordButtonVisible="false">

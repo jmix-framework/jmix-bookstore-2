@@ -50,6 +50,7 @@
                 <action id="resetPassword" type="sec_resetPassword"/>
             </actions>
             <columns>
+                <column property="tenant"/>
                 <column property="username"/>
                 <column property="firstName"/>
                 <column property="lastName"/>

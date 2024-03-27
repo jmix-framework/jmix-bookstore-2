@@ -18,6 +18,7 @@
     </facets>
     <layout>
         <formLayout id="form" dataContainer="userDc">
+            <comboBox id="tenantField" property="tenant" readOnly="true"/>
             <textField id="usernameField" property="username" readOnly="true"/>
             <passwordField id="passwordField"
                            label="msg://io.jmix.bookstore.entity/User.password"
