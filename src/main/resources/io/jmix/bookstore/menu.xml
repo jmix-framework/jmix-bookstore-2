@@ -3,6 +3,7 @@
 
     <menu id="application" title="msg://io.jmix.bookstore/menu.application.title" opened="true">
         <item view="bookstore_User.list" title="msg://io.jmix.bookstore.view.user/UserListView.title"/>
+        <item view="bookstore_Region.list" title="msg://io.jmix.bookstore.view.region/regionListView.title"/>
     </menu>
 
 </menu-config>
