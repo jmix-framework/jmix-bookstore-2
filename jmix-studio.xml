@@ -32,7 +32,12 @@
             <map>
               <entry key="main">
                 <value>
-                  <DataStoreSettingsV2 />
+                  <DataStoreSettingsV2>
+                    <option name="generateDdlType" value="CREATE_AND_UPDATE" />
+                    <option name="supportedTypes">
+                      <option value="postgres" />
+                    </option>
+                  </DataStoreSettingsV2>
                 </value>
               </entry>
             </map>
@@ -48,11 +53,11 @@
     <option name="savedDbProperties">
       <list>
         <SavedDbProperties>
-          <option name="databaseName" value="bookstore5" />
+          <option name="databaseName" value="bookstore13" />
           <option name="dbType" value="hsqlfile" />
           <option name="dbmsVersion" />
           <option name="host" value=".jmix/hsqldb" />
-          <option name="url" value="jdbc:hsqldb:file:.jmix/hsqldb/bookstore5" />
+          <option name="url" value="jdbc:hsqldb:file:.jmix/hsqldb/bookstore13" />
           <option name="user" value="sa" />
         </SavedDbProperties>
         <SavedDbProperties>
