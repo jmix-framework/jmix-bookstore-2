@@ -16,7 +16,6 @@
                     <avatar image="avatars/unknown.png" id="userAvatar"/>
                     <userIndicator id="userIndicator"/>
                     <span id="positionLabel" themeNames="badge"/>
-                    <span id="tenantLabel" themeNames="badge contrast"/>
                     <button classNames="jmix-logout-button" id="logoutButton" action="logout"/>
                 </hbox>
             </header>
@@ -35,6 +34,10 @@
                      ariaLabel="msg://navigation.ariaLabel">
                     <listMenu id="menu"/>
                 </nav>
+                <footer id="footer" classNames="jmix-main-view-footer">
+                    <span text="Tenant:"/>
+                    <span id="tenantLabel" themeNames="badge contrast"/>
+                </footer>
             </section>
         </drawerLayout>
         <initialLayout spacing="true" margin="true">
