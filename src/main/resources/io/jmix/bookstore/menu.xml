@@ -4,6 +4,9 @@
     <menu id="application" title="msg://io.jmix.bookstore/menu.application.title" opened="true">
         <item view="bookstore_User.list" title="msg://io.jmix.bookstore.view.user/UserListView.title"/>
         <item view="bookstore_Region.list" title="msg://io.jmix.bookstore.view.region/regionListView.title"/>
+        <item view="bookstore_Territory.list" title="msg://io.jmix.bookstore.view.territory/territoryListView.title"/>
+        <item view="bookstore_FulfillmentCenter.list"
+              title="msg://io.jmix.bookstore.view.fulfillmentcenter/fulfillmentCenterListView.title"/>
     </menu>
 
 </menu-config>

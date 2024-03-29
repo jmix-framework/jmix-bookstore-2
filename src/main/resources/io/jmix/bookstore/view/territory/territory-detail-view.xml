@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:maps="http://jmix.io/schema/maps/ui"
+      title="msg://territoryDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="territoryDc"
+                  class="io.jmix.bookstore.employee.Territory">
+            <fetchPlan extends="_base">
+                <property name="region" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+            <html content="msg://territoryDetailView.demoInfo"/>
+        </details>
+        <formLayout id="form" dataContainer="territoryDc">
+            <textField id="nameField" property="name"/>
+            <entityComboBox id="regionField" property="region">
+                <itemsQuery class="io.jmix.bookstore.employee.Region" escapeValueForLike="true"
+                            searchStringFormat="(?i)%${inputString}%">
+                    <fetchPlan extends="_base"/>
+                    <query>
+                        <![CDATA[select e from bookstore_Region e where e.name like :searchString escape '\' order by e.name]]>
+                    </query>
+                </itemsQuery>
+            </entityComboBox>
+            <textField id="geographicalAreaField" property="geographicalArea" colspan="2"/>
+        </formLayout>
+        <maps:geoMap width="100%" height="100%">
+            <maps:layers>
+                <maps:tile>
+                    <maps:osmSource/>
+                </maps:tile>
+                <maps:vector>
+                    <maps:dataVectorSource dataContainer="territoryDc" property="geographicalArea"/>
+                </maps:vector>
+            </maps:layers>
+            <maps:mapView centerX="-99.755859" centerY="39.164141" zoom="4.0"/>
+        </maps:geoMap>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

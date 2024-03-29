@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://fulfillmentCenterListView.title"
+      focusComponent="fulfillmentCentersDataGrid">
+    <data>
+        <collection id="fulfillmentCentersDc"
+                    class="io.jmix.bookstore.fulfillment.FulfillmentCenter">
+            <fetchPlan extends="_base">
+                <property name="region" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="fulfillmentCentersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_FulfillmentCenter e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="fulfillmentCentersDataGrid.create"/>
+            <button id="editBtn" action="fulfillmentCentersDataGrid.edit"/>
+            <button id="removeBtn" action="fulfillmentCentersDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="fulfillmentCentersDl"/>
+        </hbox>
+        <dataGrid id="fulfillmentCentersDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="fulfillmentCentersDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="name" filterable="true" autoWidth="true"/>
+                <column property="region" filterable="true" autoWidth="true"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

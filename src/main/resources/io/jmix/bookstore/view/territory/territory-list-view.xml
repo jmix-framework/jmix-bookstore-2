@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:maps="http://jmix.io/schema/maps/ui"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://territoryListView.title"
+      focusComponent="territoriesDataGrid">
+    <data>
+        <collection id="territoriesDc"
+                    class="io.jmix.bookstore.employee.Territory">
+            <fetchPlan extends="_base">
+                <property name="region" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="territoriesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_Territory e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+            <html content="msg://territoryListView.demoInfo"/>
+        </details>
+        <split width="100%"> <!-- TODO replace with formLayout -->
+            <vbox>
+                <hbox classNames="buttons-panel" id="buttonsPanel">
+                    <button id="createBtn" action="territoriesDataGrid.create"/>
+                    <button id="editBtn" action="territoriesDataGrid.edit"/>
+                    <button id="removeBtn" action="territoriesDataGrid.remove"/>
+                    <simplePagination dataLoader="territoriesDl" id="pagination"/>
+                </hbox>
+                <dataGrid columnReorderingAllowed="true" dataContainer="territoriesDc" id="territoriesDataGrid"
+                          minHeight="20em" width="100%">
+                    <actions>
+                        <action id="create" type="list_create"/>
+                        <action id="edit" type="list_edit"/>
+                        <action id="remove" type="list_remove"/>
+                    </actions>
+                    <columns>
+                        <column autoWidth="true" filterable="true" property="name"/>
+                        <column autoWidth="true" filterable="true" property="region"/>
+                    </columns>
+                </dataGrid>
+            </vbox>
+            <vbox width="100%">
+                <maps:geoMap height="20em" width="100%" id="map">
+                    <maps:layers>
+                        <maps:tile>
+                            <maps:osmSource/>
+                        </maps:tile>
+                        <maps:vector id="territoriesLayer">
+                            <maps:dataVectorSource dataContainer="territoriesDc" property="geographicalArea"
+                                                   id="territoriesSource"/>
+                        </maps:vector>
+                        <maps:vector id="selectedTerritoryLayer">
+                            <maps:vectorSource id="selectedTerritorySource"/>
+                        </maps:vector>
+                    </maps:layers>
+                    <maps:mapView centerX="-99.755859" centerY="39.164141" zoom="4.0"/>
+                </maps:geoMap>
+                <checkbox id="zoomCheckbox" label="Zoom on selection" value="true"/>
+            </vbox>
+        </split>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>
