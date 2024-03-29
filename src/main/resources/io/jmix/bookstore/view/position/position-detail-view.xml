@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://positionDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="positionDc"
+                  class="io.jmix.bookstore.employee.Position">
+            <fetchPlan extends="_base"/>
+            <loader/>
+            <collection id="translationsDc" property="translations"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="positionDc">
+            <textField id="nameField" property="name"/>
+            <textField id="codeField" property="code"/>
+            <select id="colorField" property="color"/>
+            <textArea id="descriptionField" height="9.5em" property="description"/>
+        </formLayout>
+        <h4 text="msg://io.jmix.bookstore.employee/Position.translations"/>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="translationsDataGrid.create"/>
+            <button action="translationsDataGrid.edit"/>
+            <button action="translationsDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="translationsDataGrid" dataContainer="translationsDc" width="100%" minHeight="20em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="locale"/>
+                <column property="name"/>
+            </columns>
+        </dataGrid>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>
