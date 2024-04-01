@@ -8,6 +8,7 @@
         <item view="bookstore_FulfillmentCenter.list"
               title="msg://io.jmix.bookstore.view.fulfillmentcenter/fulfillmentCenterListView.title"/>
         <item view="bookstore_Position.list" title="msg://io.jmix.bookstore.view.position/positionListView.title"/>
+        <item view="bookstore_Employee.list" title="msg://io.jmix.bookstore.view.employee/employeeListView.title"/>
     </menu>
 
 </menu-config>
