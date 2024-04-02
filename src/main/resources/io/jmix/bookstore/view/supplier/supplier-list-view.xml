@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://supplierListView.title"
+      focusComponent="suppliersDataGrid">
+    <data>
+        <collection id="suppliersDc"
+                    class="io.jmix.bookstore.product.supplier.Supplier">
+            <fetchPlan extends="_base">
+                <property name="address"/>
+            </fetchPlan>
+            <loader id="suppliersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_Supplier e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+            <html content="msg://supplierListView.demoInfo"/>
+        </details>
+        <genericFilter id="genericFilter"
+                       dataLoader="suppliersDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="suppliersDataGrid.create"/>
+            <button id="editBtn" action="suppliersDataGrid.edit"/>
+            <button id="removeBtn" action="suppliersDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="suppliersDl"/>
+        </hbox>
+        <dataGrid id="suppliersDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="suppliersDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name"/>
+                <column property="address"/>
+                <column property="contactName"/>
+                <column property="phone"/>
+                <column property="email"/>
+                <column property="cooperationStatus"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

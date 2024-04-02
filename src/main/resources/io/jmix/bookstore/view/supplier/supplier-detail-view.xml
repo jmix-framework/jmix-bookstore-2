@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://supplierDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="supplierDc"
+                  class="io.jmix.bookstore.product.supplier.Supplier">
+            <fetchPlan extends="_base">
+                <property name="address" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout>
+            <vbox>
+                <h4 text="msg://generalInformation"/>
+                <formLayout id="generalForm" dataContainer="supplierDc">
+                    <textField id="nameField" property="name"/>
+                    <textField id="addressStreetField" property="address.street"/>
+                    <textField id="addressPostCodeField" property="address.postCode"/>
+                    <textField id="addressCityField" property="address.city"/>
+                    <textField id="addressStateField" property="address.state"/>
+                    <textField id="addressCountryField" property="address.country"/>
+                    <select id="cooperationStatusField" property="cooperationStatus"/>
+                </formLayout>
+            </vbox>
+            <vbox>
+                <h4 text="msg://contactInformation"/>
+                <formLayout dataContainer="supplierDc" id="contactForm" width="100%">
+                    <select id="contactTitleField" property="contactTitle"/>
+                    <textField id="contactNameField" property="contactName"/>
+                    <textField id="phoneField" property="phone"/>
+                    <textField id="emailField" property="email"/>
+                    <textField id="websiteField" property="website"/>
+                </formLayout>
+            </vbox>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

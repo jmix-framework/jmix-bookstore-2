@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
-    <menu id="products" title="msg://io.jmix.bookstore/menu.products.title"/>
+    <menu id="products" title="msg://io.jmix.bookstore/menu.products.title">
+        <item view="bookstore_Supplier.list" title="msg://io.jmix.bookstore.view.supplier/supplierListView.title"/>
+    </menu>
     <menu id="hr" title="msg://io.jmix.bookstore/menu.hr.title">
         <item view="bookstore_Employee.list" title="msg://io.jmix.bookstore.view.employee/employeeListView.title"/>
         <item view="bookstore_User.list" title="msg://io.jmix.bookstore.view.user/UserListView.title"/>
