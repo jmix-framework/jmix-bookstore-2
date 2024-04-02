@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
-    <menu id="application" title="msg://io.jmix.bookstore/menu.application.title" opened="true">
+    <menu id="products" title="msg://io.jmix.bookstore/menu.products.title"/>
+    <menu id="hr" title="msg://io.jmix.bookstore/menu.hr.title">
+        <item view="bookstore_Employee.list" title="msg://io.jmix.bookstore.view.employee/employeeListView.title"/>
         <item view="bookstore_User.list" title="msg://io.jmix.bookstore.view.user/UserListView.title"/>
+        <item view="bookstore_Position.list" title="msg://io.jmix.bookstore.view.position/positionListView.title"/>
+    </menu>
+    <menu id="masterData" title="msg://io.jmix.bookstore/menu.masterData.title">
         <item view="bookstore_Region.list" title="msg://io.jmix.bookstore.view.region/regionListView.title"/>
         <item view="bookstore_Territory.list" title="msg://io.jmix.bookstore.view.territory/territoryListView.title"/>
         <item view="bookstore_FulfillmentCenter.list"
               title="msg://io.jmix.bookstore.view.fulfillmentcenter/fulfillmentCenterListView.title"/>
-        <item view="bookstore_Position.list" title="msg://io.jmix.bookstore.view.position/positionListView.title"/>
-        <item view="bookstore_Employee.list" title="msg://io.jmix.bookstore.view.employee/employeeListView.title"/>
     </menu>
-
+    <menu id="bpm" title="msg://io.jmix.bpmflowui/menu.bpm.title">
+        <item view="bpm_StartProcess" title="msg://io.jmix.bpmflowui/startProcess.title"/>
+        <item view="bpm_MyTasksList" title="msg://io.jmix.bpmflowui.view.mytasks/myTasksList.title"/>
+        <item view="bpm_BpmnModelerView" title="msg://io.jmix.bpmflowui.view.modeler/bpmnModelerView.title"/>
+        <item view="bpm_ProcessDefinition.list"
+              title="msg://io.jmix.bpmflowui.view.processdefinition/processDefinitionList.title"/>
+        <item view="bpm_ProcessInstance.list"
+              title="msg://io.jmix.bpmflowui.view.processinstance/processInstanceList.title"/>
+        <item view="bpm_UserGroup.list" title="msg://io.jmix.bpmflowui.view.usergroup/userGroupList.title"/>
+        <item view="bpm_AllTasksView" title="msg://io.jmix.bpmflowui.view.alltasks/allTasksView.title"/>
+        <item view="bpm_DmnDecisionTableListView"
+              title="msg://io.jmix.bpmflowui.view.dmndecisiontable/decisionTable.title"/>
+        <item view="bpm_DecisionTableModelerView"
+              title="msg://io.jmix.bpmflowui.view.decisiontablemodeler/bpm_DecisionTableModelerView.title"/>
+    </menu>
+    <menu id="reports" title="msg://io.jmix.reportsflowui/menu.reports.title">
+        <item view="report_Report.list" title="msg://io.jmix.reportsflowui/reportListView.menu"/>
+        <item view="report_ReportGroup.list" title="msg://io.jmix.reportsflowui/reportGroupListView.menu"/>
+        <item view="report_ReportRunView" title="msg://io.jmix.reportsflowui/reportRunView.menu"/>
+        <item view="report_ReportTableView" title="msg://io.jmix.reportsflowui/reportTableView.menu"/>
+    </menu>
+    <menu id="administration" title="msg://io.jmix.bookstore/menu.administration.title">
+        <item view="sec_ResourceRoleModel.list"
+              title="msg://io.jmix.securityflowui.view.resourcerole/resourceRoleModelListView.menu"/>
+        <item view="sec_RowLevelRoleModel.list"
+              title="msg://io.jmix.securityflowui.view.rowlevelrole/rowLevelRoleModelListView.menu"/>
+        <item view="mten_Tenant.list" title="msg://io.jmix.multitenancyflowui.view.tenant/listTitle"/>
+        <item view="ntf_InAppNotification.list"
+              title="msg://io.jmix.notificationsflowui/ntf_InAppNotification.list.menu"/>
+        <item view="email_sendingMessageView"
+              title="msg://io.jmix.emailflowui.view.sendingmessage/sendingMessageView.menu"/>
+        <item view="quartz_JobModel.list" title="msg://io.jmix.quartzflowui.view.jobs/jobModelListView.menu"/>
+        <item view="datatl_entityInspectorListView"
+              title="msg://io.jmix.datatoolsflowui.view.entityinspector/listTitle"/>
+        <item view="pslock_LockInfo.list" title="msg://io.jmix.pessimisticlockflowui/pessimisticLockListView.menu"/>
+    </menu>
 </menu-config>
