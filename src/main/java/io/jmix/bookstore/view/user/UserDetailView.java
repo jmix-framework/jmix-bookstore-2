@@ -1,7 +1,6 @@
 package io.jmix.bookstore.view.user;
 
 import com.google.common.base.Strings;
-import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
@@ -10,6 +9,7 @@ import io.jmix.bookstore.view.main.MainView;
 import io.jmix.core.EntityStates;
 import io.jmix.flowui.component.combobox.JmixComboBox;
 import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.model.InstanceContainer;
 import io.jmix.flowui.view.*;
 import io.jmix.multitenancy.core.TenantProvider;
 import io.jmix.multitenancyflowui.MultitenancyUiSupport;
@@ -36,6 +36,8 @@ public class UserDetailView extends StandardDetailView<User> {
     private ComboBox<String> timeZoneField;
     @ViewComponent
     private JmixComboBox<String> tenantField;
+    @ViewComponent
+    private TypedTextField<String> firstNameField;
 
     @Autowired
     private EntityStates entityStates;
@@ -72,17 +74,19 @@ public class UserDetailView extends StandardDetailView<User> {
         }
     }
 
-    @Subscribe("tenantField")
-    public void onTenantFieldComponentValueChange(final AbstractField.ComponentValueChangeEvent<JmixComboBox<String>, String> event) {
-        usernameField.setValue(
-                multitenancyUiSupport.getUsernameByTenant(usernameField.getValue(), event.getValue())
-        );
+    @Subscribe(id = "userDc", target = Target.DATA_CONTAINER)
+    public void onUserDcItemPropertyChange(final InstanceContainer.ItemPropertyChangeEvent<User> event) {
+        if (event.getProperty().equals("tenantId")) {
+            usernameField.setValue(
+                    multitenancyUiSupport.getUsernameByTenant(usernameField.getValue(), (String) event.getValue())
+            );
+        }
     }
 
     @Subscribe
     public void onReady(ReadyEvent event) {
         if (entityStates.isNew(getEditedEntity())) {
-            usernameField.focus();
+            firstNameField.focus();
         }
     }
 
@@ -96,8 +100,10 @@ public class UserDetailView extends StandardDetailView<User> {
 
     @Subscribe
     protected void onBeforeSave(BeforeSaveEvent event) {
-        if (entityStates.isNew(getEditedEntity())) {
-            getEditedEntity().setPassword(passwordEncoder.encode(passwordField.getValue()));
+        User user = getEditedEntity();
+        if (entityStates.isNew(user)) {
+            user.setUsername(multitenancyUiSupport.getUsernameByTenant(usernameField.getValue(), tenantField.getValue()));
+            user.setPassword(passwordEncoder.encode(passwordField.getValue()));
         }
     }
 }
