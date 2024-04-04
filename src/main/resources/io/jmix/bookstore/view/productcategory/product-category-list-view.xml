@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://productCategoryListView.title"
+      focusComponent="productCategoriesDataGrid">
+    <data>
+        <collection id="productCategoriesDc"
+                    class="io.jmix.bookstore.product.ProductCategory">
+            <fetchPlan extends="_base"/>
+            <loader id="productCategoriesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_ProductCategory e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="productCategoriesDataGrid.create"/>
+            <button id="editBtn" action="productCategoriesDataGrid.edit"/>
+            <button id="removeBtn" action="productCategoriesDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="productCategoriesDl"/>
+        </hbox>
+        <dataGrid id="productCategoriesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="productCategoriesDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="name" filterable="true"/>
+                <column property="description" filterable="true"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

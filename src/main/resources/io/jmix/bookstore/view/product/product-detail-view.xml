@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://productDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="productDc"
+                  class="io.jmix.bookstore.product.Product">
+            <fetchPlan extends="_base">
+                <property name="category" fetchPlan="_instance_name"/>
+                <property name="supplier" fetchPlan="_instance_name"/>
+                <property name="unitPrice"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <tabSheet width="100%">
+            <tab id="generalTab" label="msg://io.jmix.bookstore.product/generalInformation">
+                <formLayout>
+                    <vbox>
+                        <h4 text="msg://productInformation"/>
+                        <formLayout id="productInfoForm" dataContainer="productDc">
+                            <textField id="nameField" property="name"/>
+                            <entityComboBox id="bookstore_ProductCategoryComboBox" metaClass="bookstore_ProductCategory"
+                                            dataContainer="productDc" property="category">
+                                <itemsQuery class="io.jmix.bookstore.product.ProductCategory" escapeValueForLike="true"
+                                            searchStringFormat="(?i)%${inputString}%">
+                                    <fetchPlan extends="_base"/>
+                                    <query>
+                                        <![CDATA[select e from bookstore_ProductCategory e where e.name like :searchString escape '\' order by e.name]]>
+                                    </query>
+                                </itemsQuery>
+                                <actions>
+                                    <action id="entityClear" type="entity_clear"/>
+                                </actions>
+                            </entityComboBox>
+                            <textField property="unitPrice.amount"/>
+                            <select property="unitPrice.currency"/>
+                        </formLayout>
+                    </vbox>
+                    <vbox>
+                        <h4 text="msg://inventoryInformation"/>
+                        <formLayout dataContainer="productDc" id="inventoryInfoForm" width="100%">
+                            <textField id="unitsInStockField" property="unitsInStock"/>
+                            <textField id="unitsOnOrderField" property="unitsOnOrder"/>
+                            <entityPicker id="supplierField" property="supplier">
+                                <actions>
+                                    <action id="entityLookup" type="entity_lookup"/>
+                                    <action id="entityClear" type="entity_clear"/>
+                                </actions>
+                            </entityPicker>
+                            <checkbox id="activeField" property="active"/>
+                        </formLayout>
+                    </vbox>
+                </formLayout>
+            </tab>
+            <tab id="descriptionTab" label="msg://io.jmix.bookstore.product/Product.description">
+                <textArea id="descriptionField" height="9.5em" property="description" dataContainer="productDc"
+                          width="100%"/>
+            </tab>
+        </tabSheet>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

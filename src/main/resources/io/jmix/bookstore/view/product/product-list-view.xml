@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://productListView.title"
+      focusComponent="productsDataGrid">
+    <data>
+        <collection id="productsDc"
+                    class="io.jmix.bookstore.product.Product">
+            <fetchPlan>
+                <property name="name"/>
+                <property name="active"/>
+                <property name="category" fetchPlan="_instance_name"/>
+                <property name="supplier" fetchPlan="_instance_name">
+                    <property name="cooperationStatus"/>
+                </property>
+                <property name="unitsInStock"/>
+                <property name="unitsOnOrder"/>
+            </fetchPlan>
+            <loader id="productsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_Product e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+        <settings auto="true"/>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+            <html content="msg://productListView.demoInfo"/>
+        </details>
+        <genericFilter id="genericFilter"
+                       dataLoader="productsDl">
+            <properties include=".*"/>
+            <configurations>
+                <configuration id="defaultFilter"
+                               operation="AND"
+                               name="msg://io.jmix.bookstore.filter/defaultFilter"
+                               default="true">
+                    <propertyFilter property="name" operation="CONTAINS" operationEditable="true"/>
+                    <propertyFilter property="category" operation="EQUAL" operationEditable="true"/>
+
+                    <!-- searches for products that are referenced in orders of a given customer (see also 'distinct' in data loader query)-->
+                    <jpqlFilter parameterClass="io.jmix.bookstore.customer.Customer"
+                                label="msg://fromCustomer">
+                        <condition>
+                            <c:jpql>
+                                <c:join>join {E}.orderLines o</c:join>
+                                <c:where>o.order.customer.id = ?</c:where>
+                            </c:jpql>
+                        </condition>
+                    </jpqlFilter>
+                </configuration>
+                <configuration id="lowInStock" name="msg://productLowInsStock.filter">
+                    <propertyFilter property="unitsInStock" operation="LESS"
+                                    operationEditable="false" defaultValue="50" readOnly="true"/>
+                    <propertyFilter property="unitsOnOrder" operation="EQUAL" defaultValue="0" readOnly="true"/>
+                </configuration>
+            </configurations>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="productsDataGrid.create"/>
+            <button id="editBtn" action="productsDataGrid.edit"/>
+            <button id="removeBtn" action="productsDataGrid.remove"/>
+            <button action="productsDataGrid.fillUpInventory"/>
+            <simplePagination id="pagination" dataLoader="productsDl" classNames="ms-auto"/>
+            <gridColumnVisibility dataGrid="productsDataGrid" icon="COG" themeNames="icon"/>
+        </hbox>
+        <dataGrid id="productsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="productsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+                <action id="fillUpInventory" type="list_itemTracking" text="msg://fillUpInventory"
+                        icon="vaadin:factory"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name"/>
+                <column property="category"/>
+                <column property="unitsInStock"/>
+                <column property="unitsOnOrder"/>
+                <column property="supplier"/>
+                <column property="supplier.cooperationStatus"
+                        header="msg://supplierCooperationStatus"/>
+                <column property="active"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>
