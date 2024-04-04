@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://customerListView.title"
+      focusComponent="customersDataGrid">
+    <data>
+        <collection id="customersDc"
+                    class="io.jmix.bookstore.customer.Customer">
+            <fetchPlan extends="_base"/>
+            <loader id="customersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_Customer e
+                    order by e.firstName asc, e.lastName asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+            <html content="msg://customerListView.demoInfo"/>
+        </details>
+        <genericFilter id="genericFilter"
+                       dataLoader="customersDl" opened="false">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="customersDataGrid.create"/>
+            <button id="editBtn" action="customersDataGrid.edit"/>
+            <button id="removeBtn" action="customersDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="customersDl"/>
+        </hbox>
+        <dataGrid id="customersDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="customersDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="firstName" filterable="true"/>
+                <column property="lastName" filterable="true"/>
+                <column property="email" filterable="true"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

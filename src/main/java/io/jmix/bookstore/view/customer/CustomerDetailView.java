@@ -1,30 +1,22 @@
-package io.jmix.bookstore.view.employee;
+package io.jmix.bookstore.view.customer;
 
 import com.vaadin.flow.component.ClickEvent;
-import io.jmix.bookstore.employee.Employee;
+import io.jmix.bookstore.customer.Customer;
 
-import io.jmix.bookstore.entity.User;
 import io.jmix.bookstore.view.addressmap.AddressMapView;
 import io.jmix.bookstore.view.main.MainView;
 
 import com.vaadin.flow.router.Route;
 import io.jmix.flowui.DialogWindows;
-import io.jmix.flowui.action.entitypicker.EntityLookupAction;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route(value = "employees/:id", layout = MainView.class)
-@ViewController("bookstore_Employee.detail")
-@ViewDescriptor("employee-detail-view.xml")
-@EditedEntityContainer("employeeDc")
-public class EmployeeDetailView extends StandardDetailView<Employee> {
-
-    @ViewComponent("userField.entityLookup")
-    private EntityLookupAction<User> userFieldEntityLookup;
-
-    @ViewComponent("reportsToField.entityLookup")
-    private EntityLookupAction<Employee> reportsToFieldEntityLookup;
+@Route(value = "customers/:id", layout = MainView.class)
+@ViewController("bookstore_Customer.detail")
+@ViewDescriptor("customer-detail-view.xml")
+@EditedEntityContainer("customerDc")
+public class CustomerDetailView extends StandardDetailView<Customer> {
 
     @Autowired
     private DialogWindows dialogWindows;

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://customerDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="customerDc"
+                  class="io.jmix.bookstore.customer.Customer">
+            <fetchPlan extends="_base">
+                <property name="address" fetchPlan="_base"/>
+                <property name="orders" fetchPlan="_base"/>
+                <property name="associatedRegion" fetchPlan="_base"/>
+                <property name="geometry"/>
+                <property name="fullName"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="ordersDc" property="orders"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+            <html content="msg://customerDetailView.demoInfo"/>
+        </details>
+        <formLayout>
+            <vbox>
+                <h5 text="msg://personalInformation"/>
+                <formLayout id="personalInfoForm" dataContainer="customerDc">
+                    <textField id="firstNameField" property="firstName"/>
+                    <textField id="lastNameField" property="lastName"/>
+                    <textField id="emailField" property="email"/>
+                </formLayout>
+            </vbox>
+            <vbox>
+                <hbox alignItems="CENTER" width="100%">
+                    <h5 text="msg://addressInformation"/>
+                    <button id="showOnMapBtn" icon="MAP_MARKER" classNames="ms-auto"/>
+                </hbox>
+                <formLayout dataContainer="customerDc" id="addressInfoForm" width="100%">
+                    <textField id="addressStreetField" property="address.street"/>
+                    <textField id="addressPostCodeField" property="address.postCode"/>
+                    <textField id="addressCityField" property="address.city"/>
+                    <textField id="addressStateField" property="address.state"/>
+                    <textField id="addressCountryField" property="address.country"/>
+                    <textField id="associatedRegionField" property="associatedRegion"/>
+                </formLayout>
+            </vbox>
+            <vbox colspan="2">
+                <h5 text="msg://io.jmix.bookstore.customer/Customer.orders"/>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <button action="ordersDataGrid.read"/>
+                </hbox>
+                <dataGrid id="ordersDataGrid" dataContainer="ordersDc" width="100%" minHeight="20em">
+                    <actions>
+                        <action id="read" type="list_read"/>
+                    </actions>
+                    <columns>
+                        <column property="orderDate"/>
+                        <column property="orderNumber"/>
+                        <column property="shippingDate"/>
+                    </columns>
+                </dataGrid>
+            </vbox>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>
