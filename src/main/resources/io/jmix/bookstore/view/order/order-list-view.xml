@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://orderListView.title"
+      focusComponent="ordersDataGrid">
+    <data>
+        <collection id="newOrdersDc"
+                    class="io.jmix.bookstore.order.entity.Order">
+            <fetchPlan extends="_base"/>
+            <loader id="newOrdersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_Order e
+                    order by e.orderDate asc, e.orderNumber asc]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="confirmedOrdersDc"
+                    class="io.jmix.bookstore.order.entity.Order">
+            <fetchPlan extends="_base">
+                <property name="fulfilledBy" fetchPlan="_base"/>
+                <property name="shippingAddress"/>
+            </fetchPlan>
+            <loader id="confirmedOrdersDl">
+                <query>
+                    <![CDATA[select e from bookstore_Order e order by e.orderNumber]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where><![CDATA[e.status <> 'NEW']]></c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+<!--            <genericFilter component="genericFilter"/>-->
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+            <html content="msg://orderListView.demoInfo"/>
+        </details>
+        <tabSheet width="100%" height="100%">
+            <tab id="newOrdersTab" label="msg://newOrders">
+                <vbox height="100%">
+                    <details id="newOrdersFilterDetails"
+                             width="100%"
+                             summaryText="msg://newOrdersFilter" opened="true">
+                        <formLayout>
+                            <propertyFilter dataLoader="newOrdersDl" operation="EQUAL" property="customer">
+                                <entityComboBox id="customerComboBox" metaClass="bookstore_Customer">
+                                    <itemsQuery class="io.jmix.bookstore.customer.Customer" escapeValueForLike="true"
+                                                searchStringFormat="(?i)%${inputString}%">
+                                        <fetchPlan extends="_base"/>
+                                        <query>
+                                            <![CDATA[select e from bookstore_Customer e
+                                            where e.firstName like :searchString escape '\' or
+                                                  e.lastName like :searchString escape '\'
+                                            order by e.firstName]]>
+                                        </query>
+                                    </itemsQuery>
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                            </propertyFilter>
+                            <propertyFilter
+                                    property="orderDate"
+                                    operationEditable="true"
+                                    operation="EQUAL"
+                                    dataLoader="newOrdersDl"/>
+                        </formLayout>
+                    </details>
+                    <hbox id="buttonsPanel" classNames="buttons-panel">
+                        <button id="createBtn" action="ordersDataGrid.create"/>
+                        <button id="editBtn" action="ordersDataGrid.edit"/>
+                        <button id="removeBtn" action="ordersDataGrid.remove"/>
+                        <simplePagination id="pagination" dataLoader="newOrdersDl"/>
+                    </hbox>
+                    <dataGrid id="ordersDataGrid"
+                              width="100%"
+                              minHeight="20em"
+                              dataContainer="newOrdersDc"
+                              columnReorderingAllowed="true">
+                        <actions>
+                            <action id="create" type="list_create"/>
+                            <action id="edit" type="list_edit"/>
+                            <action id="remove" type="list_remove"/>
+                        </actions>
+                        <columns resizable="true">
+                            <column property="orderNumber"/>
+                            <column property="orderDate"/>
+                            <column property="customer"/>
+                        </columns>
+                    </dataGrid>
+                </vbox>
+            </tab>
+            <tab id="confirmedOrdersTab" label="msg://confirmedOrders">
+                <vbox height="100%">
+                    <genericFilter id="confirmedOrdersFilter"
+                            dataLoader="confirmedOrdersDl">
+                        <properties include=".*"/>
+                        <configurations>
+                            <!-- TODO add default="true" when https://github.com/jmix-framework/jmix/issues/3055 is fixed -->
+                            <configuration id="defaultFilter"
+                                           operation="AND"
+                                           name="msg://io.jmix.bookstore.filter/defaultFilter">
+                                <propertyFilter property="orderNumber" operation="EQUAL" operationEditable="true"/>
+                                <propertyFilter property="status" operation="EQUAL" operationEditable="true"/>
+<!--                                <propertyFilter property="shippingDate" operation="DATE_INTERVAL" operationEditable="true"/>-->
+                                <jpqlFilter parameterClass="io.jmix.bookstore.product.Product"
+                                            label="msg://containsProduct">
+                                    <condition>
+                                        <c:jpql>
+                                            <c:join>join {E}.orderLines o</c:join>
+                                            <c:where>o.product.id = ?</c:where>
+                                        </c:jpql>
+                                    </condition>
+                                </jpqlFilter>
+                                <propertyFilter property="customer.associatedRegion"
+                                                operation="EQUAL"
+                                                operationEditable="true"
+                                                label="msg://customerRegion"/>
+                                <propertyFilter property="shippingAddress.postCode"
+                                                operation="STARTS_WITH"
+                                                operationEditable="true"
+                                                label="msg://shippingAddressPostCode"/>
+                            </configuration>
+                        </configurations>
+                    </genericFilter>
+                    <hbox id="confirmedOrdersButtonsPanel" classNames="buttons-panel">
+                        <button action="confirmedOrdersDataGrid.edit"/>
+                        <button action="confirmedOrdersDataGrid.remove"/>
+                        <button action="confirmedOrdersDataGrid.markAsInDelivery"/>
+                        <button action="confirmedOrdersDataGrid.trackDelivery"/>
+                        <simplePagination id="confirmedOrdersPagination" dataLoader="confirmedOrdersDl"/>
+                    </hbox>
+                    <dataGrid id="confirmedOrdersDataGrid"
+                              width="100%"
+                              dataContainer="confirmedOrdersDc">
+                        <actions>
+                            <action id="edit" type="list_edit"/>
+                            <action id="remove" type="list_remove"/>
+                            <action id="markAsInDelivery" type="list_itemTracking" text="msg://markAsInDelivery" icon="TRUCK"/>
+                            <action id="trackDelivery" type="list_itemTracking" text="msg://trackDelivery"/> <!-- icon="MAP_O" -->
+                        </actions>
+                        <columns>
+                            <column property="orderNumber"/>
+                            <column property="orderDate"/>
+                            <column property="customer"/>
+                            <column property="shippingDate"/>
+                            <column property="status"/>
+                            <column property="fulfilledBy"/>
+                            <column property="shippingAddress"/>
+                        </columns>
+                    </dataGrid>
+                </vbox>
+            </tab>
+        </tabSheet>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>
