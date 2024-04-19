@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:maps="http://jmix.io/schema/maps/ui"
+      title="msg://confirmOrderView.title"
+      focusComponent="form">
+    <data>
+        <instance id="orderDc"
+                  class="io.jmix.bookstore.order.entity.Order">
+            <fetchPlan extends="_base">
+                <property name="orderLines" fetchPlan="_base"/>
+                <property name="fulfilledBy" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="orderLinesDc" property="orderLines"/>
+        </instance>
+        <collection id="fulfillmentCentersDc"
+                    class="io.jmix.bookstore.fulfillment.FulfillmentCenter">
+            <fetchPlan extends="_base">
+                <property name="region" fetchPlan="_base"/>
+                <property name="geometry"/>
+            </fetchPlan>
+            <loader id="fulfillmentCentersDl">
+                <query>
+                    <![CDATA[select e from bookstore_FulfillmentCenter e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="orderDc">
+            <vbox>
+                <h4 text="msg://orderInformation"/>
+                <formLayout dataContainer="orderDc" id="orderInfoForm">
+                    <datePicker id="orderDateField" property="orderDate" readOnly="true"/>
+                    <textField id="customerField" property="customer" readOnly="true"/>
+                    <datePicker id="shippingDateField" property="shippingDate" readOnly="true"/>
+                    <textField id="orderNumberField" property="orderNumber" readOnly="true"/>
+                </formLayout>
+            </vbox>
+            <vbox>
+                <h4 text="msg://io.jmix.bookstore.order.entity/Order.orderLines"/>
+                <dataGrid id="orderLinesDataGrid" dataContainer="orderLinesDc" width="100%" minHeight="10em"
+                          height="15em">
+                    <columns>
+                        <column property="product"/>
+                        <column property="quantity"/>
+                    </columns>
+                </dataGrid>
+            </vbox>
+            <vbox>
+                <h4 text="msg://fulfilledByMap"/>
+                <formLayout dataContainer="orderDc" id="fulfillmentCenterForm">
+                    <entityComboBox id="fulfilledByField" property="fulfilledBy" itemsContainer="fulfillmentCentersDc"/>
+                    <textField id="durationField" label="msg://duration" readOnly="true"/>
+                    <textField id="distanceField" label="msg://distance" readOnly="true"/>
+                    <maps:geoMap height="20em" width="100%" id="fulfilledByMap" colspan="3">
+                        <maps:layers>
+                            <maps:tile>
+                                <maps:osmSource/>
+                            </maps:tile>
+                            <maps:vector id="fulfillmentCentersLayer">
+                                <maps:dataVectorSource dataContainer="fulfillmentCentersDc" property="geometry"/>
+                            </maps:vector>
+                            <maps:vector id="shippingAddressLayer">
+                                <maps:vectorSource id="vectorSource"/>
+                            </maps:vector>
+                        </maps:layers>
+                        <maps:mapView centerX="-99.755859" centerY="39.164141" zoom="4.0"/>
+                    </maps:geoMap>
+                    <responsiveSteps>
+                        <responsiveStep minWidth="0em" columns="1"/>
+                        <responsiveStep minWidth="30em" columns="3"/>
+                    </responsiveSteps>
+                </formLayout>
+            </vbox>
+            <vbox>
+                <h4 text="msg://io.jmix.bookstore.order.entity/Order.shippingAddress"/>
+                <formLayout id="shippingAddressForm" dataContainer="orderDc">
+                    <textField id="addressStreetField" property="shippingAddress.street" readOnly="true"/>
+                    <textField id="addressPostCodeField" property="shippingAddress.postCode" readOnly="true"/>
+                    <textField id="addressCityField" property="shippingAddress.city" readOnly="true"/>
+                    <textField id="addressStateField" property="shippingAddress.state" readOnly="true"/>
+                    <textField id="addressCountryField" property="shippingAddress.country" readOnly="true"/>
+                </formLayout>
+            </vbox>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -8,6 +8,8 @@
         <item view="bookstore_ProductCategory.list"
               title="msg://io.jmix.bookstore.view.productcategory/productCategoryListView.title"/>
         <item view="bookstore_Supplier.list" title="msg://io.jmix.bookstore.view.supplier/supplierListView.title"/>
+        <item view="bookstore_SupplierOrder.list"
+              title="msg://io.jmix.bookstore.view.supplierorder/supplierOrderListView.title"/>
     </menu>
     <menu id="hr" title="msg://io.jmix.bookstore/menu.hr.title">
         <item view="bookstore_Employee.list" title="msg://io.jmix.bookstore.view.employee/employeeListView.title"/>

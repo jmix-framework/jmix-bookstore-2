@@ -10,7 +10,7 @@
             <loader id="newOrdersDl" readOnly="true">
                 <query>
                     <![CDATA[select e from bookstore_Order e
-                    order by e.orderDate asc, e.orderNumber asc]]>
+                    order by e.orderNumber desc]]>
                 </query>
             </loader>
         </collection>
@@ -22,7 +22,8 @@
             </fetchPlan>
             <loader id="confirmedOrdersDl">
                 <query>
-                    <![CDATA[select e from bookstore_Order e order by e.orderNumber]]>
+                    <![CDATA[select e from bookstore_Order e
+                    order by e.orderNumber desc]]>
                     <condition>
                         <and>
                             <c:jpql>
@@ -84,7 +85,7 @@
                     <hbox id="buttonsPanel" classNames="buttons-panel">
                         <button id="createBtn" action="ordersDataGrid.create"/>
                         <button id="editBtn" action="ordersDataGrid.edit"/>
-                        <button id="removeBtn" action="ordersDataGrid.remove"/>
+                        <button action="ordersDataGrid.confirm" id="confirmBtn"/>
                         <simplePagination id="pagination" dataLoader="newOrdersDl"/>
                     </hbox>
                     <dataGrid id="ordersDataGrid"
@@ -96,6 +97,8 @@
                             <action id="create" type="list_create"/>
                             <action id="edit" type="list_edit"/>
                             <action id="remove" type="list_remove"/>
+                            <action id="confirm" type="list_itemTracking" icon="CHECK_CIRCLE"
+                                    text="msg://confirmOrder"/>
                         </actions>
                         <columns resizable="true">
                             <column property="orderNumber"/>

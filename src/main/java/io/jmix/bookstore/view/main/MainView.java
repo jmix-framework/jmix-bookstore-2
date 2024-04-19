@@ -1,5 +1,6 @@
 package io.jmix.bookstore.view.main;
 
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
@@ -10,18 +11,30 @@ import io.jmix.bookstore.employee.PositionTranslation;
 import io.jmix.bookstore.entity.User;
 import io.jmix.bookstore.multitenancy.TestEnvironmentTenants;
 import io.jmix.bookstore.security.session.BookstoreSessionData;
+import io.jmix.bpm.entity.UserGroup;
+import io.jmix.bpm.multitenancy.BpmTenantProvider;
+import io.jmix.bpm.service.BpmTaskService;
+import io.jmix.bpm.service.UserGroupService;
+import io.jmix.bpmflowui.view.mytasks.MyTasksListView;
 import io.jmix.core.security.CurrentAuthentication;
+import io.jmix.core.usersubstitution.CurrentUserSubstitution;
+import io.jmix.flowui.DialogWindows;
 import io.jmix.flowui.Dialogs;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.app.main.StandardMainView;
 import io.jmix.flowui.backgroundtask.BackgroundTask;
 import io.jmix.flowui.backgroundtask.TaskLifeCycle;
 import io.jmix.flowui.component.image.JmixImage;
+import io.jmix.flowui.facet.Timer;
+import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
 import io.jmix.multitenancy.core.TenantProvider;
+import org.flowable.task.api.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Route("")
 @ViewController("bookstore_MainView")
@@ -42,6 +55,10 @@ public class MainView extends StandardMainView {
     private CurrentAuthentication currentAuthentication;
     @Autowired
     private BookstoreSessionData bookstoreSessionData;
+    @Autowired
+    private BpmTaskService bpmTaskService;
+    @Autowired(required = false)
+    protected BpmTenantProvider bpmTenantProvider;
 
     @ViewComponent
     private Span tenantLabel;
@@ -53,12 +70,30 @@ public class MainView extends StandardMainView {
     private JmixImage<Object> userAvatarImage;
     @ViewComponent
     private H2 welcomeMessage;
+    @Autowired
+    private DialogWindows dialogWindows;
+    @Autowired
+    private CurrentUserSubstitution currentUserSubstitution;
+    @Autowired
+    private UserGroupService userGroupService;
+
+    @ViewComponent
+    private JmixButton taskBtn;
+
+    private String currentUserName;
+    protected List<String> userGroupCodes;
+
+    @Subscribe
+    public void onBeforeShow(final BeforeShowEvent event) {
+        currentUserName = currentUserSubstitution.getEffectiveUser().getUsername();
+    }
 
     @Subscribe
     public void onReady(final ReadyEvent event) {
         tenantLabel.setText(tenantProvider.getCurrentUserTenantId());
         initLayout();
         initTenantTestdataIfNecessary();
+        updateTaskCounter();
     }
 
     private void initTenantTestdataIfNecessary() {
@@ -134,5 +169,51 @@ public class MainView extends StandardMainView {
 
     private String currentTenant() {
         return tenantProvider.getCurrentUserTenantId();
+    }
+
+    @Subscribe(id = "taskBtn", subject = "clickListener")
+    public void onTaskBtnClick(final ClickEvent<JmixButton> event) {
+        DialogWindow<MyTasksListView> dialogWindow = dialogWindows.view(this, MyTasksListView.class).build();
+        dialogWindow.setHeight("80%");
+        dialogWindow.setWidth("80%");
+        dialogWindow.open();
+    }
+
+    @Subscribe("taskNotificationTimer")
+    public void onTaskNotificationTimerTimerAction(final Timer.TimerActionEvent event) {
+        updateTaskCounter();
+    }
+
+    private void updateTaskCounter() {
+        int myTaskCount = bpmTaskService.createTaskQuery()
+                .taskAssignee(currentUserName)
+                .active()
+                .list().size();
+
+        TaskQuery candidatesTaskQuery = bpmTaskService.createTaskQuery();
+        if (bpmTenantProvider != null && bpmTenantProvider.isMultitenancyActive()) {
+            candidatesTaskQuery.taskTenantId(bpmTenantProvider.getCurrentUserTenantId());
+        }
+        if (!getUserGroupCodes().isEmpty()) {
+            candidatesTaskQuery.taskCandidateGroupIn(getUserGroupCodes());
+        }
+        candidatesTaskQuery.taskCandidateUser(currentUserName);
+        int allGroupTasksCount = candidatesTaskQuery
+                .active()
+                .orderByTaskCreateTime()
+                .desc()
+                .list().size();
+
+        int taskCount = myTaskCount + allGroupTasksCount;
+        taskBtn.setText("%s".formatted(taskCount));
+    }
+
+    protected List<String> getUserGroupCodes() {
+        if (userGroupCodes == null) {
+            userGroupCodes = userGroupService.getUserGroups(currentUserName).stream()
+                    .map(UserGroup::getCode)
+                    .collect(Collectors.toList());
+        }
+        return userGroupCodes;
     }
 }

@@ -7,6 +7,7 @@
                   class="io.jmix.bookstore.order.entity.Order">
             <fetchPlan extends="_base">
                 <property name="orderLines" fetchPlan="_base"/>
+                <property name="fulfilledBy" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
             <collection id="orderLinesDc" property="orderLines"/>
@@ -53,10 +54,10 @@
             <vbox>
                 <h5 text="msg://orderInformation"/>
                 <formLayout id="form" dataContainer="orderDc">
-                    <textField id="orderNumberField" property="orderNumber"/>
+                    <textField id="orderNumberField" property="orderNumber" readOnly="true"/>
                     <datePicker id="orderDateField" property="orderDate"/>
-                    <datePicker id="shippingDateField" property="shippingDate"/>
-                    <select id="statusField" property="status"/>
+                    <select id="statusField" property="status" readOnly="true"/>
+                    <entityPicker property="fulfilledBy" readOnly="true"/>
                 </formLayout>
             </vbox>
         </formLayout>

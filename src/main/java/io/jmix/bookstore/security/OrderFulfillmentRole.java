@@ -17,6 +17,8 @@ import io.jmix.security.model.EntityPolicyAction;
 import io.jmix.security.role.annotation.EntityAttributePolicy;
 import io.jmix.security.role.annotation.EntityPolicy;
 import io.jmix.security.role.annotation.ResourceRole;
+import io.jmix.securityflowui.role.annotation.MenuPolicy;
+import io.jmix.securityflowui.role.annotation.ViewPolicy;
 
 /**
  * functional role for 'Order Fulfillment' position
@@ -42,8 +44,8 @@ public interface OrderFulfillmentRole {
     @EntityPolicy(entityClass = ProductCategory.class, actions = EntityPolicyAction.READ)
     void productCategory();
 
-//    @MenuPolicy(menuIds = {"bookstore_Supplier.browse", "bookstore_SupplierOrder.browse", "bookstore_Order.browse", "bookstore_Customer.browse", "bookstore_Product.browse"})
-//    @ScreenPolicy(screenIds = {"bookstore_Supplier.edit", "bookstore_Supplier.browse", "bookstore_SupplierOrderRequest.edit", "bookstore_SupplierOrder.browse", "bookstore_SupplierOrder.edit", "bookstore_SupplierOrder.review", "bookstore_MainScreen", "bookstore_LoginScreen", "bookstore_Order.browse", "bookstore_Customer.browse", "bookstore_Product.browse", "bookstore_Order.edit", "bookstore_OrderLine.edit", "bookstore_ConfirmOrder", "bookstore_Customer.edit", "bookstore_TrackDeliveryMap", "bookstore_Customer.lookup"})
+    @MenuPolicy(menuIds = {"bookstore_Supplier.list", "bookstore_SupplierOrder.list", "bookstore_Order.list", "bookstore_Customer.list", "bookstore_Product.list"})
+    @ViewPolicy(viewIds = {"bookstore_Supplier.detail", "bookstore_Supplier.list", "bookstore_SupplierOrderRequest.detail", "bookstore_SupplierOrder.list", "bookstore_SupplierOrder.detail", "bookstore_SupplierOrder.review", "bookstore_Order.list", "bookstore_Customer.list", "bookstore_Product.list", "bookstore_Order.detail", "bookstore_OrderLine.detail", "bookstore_ConfirmOrder", "bookstore_Customer.detail", "bookstore_TrackDeliveryMap", "bookstore_Customer.lookup", "bookstore_Order.confirm", "bookstore_TrackDeliveryMapView"})
     void screens();
 
     @EntityAttributePolicy(entityClass = Supplier.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)

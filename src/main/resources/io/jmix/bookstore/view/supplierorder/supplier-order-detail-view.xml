@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://supplierOrderDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="supplierOrderDc"
+                  class="io.jmix.bookstore.product.supplier.SupplierOrder">
+            <fetchPlan extends="_base">
+                <property name="orderLines" fetchPlan="_base">
+                    <property name="product" fetchPlan="_instance_name"/>
+                </property>
+            </fetchPlan>
+            <loader/>
+            <collection id="orderLinesDc" property="orderLines"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="supplierOrderDc">
+            <entityPicker id="supplierField" property="supplier">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <select id="statusField" property="status"/>
+            <datePicker id="orderDateField" property="orderDate"/>
+            <fileStorageUploadField id="orderFormField" property="orderForm" fileNameVisible="true"/>
+        </formLayout>
+        <h4 text="msg://io.jmix.bookstore.product.supplier/SupplierOrder.orderLines"/>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="orderLinesDataGrid.create"/>
+            <button action="orderLinesDataGrid.edit"/>
+            <button action="orderLinesDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="orderLinesDataGrid" dataContainer="orderLinesDc" width="100%" minHeight="20em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="quantity"/>
+                <column property="product"/>
+            </columns>
+        </dataGrid>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

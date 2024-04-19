@@ -15,10 +15,10 @@ public interface UiMinimalRole {
 
     String CODE = "flowui-minimal";
 
-    @ViewPolicy(viewIds = "bkst_MainView")
+    @ViewPolicy(viewIds = "bookstore_MainView")
     void main();
 
-    @ViewPolicy(viewIds = "bkst_LoginView")
+    @ViewPolicy(viewIds = "bookstore_LoginView")
     @SpecificPolicy(resources = "ui.loginToUi")
     void login();
 

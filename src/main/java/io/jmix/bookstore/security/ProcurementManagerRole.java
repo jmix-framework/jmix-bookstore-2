@@ -12,6 +12,8 @@ import io.jmix.security.model.EntityPolicyAction;
 import io.jmix.security.role.annotation.EntityAttributePolicy;
 import io.jmix.security.role.annotation.EntityPolicy;
 import io.jmix.security.role.annotation.ResourceRole;
+import io.jmix.securityflowui.role.annotation.MenuPolicy;
+import io.jmix.securityflowui.role.annotation.ViewPolicy;
 
 /**
  * functional role for 'Procurement Manager' position
@@ -50,8 +52,8 @@ public interface ProcurementManagerRole {
     @EntityPolicy(entityClass = ProductCategory.class, actions = EntityPolicyAction.ALL)
     void productCategory();
 
-//    @MenuPolicy(menuIds = {"bookstore_Supplier.browse", "bookstore_SupplierOrder.browse", "bookstore_Product.browse", "bookstore_ProductCategory.browse"})
-//    @ScreenPolicy(screenIds = {"bookstore_Supplier.edit", "bookstore_Supplier.browse", "bookstore_SupplierOrderRequest.edit", "bookstore_SupplierOrder.browse", "bookstore_SupplierOrder.edit", "bookstore_MainScreen", "bookstore_LoginScreen", "bookstore_SupplierOrder.approval", "bookstore_Product.browse", "bookstore_ProductCategory.browse", "bookstore_ProductCategory.edit", "bookstore_Product.edit"})
+    @MenuPolicy(menuIds = {"bookstore_Supplier.list", "bookstore_SupplierOrder.list", "bookstore_Product.list", "bookstore_ProductCategory.list"})
+    @ViewPolicy(viewIds = {"bookstore_Supplier.detail", "bookstore_Supplier.list", "bookstore_SupplierOrderRequest.detail", "bookstore_SupplierOrder.list", "bookstore_SupplierOrder.detail", "bookstore_SupplierOrder.approval", "bookstore_Product.list", "bookstore_ProductCategory.list", "bookstore_ProductCategory.detail", "bookstore_Product.detail"})
     void screens();
 
     @EntityAttributePolicy(entityClass = FulfillmentCenter.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)

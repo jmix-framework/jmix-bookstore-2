@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://supplierOrderListView.title"
+      focusComponent="supplierOrdersDataGrid">
+    <data>
+        <collection id="supplierOrdersDc"
+                    class="io.jmix.bookstore.product.supplier.SupplierOrder">
+            <fetchPlan extends="_base"/>
+            <loader id="supplierOrdersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_SupplierOrder e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+        <timer id="remainingTimeTimer" delay="5000" autostart="true" repeating="true"/>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+            <html content="msg://supplierOrderListView.demoInfo"/>
+            <div id="nextCalculationLabel" text="Next Creation in X sec"/>
+        </details>
+        <genericFilter id="genericFilter"
+                       dataLoader="supplierOrdersDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="readBtn" action="supplierOrdersDataGrid.read"/>
+            <simplePagination id="pagination" dataLoader="supplierOrdersDl"/>
+        </hbox>
+        <dataGrid id="supplierOrdersDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="supplierOrdersDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="read" type="list_read"/>
+            </actions>
+            <columns resizable="true">
+                <column property="supplier"/>
+                <column property="supplier.cooperationStatus" key="supplierCooperationStatus"/>
+                <column property="status"/>
+                <column property="orderDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

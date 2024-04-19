@@ -8,9 +8,11 @@ import io.jmix.bookstore.test_data.AddressGenerator;
 import io.jmix.bpmflowui.security.role.BpmProcessActorRole;
 import io.jmix.core.DataManager;
 import io.jmix.core.SaveContext;
+import io.jmix.notificationsflowui.security.role.InAppNotificationReaderAccessRole;
 import io.jmix.reportsflowui.role.ReportsRunRole;
 import io.jmix.security.role.assignment.RoleAssignmentRoleType;
 import io.jmix.securitydata.entity.RoleAssignmentEntity;
+import io.jmix.securityflowui.role.UiFilterRole;
 import net.datafaker.DateAndTime;
 import net.datafaker.Faker;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -94,9 +96,10 @@ public class EmployeeDataProvider {
     private Stream<String> baseEmployeeRoles() {
         return Stream.of(
                 UiMinimalRole.CODE,
+                UiFilterRole.CODE,
                 BpmProcessActorRole.CODE,
                 ReportsRunRole.CODE,
-                "notifications-in-app-notifications-user",
+                InAppNotificationReaderAccessRole.CODE,
                 EmployeeRole.CODE
         );
     }

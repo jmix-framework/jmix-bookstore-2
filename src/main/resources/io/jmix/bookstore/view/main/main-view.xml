@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<mainView xmlns="http://jmix.io/schema/flowui/main-view"
+<mainView xmlns="http://jmix.io/schema/flowui/main-view" xmlns:ntf="http://jmix.io/schema/notifications/ui"
           title="msg://MainView.title">
+    <facets>
+        <timer id="taskNotificationTimer" delay="2000" autostart="true" repeating="true"/>
+    </facets>
     <actions>
         <action id="logout" type="logout"/>
     </actions>
@@ -13,6 +16,9 @@
                               ariaLabel="msg://drawerToggle.ariaLabel"/>
                 <h1 id="viewTitle" classNames="jmix-main-view-title"/>
                 <hbox spacing="true" margin="true" alignItems="CENTER" classNames="ms-auto">
+                    <button id="taskBtn" icon="CHECK_SQUARE_O" text="0"
+                            themeNames="tertiary-inline" classNames="me-m"/>
+                    <ntf:notificationsIndicator classNames="me-m" id="notificationsIndicator"/>
                     <avatar image="avatars/unknown.png" id="userAvatar"/>
                     <userIndicator id="userIndicator"/>
                     <span id="positionLabel" themeNames="badge"/>

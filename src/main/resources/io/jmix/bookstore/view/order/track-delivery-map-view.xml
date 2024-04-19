@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:maps="http://jmix.io/schema/maps/ui"
+      title="msg://trackDeliveryMapView.title">
+    <layout>
+        <maps:geoMap height="30em" width="50em" id="map">
+            <maps:layers>
+                <maps:tile>
+                    <maps:osmSource/>
+                </maps:tile>
+                <maps:vector id="shippingAddressLayer">
+                    <maps:vectorSource id="vectorSource"/>
+                </maps:vector>
+            </maps:layers>
+            <maps:mapView centerX="-99.755859" centerY="39.164141" zoom="4.0"/>
+        </maps:geoMap>
+    </layout>
+</view>
