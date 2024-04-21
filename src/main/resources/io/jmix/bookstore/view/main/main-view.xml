@@ -41,7 +41,7 @@
                     <listMenu id="menu"/>
                 </nav>
                 <footer id="footer" classNames="jmix-main-view-footer">
-                    <span text="Tenant:"/>
+                    <span text="msg://tenant"/>
                     <span id="tenantLabel" themeNames="badge contrast"/>
                 </footer>
             </section>

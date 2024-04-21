@@ -92,6 +92,7 @@ dependencies {
     testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     implementation 'io.jmix.email:jmix-email-starter'
     implementation 'io.jmix.email:jmix-email-flowui-starter'
+    implementation 'io.jmix.translations:jmix-translations-de'
 }
 
 test {

@@ -3,7 +3,7 @@
 
     <item view="bookstore_Order.list" title="msg://io.jmix.bookstore.view.order/orderListView.title"/>
     <item view="bookstore_Customer.list" title="msg://io.jmix.bookstore.view.customer/customerListView.title"/>
-    <menu id="products" title="msg://io.jmix.bookstore/menu.products.title">
+    <menu id="products" title="msg://io.jmix.bookstore/menu.products">
         <item view="bookstore_Product.list" title="msg://io.jmix.bookstore.view.product/productListView.title"/>
         <item view="bookstore_ProductCategory.list"
               title="msg://io.jmix.bookstore.view.productcategory/productCategoryListView.title"/>
@@ -11,12 +11,12 @@
         <item view="bookstore_SupplierOrder.list"
               title="msg://io.jmix.bookstore.view.supplierorder/supplierOrderListView.title"/>
     </menu>
-    <menu id="hr" title="msg://io.jmix.bookstore/menu.hr.title">
+    <menu id="hr" title="msg://io.jmix.bookstore/menu.hr">
         <item view="bookstore_Employee.list" title="msg://io.jmix.bookstore.view.employee/employeeListView.title"/>
         <item view="bookstore_User.list" title="msg://io.jmix.bookstore.view.user/UserListView.title"/>
         <item view="bookstore_Position.list" title="msg://io.jmix.bookstore.view.position/positionListView.title"/>
     </menu>
-    <menu id="masterData" title="msg://io.jmix.bookstore/menu.masterData.title">
+    <menu id="masterData" title="msg://io.jmix.bookstore/menu.masterdata">
         <item view="bookstore_Region.list" title="msg://io.jmix.bookstore.view.region/regionListView.title"/>
         <item view="bookstore_Territory.list" title="msg://io.jmix.bookstore.view.territory/territoryListView.title"/>
         <item view="bookstore_FulfillmentCenter.list"
