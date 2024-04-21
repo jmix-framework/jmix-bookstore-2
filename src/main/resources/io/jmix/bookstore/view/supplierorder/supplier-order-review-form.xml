@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://supplierOrderReviewForm.title">
+    <data>
+        <instance id="supplierOrderDc"
+                  class="io.jmix.bookstore.product.supplier.SupplierOrder">
+            <fetchPlan extends="_base">
+                <property name="orderLines" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="orderLinesDc" property="orderLines"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <h4 id="changesRequiredCommentLabel" themeNames="error" visible="false"/>
+        <formLayout id="form" dataContainer="supplierOrderDc">
+            <textField id="supplierField" property="supplier"/>
+            <select id="statusField" property="supplier.cooperationStatus"/>
+            <datePicker id="orderDateField" property="orderDate"/>
+        </formLayout>
+        <dataGrid id="orderLinesDataGrid" dataContainer="orderLinesDc" width="100%" minHeight="20em">
+            <columns resizable="true" sortable="false">
+                <column property="product"/>
+                <column property="quantity" editable="true"/>
+                <column property="request.requestedAmount"/>
+                <column property="request.requestedBy"/>
+                <column property="request.comment"/>
+                <editorActionsColumn key="editorActionsColumn">
+                    <editButton icon="PENCIL" text="msg:///actions.Edit"/>
+                    <closeButton icon="BAN" text="msg:///actions.Close"/>
+                </editorActionsColumn>
+            </columns>
+        </dataGrid>
+        <hbox id="actionsPanel">
+            <button id="yesOutcomeBtn" icon="CHECK" text="msg://supplierOrderReviewForm.outcome.proceed"
+                    themeNames="primary"/>
+            <button id="noOutcomeBtn" icon="BAN" text="msg://supplierOrderReviewForm.outcome.reject"/>
+            <button id="cancelBtn" text="msg://cancel"/>
+        </hbox>
+    </layout>
+</view>
