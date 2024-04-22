@@ -3,11 +3,16 @@
       focusComponent="login"
       title="msg://LoginView.title">
     <layout justifyContent="CENTER" alignItems="CENTER" classNames="jmix-login-main-layout">
-        <textField id="tenantField" datatype="string" readOnly="true">
+        <textField id="tenantField" datatype="string" readOnly="true" label="msg://tenant"
+        >
             <suffix>
-                <button id="editTenantBtn" icon="vaadin:edit" themeNames="tertiary-inline"/>
+                <button id="helpTenantBtn" icon="QUESTION_CIRCLE_O" themeNames="tertiary-inline"/>
             </suffix>
+            <prefix>
+                <button id="editTenantBtn" icon="vaadin:edit" themeNames="tertiary-inline"/>
+            </prefix>
         </textField>
+        <button id="possibleUsersBtn" text="msg://possibleUsersHelp" themeNames="tertiary-inline"/>
         <loginForm id="login"
                    rememberMeVisible="true"
                    forgotPasswordButtonVisible="false">

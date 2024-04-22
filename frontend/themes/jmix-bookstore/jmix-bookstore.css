@@ -10,6 +10,11 @@ html {
     border: 3px solid;
 }
   
+.position-red {
+    color: #DF6679;
+    background-color: #FFC8D0;
+}
+
 .user-avatar-border-position-red {
     border-color: #FFC8D0 !important;
 }
@@ -66,4 +71,35 @@ html {
 
 .user-avatar-border-position-blue {
     border-color: #BAF7FF !important;
+}
+
+.possible-users {
+  width: 100%;
+}
+
+td.possible-users {
+    border-radius: 3px;
+    padding:10px;
+}
+
+.possible-role {
+  width: 60%;
+}
+
+.possible-user-password::before {
+  /* font-family: FontAwesome;
+  content: '\f023'; */
+  padding-right: 10px;
+}
+
+.possible-user::before {
+  padding-right: 10px;
+  /* font-family: FontAwesome;
+  content: '\f007'; */
+}
+
+.possible-role::before {
+  padding-right: 10px;
+  /* font-family: FontAwesome;
+  content: '\f0c0'; */
 }

@@ -2,6 +2,7 @@ package io.jmix.bookstore.view.login;
 
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.login.AbstractLogin.LoginEvent;
 import com.vaadin.flow.component.login.LoginI18n;
@@ -15,6 +16,7 @@ import com.vaadin.flow.server.VaadinSession;
 import io.jmix.bookstore.multitenancy.TestEnvironmentTenants;
 import io.jmix.core.MessageTools;
 import io.jmix.core.security.AccessDeniedException;
+import io.jmix.flowui.Dialogs;
 import io.jmix.flowui.component.loginform.JmixLoginForm;
 import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.kit.component.ComponentUtils;
@@ -68,6 +70,10 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
     private String defaultPassword;
 
     private Location currentLocation;
+    @Autowired
+    private Dialogs dialogs;
+    @ViewComponent
+    private JmixButton possibleUsersBtn;
 
     @Subscribe
     public void onReady(final ReadyEvent event) {
@@ -168,6 +174,9 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         loginI18n.setErrorMessage(errorMessage);
 
         login.setI18n(loginI18n);
+
+        tenantField.setLabel(messageBundle.getMessage("tenant"));
+        possibleUsersBtn.setText(messageBundle.getMessage("possibleUsersHelp"));
     }
 
     @Subscribe(id = "editTenantBtn", subject = "clickListener")
@@ -178,5 +187,20 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
     @Subscribe("tenantField")
     public void onTenantFieldComponentValueChange(final AbstractField.ComponentValueChangeEvent<TypedTextField<String>, String> event) {
         setTenantCookie(event.getValue());
+    }
+
+    @Subscribe(id = "possibleUsersBtn", subject = "clickListener")
+    public void onPossibleUsersBtnClick(final ClickEvent<JmixButton> event) {
+        dialogs.createMessageDialog()
+                .withHeader(messageBundle.getMessage("possibleUsersLoginDialogCaption"))
+                .withContent(new Html(messageBundle.getMessage("possibleUsersDialogMessage")))
+                .open();
+    }
+
+    @Subscribe(id = "helpTenantBtn", subject = "clickListener")
+    public void onHelpTenantBtnClick(final ClickEvent<JmixButton> event) {
+        dialogs.createMessageDialog()
+                .withContent(new Html(messageBundle.getMessage("tenantFieldHelpText")))
+                .open();
     }
 }
