@@ -26,7 +26,7 @@
         <action id="closeAction" type="detail_close"/>
     </actions>
     <layout>
-        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
             <html content="msg://employeeDetailView.demoInfo"/>
         </details>
         <tabSheet width="100%">

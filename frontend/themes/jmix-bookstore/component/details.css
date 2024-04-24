@@ -1,0 +1,17 @@
+vaadin-details[theme~='demo-info'] {
+    background-color: var(--turquoise-light-2);
+    border-radius: var(--lumo-border-radius-m);
+}
+
+vaadin-details[theme~='demo-info']::part(content) {
+    padding-left: var(--lumo-space-m);
+    padding-right: var(--lumo-space-m);
+}
+
+vaadin-details-summary[theme~='demo-info'] {
+    padding: var(--lumo-space-s) calc(var(--lumo-space-s) + var(--lumo-space-xs) / 2);
+}
+
+vaadin-details[theme~='demo-info'] a {
+    color: -webkit-link;
+}

@@ -1,4 +1,5 @@
 @import "app/login-view.css";
+@import "component/details.css";
 
 html {
     --turquoise: #4ccfe1;

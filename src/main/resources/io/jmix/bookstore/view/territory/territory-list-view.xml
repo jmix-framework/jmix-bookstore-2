@@ -28,7 +28,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo">
+        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
             <html content="msg://territoryListView.demoInfo"/>
         </details>
         <split width="100%"> <!-- TODO replace with formLayout -->
