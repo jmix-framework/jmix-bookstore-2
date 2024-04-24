@@ -26,7 +26,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.NONE,
+        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
         properties = {
                 "bookstore.locationiq.base-url=" + LocationIqClientTest.BASE_URL,
                 "bookstore.locationiq.api-key=" + LocationIqClientTest.API_KEY,

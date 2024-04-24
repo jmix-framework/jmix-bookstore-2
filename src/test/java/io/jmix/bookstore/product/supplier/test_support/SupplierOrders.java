@@ -8,6 +8,7 @@ import io.jmix.bookstore.product.supplier.SupplierOrder;
 import io.jmix.bookstore.product.supplier.SupplierOrderStatus;
 import io.jmix.bookstore.test_support.TestDataProvisioning;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -23,7 +24,7 @@ public class SupplierOrders
     private static final SupplierOrderStatus DEFAULT_SUPPLIER_ORDER_STATUS = SupplierOrderStatus.APPROVED;
     @Autowired
     SupplierOrderRepository supplierOrderRepository;
-    @Autowired
+    @Autowired @Lazy
     SupplierOrderLines supplierOrderLines;
     @Autowired
     Customers customers;

@@ -22,6 +22,8 @@ import io.jmix.core.SaveContext;
 import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.core.security.SystemAuthenticator;
 import io.jmix.multitenancy.entity.Tenant;
+import io.jmix.reports.entity.Report;
+import io.jmix.reports.entity.ReportGroup;
 import io.jmix.securitydata.entity.RoleAssignmentEntity;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.runtime.ProcessInstance;
@@ -141,41 +143,47 @@ public class DatabaseCleanup {
     }
 
     public void removeAllEntitiesForTenant(Tenant tenant) {
+        removeAllEntitiesForTenant(tenant.getTenantId());
+    }
+
+    public void removeAllEntitiesForTenant(String tenantId) {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
         // TODO: fix removing entries from mapping table for tenant
         performDeletionWhere("BOOKSTORE_EMPLOYEE_TERRITORIES", "1=1", jdbcTemplate);
-        performDeletionWhere(Employee.class,  tenantEquals("TENANT", tenant), jdbcTemplate);
+        performDeletionWhere(Employee.class,  tenantEquals("TENANT", tenantId), jdbcTemplate);
 
         performDeletionWhere(
                 "BOOKSTORE_USER_REGION_LINK",
-                "USER_ID IN (SELECT USER_ID FROM BOOKSTORE_USER WHERE TENANT='%s')".formatted(tenant.getTenantId()),
+                "USER_ID IN (SELECT USER_ID FROM BOOKSTORE_USER WHERE TENANT='%s')".formatted(tenantId),
                 jdbcTemplate
         );
 
-        performDeletionWhere(User.class,  tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(RoleAssignmentEntity.class,  usernameStartsWith(tenant), jdbcTemplate);
-        performDeletionWhere(UserGroupRole.class,  tenantEquals("SYS_TENANT_ID", tenant), jdbcTemplate);
-        performDeletionWhere(UserGroup.class, tenantEquals("SYS_TENANT_ID", tenant), jdbcTemplate);
-        performDeletionWhere(PositionTranslation.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(Position.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(OrderLine.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(Order.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(Customer.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(SupplierOrderLine.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(SupplierOrder.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(SupplierOrderRequest.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(Product.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(ProductCategory.class, tenantEquals("TENANT", tenant), jdbcTemplate);
-        performDeletionWhere(Supplier.class, tenantEquals("TENANT", tenant), jdbcTemplate);
+        performDeletionWhere(User.class,  tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(RoleAssignmentEntity.class,  usernameStartsWith(tenantId), jdbcTemplate);
+        performDeletionWhere(UserGroupRole.class,  tenantEquals("SYS_TENANT_ID", tenantId), jdbcTemplate);
+        performDeletionWhere(UserGroup.class, tenantEquals("SYS_TENANT_ID", tenantId), jdbcTemplate);
+        performDeletionWhere(Report.class, tenantEquals("SYS_TENANT_ID", tenantId), jdbcTemplate);
+        performDeletionWhere(ReportGroup.class, tenantEquals("SYS_TENANT_ID", tenantId), jdbcTemplate);
+        performDeletionWhere(PositionTranslation.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(Position.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(OrderLine.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(Order.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(Customer.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(SupplierOrderLine.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(SupplierOrder.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(SupplierOrderRequest.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(Product.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(ProductCategory.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
+        performDeletionWhere(Supplier.class, tenantEquals("TENANT", tenantId), jdbcTemplate);
     }
 
-    private static String tenantEquals(String columnName, Tenant tenant) {
-        return "%s='%s'".formatted(columnName, tenant.getTenantId());
+    private static String tenantEquals(String columnName, String tenantId) {
+        return "%s='%s'".formatted(columnName, tenantId);
     }
-    private static String usernameStartsWith(Tenant tenant) {
-        return "username like '%s|'".formatted(tenant.getTenantId());
+    private static String usernameStartsWith(String tenantId) {
+        return "username like '%s|'".formatted(tenantId);
     }
 
 }

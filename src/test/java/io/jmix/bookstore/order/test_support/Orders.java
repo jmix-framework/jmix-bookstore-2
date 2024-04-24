@@ -12,6 +12,7 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ public class Orders
     private static final OrderStatus DEFAULT_ORDER_STATUS = OrderStatus.CONFIRMED;
     @Autowired
     OrderRepository orderRepository;
-    @Autowired
+    @Autowired @Lazy
     OrderLines orderLines;
     @Autowired
     Customers customers;

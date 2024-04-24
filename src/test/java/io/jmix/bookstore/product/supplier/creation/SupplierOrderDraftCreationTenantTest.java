@@ -60,6 +60,7 @@ class SupplierOrderDraftCreationTenantTest {
         asSystem(() -> {
             databaseCleanup.removeAllEntities();
             databaseCleanup.removeNonAdminUsers();
+            databaseCleanup.removeAllEntitiesForTenant(TENANT_ID);
             databaseCleanup.removeAllEntities(Tenant.class);
         });
 
