@@ -2,8 +2,9 @@
 
 html {
     --turquoise: #4ccfe1;
-    --dark-turquoise: #248491;
-    --light-turquoise: #6aecff;
+    --turquoise-dark: #248491;
+    --turquoise-light: #6aecff;
+    --turquoise-light-2: #baf7ff;
     --dark-purple: #0A2044;
     --main-menu-purple: #0A2044;
 
@@ -38,7 +39,7 @@ jmix-value-picker-button {
 /* Grid */
 
 vaadin-grid {
-    --_focus-ring-color: var(--dark-turquoise);
+    --_focus-ring-color: var(--turquoise-dark);
     /*--_lumo-grid-selected-row-color: var(--lumo-primary-color);*/
     --_lumo-grid-selected-row-color: var(--lumo-primary-color-50pct);
 }
@@ -75,7 +76,7 @@ vaadin-app-layout[primary-section="drawer"]:not([overlay])::part(drawer) {
 /* Notifications */
 
 vaadin-notification-card[theme="contrast"]::part(overlay) {
-    background: var(--dark-purple);
+    background: var(--lumo-primary-color);
     color: var(--lumo-primary-contrast-color);
 }
 
@@ -147,7 +148,7 @@ vaadin-notification-card[theme="contrast"]::part(overlay) {
 }
 
 .user-avatar-border-position-blue {
-    border-color: #BAF7FF !important;
+    border-color: var(--turquoise-light-2) !important;
 }
 
 .possible-users {
