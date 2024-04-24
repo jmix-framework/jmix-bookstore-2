@@ -15,26 +15,22 @@
                               themeNames="contrast"
                               ariaLabel="msg://drawerToggle.ariaLabel"/>
                 <h1 id="viewTitle" classNames="jmix-main-view-title"/>
-                <hbox spacing="true" margin="true" alignItems="CENTER" classNames="ms-auto">
+                <hbox alignItems="CENTER" classNames="ms-auto me-m">
                     <button id="taskBtn" icon="CHECK_SQUARE_O" text="0"
                             themeNames="tertiary-inline" classNames="me-m"/>
                     <ntf:notificationsIndicator classNames="me-m" id="notificationsIndicator"/>
                     <avatar image="avatars/unknown.png" id="userAvatar"/>
                     <userIndicator id="userIndicator"/>
                     <span id="positionLabel" themeNames="badge"/>
-                    <button classNames="jmix-logout-button" id="logoutButton" action="logout"/>
+                    <button id="logoutButton"
+                            classNames="jmix-logout-button"
+                            themeNames="tertiary"
+                            action="logout"/>
                 </hbox>
             </header>
         </navigationBar>
         <drawerLayout>
             <section id="section" classNames="jmix-main-view-section">
-                <!--<h2 id="applicationTitle"
-                    classNames="jmix-main-view-application-title">
-                    <anchor id="baseLink"
-                            href="."
-                            text="msg://applicationTitle.text"
-                            classNames="jmix-main-view-application-title-base-link"/>
-                </h2>-->
                 <anchor id="baseLink"
                         href="."
                         classNames="jmix-main-view-application-title-base-link">

@@ -21,6 +21,12 @@ html {
     --vaadin-button-text-color: var(--lumo-body-text-color);
 }
 
+/* Button */
+
+.jmix-logout-button {
+    --vaadin-button-tertiary-text-color: var(--vaadin-button-text-color);
+}
+
 /* ValuePicker Button */
 
 jmix-value-picker-button {
