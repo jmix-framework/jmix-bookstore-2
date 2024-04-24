@@ -1,15 +1,84 @@
-/* Define your styles here */
-
 html {
-  --lumo-base-color: #F1F3F9;
+    --turquoise: #4ccfe1;
+    --dark-turquoise: #248491;
+    --light-turquoise: #6aecff;
+    --dark-purple: #0A2044;
+    --main-menu-purple: #0A2044;
+
+    --lumo-base-color: #F1F3F9;
+
+    --lumo-primary-color: rgb(76, 207, 225);
+    --lumo-primary-color-50pct: rgba(76, 207, 225, 0.5);
+    --lumo-primary-color-10pct: rgba(76, 207, 225, 0.1);
+    --lumo-primary-text-color: rgb(76, 207, 225);
+
+    --lumo-body-text-color: #4F5C78;
+    --lumo-disabled-text-color: #A0AAC0;
+
+    /* Button */
+
+    --vaadin-button-background: #FFF;
+    --vaadin-button-text-color: var(--lumo-body-text-color);
 }
+
+/* ValuePicker Button */
+
+jmix-value-picker-button {
+    --_lumo-button-color: var(--vaadin-button-text-color);
+}
+
+/* Grid */
+
+vaadin-grid {
+    --_focus-ring-color: var(--dark-turquoise);
+    /*--_lumo-grid-selected-row-color: var(--lumo-primary-color);*/
+    --_lumo-grid-selected-row-color: var(--lumo-primary-color-50pct);
+}
+
+/* App Layout */
+
+vaadin-app-layout[primary-section="drawer"]:not([overlay])::part(drawer) {
+    background: var(--main-menu-purple);
+}
+
+.jmix-main-view-section {
+    --drawer-text-color: var(--lumo-primary-contrast-color);
+
+    --lumo-header-text-color: var(--drawer-text-color);
+    --lumo-body-text-color: var(--drawer-text-color);
+    --lumo-secondary-text-color: var(--drawer-text-color);
+    color: var(--drawer-text-color);
+
+    vaadin-details-summary::part(toggle) {
+        color: var(--drawer-text-color);
+    }
+
+    .jmix-menu-item-link:hover,
+    vaadin-details-summary:hover,
+    vaadin-details-summary:hover::part(toggle){
+        color: var(--lumo-primary-color);
+    }
+}
+
+.jmix-main-view-application-title-base-link {
+    padding: var(--lumo-space-s);
+}
+
+/* Notifications */
+
+vaadin-notification-card[theme="contrast"]::part(overlay) {
+    background: var(--dark-purple);
+    color: var(--lumo-primary-contrast-color);
+}
+
+/* Other */
 
 .user-avatar {
     margin-left: 10px;
     border-radius: 100px !important;
     border: 3px solid;
 }
-  
+
 .position-red {
     color: #DF6679;
     background-color: #FFC8D0;
@@ -74,32 +143,32 @@ html {
 }
 
 .possible-users {
-  width: 100%;
+    width: 100%;
 }
 
 td.possible-users {
     border-radius: 3px;
-    padding:10px;
+    padding: 10px;
 }
 
 .possible-role {
-  width: 60%;
+    width: 60%;
 }
 
 .possible-user-password::before {
-  /* font-family: FontAwesome;
-  content: '\f023'; */
-  padding-right: 10px;
+    /* font-family: FontAwesome;
+    content: '\f023'; */
+    padding-right: 10px;
 }
 
 .possible-user::before {
-  padding-right: 10px;
-  /* font-family: FontAwesome;
-  content: '\f007'; */
+    padding-right: 10px;
+    /* font-family: FontAwesome;
+    content: '\f007'; */
 }
 
 .possible-role::before {
-  padding-right: 10px;
-  /* font-family: FontAwesome;
-  content: '\f0c0'; */
+    padding-right: 10px;
+    /* font-family: FontAwesome;
+    content: '\f0c0'; */
 }

@@ -28,21 +28,28 @@
         </navigationBar>
         <drawerLayout>
             <section id="section" classNames="jmix-main-view-section">
-                <h2 id="applicationTitle"
+                <!--<h2 id="applicationTitle"
                     classNames="jmix-main-view-application-title">
                     <anchor id="baseLink"
                             href="."
                             text="msg://applicationTitle.text"
                             classNames="jmix-main-view-application-title-base-link"/>
-                </h2>
+                </h2>-->
+                <anchor id="baseLink"
+                        href="."
+                        classNames="jmix-main-view-application-title-base-link">
+                    <image id="applicationTitleLogoImage"
+                           resource="branding/menu-logo.png"
+                           width="100%"/>
+                </anchor>
                 <nav id="navigation"
                      classNames="jmix-main-view-navigation"
                      ariaLabel="msg://navigation.ariaLabel">
-                    <listMenu id="menu"/>
+                    <listMenu id="menu" themeNames="toggle-reverse"/>
                 </nav>
                 <footer id="footer" classNames="jmix-main-view-footer">
                     <span text="msg://tenant"/>
-                    <span id="tenantLabel" themeNames="badge contrast"/>
+                    <span id="tenantLabel" themeNames="badge"/>
                 </footer>
             </section>
         </drawerLayout>

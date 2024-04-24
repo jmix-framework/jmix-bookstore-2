@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
-    <item view="bookstore_Order.list" title="msg://io.jmix.bookstore.view.order/orderListView.title"/>
-    <item view="bookstore_Customer.list" title="msg://io.jmix.bookstore.view.customer/customerListView.title"/>
-    <menu id="products" title="msg://io.jmix.bookstore/menu.products">
+    <item view="bookstore_Order.list" title="msg://io.jmix.bookstore.view.order/orderListView.title" icon="vaadin:cart"/>
+    <item view="bookstore_Customer.list" title="msg://io.jmix.bookstore.view.customer/customerListView.title" icon="vaadin:user-card"/>
+    <menu id="products" title="msg://io.jmix.bookstore/menu.products" icon="vaadin:book">
         <item view="bookstore_Product.list" title="msg://io.jmix.bookstore.view.product/productListView.title"/>
         <item view="bookstore_ProductCategory.list"
               title="msg://io.jmix.bookstore.view.productcategory/productCategoryListView.title"/>
@@ -11,18 +11,18 @@
         <item view="bookstore_SupplierOrder.list"
               title="msg://io.jmix.bookstore.view.supplierorder/supplierOrderListView.title"/>
     </menu>
-    <menu id="hr" title="msg://io.jmix.bookstore/menu.hr">
+    <menu id="hr" title="msg://io.jmix.bookstore/menu.hr" icon="vaadin:users">
         <item view="bookstore_Employee.list" title="msg://io.jmix.bookstore.view.employee/employeeListView.title"/>
         <item view="bookstore_User.list" title="msg://io.jmix.bookstore.view.user/UserListView.title"/>
         <item view="bookstore_Position.list" title="msg://io.jmix.bookstore.view.position/positionListView.title"/>
     </menu>
-    <menu id="masterData" title="msg://io.jmix.bookstore/menu.masterdata">
+    <menu id="masterData" title="msg://io.jmix.bookstore/menu.masterdata" icon="vaadin:modal-list">
         <item view="bookstore_Region.list" title="msg://io.jmix.bookstore.view.region/regionListView.title"/>
         <item view="bookstore_Territory.list" title="msg://io.jmix.bookstore.view.territory/territoryListView.title"/>
         <item view="bookstore_FulfillmentCenter.list"
               title="msg://io.jmix.bookstore.view.fulfillmentcenter/fulfillmentCenterListView.title"/>
     </menu>
-    <menu id="bpm" title="msg://io.jmix.bpmflowui/menu.bpm.title">
+    <menu id="bpm" title="msg://io.jmix.bpmflowui/menu.bpm.title" icon="vaadin:connect">
         <item view="bpm_StartProcess" title="msg://io.jmix.bpmflowui/startProcess.title"/>
         <item view="bpm_MyTasksList" title="msg://io.jmix.bpmflowui.view.mytasks/myTasksList.title"/>
         <item view="bpm_BpmnModelerView" title="msg://io.jmix.bpmflowui.view.modeler/bpmnModelerView.title"/>
@@ -37,13 +37,13 @@
         <item view="bpm_DecisionTableModelerView"
               title="msg://io.jmix.bpmflowui.view.decisiontablemodeler/bpm_DecisionTableModelerView.title"/>
     </menu>
-    <menu id="reports" title="msg://io.jmix.reportsflowui/menu.reports.title">
+    <menu id="reports" title="msg://io.jmix.reportsflowui/menu.reports.title" icon="vaadin:file-table">
         <item view="report_Report.list" title="msg://io.jmix.reportsflowui/reportListView.menu"/>
         <item view="report_ReportGroup.list" title="msg://io.jmix.reportsflowui/reportGroupListView.menu"/>
         <item view="report_ReportRunView" title="msg://io.jmix.reportsflowui/reportRunView.menu"/>
         <item view="report_ReportTableView" title="msg://io.jmix.reportsflowui/reportTableView.menu"/>
     </menu>
-    <menu id="administration" title="msg://io.jmix.bookstore/menu.administration.title">
+    <menu id="administration" title="msg://io.jmix.bookstore/menu.administration.title" icon="vaadin:cogs">
         <item view="sec_ResourceRoleModel.list"
               title="msg://io.jmix.securityflowui.view.resourcerole/resourceRoleModelListView.menu"/>
         <item view="sec_RowLevelRoleModel.list"
