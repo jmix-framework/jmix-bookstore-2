@@ -108,23 +108,13 @@ public class ConfirmOrderView extends StandardDetailView<Order> {
 
     @Subscribe("fulfilledByField")
     public void onFulfilledByFieldComponentValueChange(final AbstractField.ComponentValueChangeEvent<EntityComboBox<FulfillmentCenter>, FulfillmentCenter> event) {
-        calculatedRouteFor(getEditedEntity().getFulfilledBy())
-                .ifPresent(route -> {
-                    if (lineStringFeature != null) {
-                        shippingAddressVectorSource.removeFeature(lineStringFeature);
-                    }
-                    lineStringFeature = new LineStringFeature(route.lineString());
-                    shippingAddressVectorSource.addFeature(lineStringFeature);
-
-                    durationField.setValue(route.duration().prettyPrint());
-                    distanceField.setValue(route.distance().prettyPrint());
-                });
-
+        calculatedRouteFor(getEditedEntity().getFulfilledBy()).ifPresent(this::showRouteOnMap);
     }
 
     private Optional<CalculatedRoute> calculatedRouteFor(FulfillmentCenter fulfillmentCenter) {
-        return Optional.ofNullable(fulfillmentCenter)
-                .flatMap(calculatedRoutes::get);
+        return calculatedRoutes == null ?
+                Optional.empty() :
+                Optional.ofNullable(fulfillmentCenter).flatMap(calculatedRoutes::get);
     }
 
     private void storeCalculatedRoutes(Map<FulfillmentCenter, Optional<CalculatedRoute>> calculatedRoutes) {
@@ -139,14 +129,27 @@ public class ConfirmOrderView extends StandardDetailView<Order> {
                 .map(Optional::get)
                 .min(Comparator.comparing(CalculatedRoute::distanceInMeters));
 
-        nearestRoute.ifPresent(calculatedRoute ->
-                getEditedEntity().setFulfilledBy(
-                        calculatedRoutes.entrySet().stream()
-                                .filter(fulfillmentCenterOptionalEntry -> fulfillmentCenterOptionalEntry.getValue().equals(nearestRoute))
-                                .map(Map.Entry::getKey)
-                                .findFirst()
-                                .orElse(null)
-                ));
+        nearestRoute.ifPresent(calculatedRoute -> {
+            getEditedEntity().setFulfilledBy(
+                    calculatedRoutes.entrySet().stream()
+                            .filter(fulfillmentCenterOptionalEntry -> fulfillmentCenterOptionalEntry.getValue().equals(nearestRoute))
+                            .map(Map.Entry::getKey)
+                            .findFirst()
+                            .orElse(null)
+            );
+            showRouteOnMap(calculatedRoute);
+        });
+    }
+
+    private void showRouteOnMap(CalculatedRoute calculatedRoute) {
+        if (lineStringFeature != null) {
+            shippingAddressVectorSource.removeFeature(lineStringFeature);
+        }
+        lineStringFeature = new LineStringFeature(calculatedRoute.lineString());
+        shippingAddressVectorSource.addFeature(lineStringFeature);
+
+        durationField.setValue(calculatedRoute.duration().prettyPrint());
+        distanceField.setValue(calculatedRoute.distance().prettyPrint());
     }
 
     private class CalculateRoutesTask extends BackgroundTask<Integer, Map<FulfillmentCenter, Optional<CalculatedRoute>>> {
