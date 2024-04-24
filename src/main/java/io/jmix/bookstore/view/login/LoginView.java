@@ -1,11 +1,13 @@
 package io.jmix.bookstore.view.login;
 
+import com.google.common.base.Strings;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.login.AbstractLogin.LoginEvent;
-import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H5;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.i18n.LocaleChangeEvent;
 import com.vaadin.flow.i18n.LocaleChangeObserver;
 import com.vaadin.flow.router.BeforeEnterEvent;
@@ -14,21 +16,22 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.VaadinSession;
 import io.jmix.bookstore.multitenancy.TestEnvironmentTenants;
+import io.jmix.core.CoreProperties;
 import io.jmix.core.MessageTools;
 import io.jmix.core.security.AccessDeniedException;
 import io.jmix.flowui.Dialogs;
-import io.jmix.flowui.component.loginform.JmixLoginForm;
+import io.jmix.flowui.component.checkbox.JmixCheckbox;
+import io.jmix.flowui.component.select.JmixSelect;
+import io.jmix.flowui.component.textfield.JmixPasswordField;
 import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.kit.component.ComponentUtils;
 import io.jmix.flowui.kit.component.button.JmixButton;
-import io.jmix.flowui.kit.component.loginform.JmixLoginI18n;
 import io.jmix.flowui.view.*;
 import io.jmix.multitenancy.MultitenancyProperties;
 import io.jmix.multitenancyflowui.MultitenancyUiSupport;
 import io.jmix.securityflowui.authentication.AuthDetails;
 import io.jmix.securityflowui.authentication.LoginViewSupport;
 import jakarta.servlet.http.Cookie;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +41,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 @Route(value = "login")
 @ViewController("bookstore_LoginView")
 @ViewDescriptor("login-view.xml")
@@ -45,23 +53,43 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
 
     private static final Logger log = LoggerFactory.getLogger(LoginView.class);
 
+    @ViewComponent
+    private TypedTextField<String> usernameField;
+    @ViewComponent
+    private JmixPasswordField passwordField;
+    @ViewComponent
+    private JmixCheckbox rememberMe;
+    @ViewComponent
+    private JmixSelect<Locale> localeSelect;
+    @ViewComponent
+    private JmixButton submitBtn;
+    @ViewComponent
+    private Div errorMessage;
+    @ViewComponent
+    private H5 errorMessageTitle;
+    @ViewComponent
+    private Paragraph errorMessageDescription;
+    @ViewComponent
+    private TypedTextField<Object> tenantField;
+    @ViewComponent
+    private JmixButton possibleUsersBtn;
+
+    @Autowired
+    private Dialogs dialogs;
+    @Autowired
+    private CoreProperties coreProperties;
     @Autowired
     private LoginViewSupport loginViewSupport;
     @Autowired
-    private MessageBundle messageBundle;
-    @Autowired
     private MessageTools messageTools;
+    @Autowired
+    private MessageBundle messageBundle;
     @Autowired
     private TestEnvironmentTenants testEnvironmentTenants;
     @Autowired
     private MultitenancyProperties multitenancyProperties;
     @Autowired
     private MultitenancyUiSupport multitenancyUiSupport;
-
-    @ViewComponent
-    private TypedTextField<Object> tenantField;
-    @ViewComponent
-    private JmixLoginForm login;
 
     @Value("${ui.login.defaultUsername:}")
     private String defaultUsername;
@@ -70,16 +98,70 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
     private String defaultPassword;
 
     private Location currentLocation;
-    @Autowired
-    private Dialogs dialogs;
-    @ViewComponent
-    private JmixButton possibleUsersBtn;
+
+    @Subscribe
+    public void onInit(final InitEvent event) {
+        initLocales();
+        initDefaultCredentials();
+    }
 
     @Subscribe
     public void onReady(final ReadyEvent event) {
         String tenantId = findOrGenerateTenantId();
         tenantField.setValue(tenantId);
         setTenantCookie(tenantId);
+    }
+
+    protected void initLocales() {
+        LinkedHashMap<Locale, String> locales = coreProperties.getAvailableLocales().stream()
+                .collect(Collectors.toMap(Function.identity(), messageTools::getLocaleDisplayName, (s1, s2) -> s1,
+                        LinkedHashMap::new));
+
+        ComponentUtils.setItemsMap(localeSelect, locales);
+
+        localeSelect.setValue(VaadinSession.getCurrent().getLocale());
+    }
+
+    protected void initDefaultCredentials() {
+        if (StringUtils.isNotBlank(defaultUsername)) {
+            usernameField.setTypedValue(defaultUsername);
+        }
+
+        if (StringUtils.isNotBlank(defaultPassword)) {
+            passwordField.setValue(defaultPassword);
+        }
+    }
+
+    @Subscribe("submitBtn")
+    public void onSubmitBtnClick(final ClickEvent<JmixButton> event) {
+        errorMessage.setVisible(false);
+
+        String username = usernameField.getValue();
+        String password = passwordField.getValue();
+
+        if (Strings.isNullOrEmpty(username) || Strings.isNullOrEmpty(password)) {
+            return;
+        }
+
+        String tenantId = tenantField.getValue();
+        if (!testEnvironmentTenants.isPresent(tenantId)) {
+            testEnvironmentTenants.createTenant(tenantId);
+        }
+        username = multitenancyUiSupport.getUsernameByTenant(username, tenantId);
+
+        try {
+            loginViewSupport.authenticate(
+                    AuthDetails.of(username, password)
+                            .withLocale(localeSelect.getValue())
+                            .withRememberMe(rememberMe.getValue())
+            );
+        } catch (final BadCredentialsException | DisabledException | LockedException | AccessDeniedException e) {
+            log.warn("Login failed for user '{}': {}", username, e.toString());
+
+            errorMessageTitle.setText(messageBundle.getMessage("loginForm.errorTitle"));
+            errorMessageDescription.setText(messageBundle.getMessage("loginForm.badCredentials"));
+            errorMessage.setVisible(true);
+        }
     }
 
     private String findOrGenerateTenantId() {
@@ -105,75 +187,20 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         return null;
     }
 
-    @Subscribe
-    public void onInit(InitEvent event) {
-        initLocales();
-        initDefaultCredentials();
-    }
-
-    protected void initLocales() {
-        ComponentUtils.setItemsMap(login,
-                MapUtils.invertMap(messageTools.getAvailableLocalesMap()));
-
-        login.setSelectedLocale(VaadinSession.getCurrent().getLocale());
-    }
-
-    protected void initDefaultCredentials() {
-        if (StringUtils.isNotBlank(defaultUsername)) {
-            login.setUsername(defaultUsername);
-        }
-
-        if (StringUtils.isNotBlank(defaultPassword)) {
-            login.setPassword(defaultPassword);
-        }
-    }
-
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         currentLocation = event.getLocation();
         super.beforeEnter(event);
     }
 
-    @Subscribe("login")
-    public void onLogin(LoginEvent event) {
-        String tenantId = tenantField.getValue();
-        if (!testEnvironmentTenants.isPresent(tenantId)) {
-            testEnvironmentTenants.createTenant(tenantId);
-        }
-        String username = multitenancyUiSupport.getUsernameByTenant(event.getUsername(), tenantId);
-        try {
-            loginViewSupport.authenticate(
-                    AuthDetails.of(username, event.getPassword())
-                            .withLocale(login.getSelectedLocale())
-                            .withRememberMe(login.isRememberMe())
-            );
-        } catch (BadCredentialsException | DisabledException | LockedException | AccessDeniedException e) {
-            log.info("Login failed", e);
-            event.getSource().setError(true);
-        }
-    }
-
     @Override
     public void localeChange(LocaleChangeEvent event) {
         UI.getCurrent().getPage().setTitle(messageBundle.getMessage("LoginView.title"));
 
-        JmixLoginI18n loginI18n = JmixLoginI18n.createDefault();
-
-        JmixLoginI18n.JmixForm form = new JmixLoginI18n.JmixForm();
-        form.setTitle(messageBundle.getMessage("loginForm.headerTitle"));
-        form.setUsername(messageBundle.getMessage("loginForm.username"));
-        form.setPassword(messageBundle.getMessage("loginForm.password"));
-        form.setSubmit(messageBundle.getMessage("loginForm.submit"));
-        form.setForgotPassword(messageBundle.getMessage("loginForm.forgotPassword"));
-        form.setRememberMe(messageBundle.getMessage("loginForm.rememberMe"));
-        loginI18n.setForm(form);
-
-        LoginI18n.ErrorMessage errorMessage = new LoginI18n.ErrorMessage();
-        errorMessage.setTitle(messageBundle.getMessage("loginForm.errorTitle"));
-        errorMessage.setMessage(messageBundle.getMessage("loginForm.badCredentials"));
-        loginI18n.setErrorMessage(errorMessage);
-
-        login.setI18n(loginI18n);
+        usernameField.setLabel(messageBundle.getMessage("loginForm.username"));
+        passwordField.setLabel(messageBundle.getMessage("loginForm.password"));
+        rememberMe.setLabel(messageBundle.getMessage("loginForm.rememberMe"));
+        submitBtn.setText(messageBundle.getMessage("loginForm.submit"));
 
         tenantField.setLabel(messageBundle.getMessage("tenant"));
         possibleUsersBtn.setText(messageBundle.getMessage("possibleUsersHelp"));

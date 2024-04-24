@@ -3,27 +3,61 @@
       focusComponent="login"
       title="msg://LoginView.title">
     <layout justifyContent="CENTER" alignItems="CENTER" classNames="jmix-login-main-layout">
-        <textField id="tenantField" datatype="string" readOnly="true" label="msg://tenant"
-        >
-            <suffix>
-                <button id="helpTenantBtn" icon="QUESTION_CIRCLE_O" themeNames="tertiary-inline"/>
-            </suffix>
-            <prefix>
-                <button id="editTenantBtn" icon="vaadin:edit" themeNames="tertiary-inline"/>
-            </prefix>
-        </textField>
-        <button id="possibleUsersBtn" text="msg://possibleUsersHelp" themeNames="tertiary-inline"/>
-        <loginForm id="login"
-                   rememberMeVisible="true"
-                   forgotPasswordButtonVisible="false">
-            <form title="msg://loginForm.headerTitle"
-                  username="msg://loginForm.username"
-                  password="msg://loginForm.password"
-                  rememberMe="msg://loginForm.rememberMe"
-                  submit="msg://loginForm.submit"
-                  forgotPassword="msg://loginForm.forgotPassword"/>
-            <errorMessage title="msg://loginForm.errorTitle"
-                          message="msg://loginForm.badCredentials"/>
-        </loginForm>
+
+        <vbox id="loginFormWrapper" alignItems="CENTER" classNames="login-form-wrapper">
+            <image id="loginLogoImage"
+                   resource="branding/logo-login.png"
+                   classNames="login-logo"
+                   width="20em"/>
+
+            <div id="errorMessage" classNames="login-form-error-message" visible="false">
+                <h5 id="errorMessageTitle" classNames="login-form-error-message-title"/>
+                <p id="errorMessageDescription" classNames="login-form-error-message-description"/>
+            </div>
+
+            <button id="possibleUsersBtn" text="msg://possibleUsersHelp" themeNames="tertiary">
+                <prefix>
+                    <icon icon="INFO_CIRCLE_O"/>
+                </prefix>
+            </button>
+
+            <textField id="tenantField" datatype="string" readOnly="true" label="msg://tenant" width="100%">
+                <suffix>
+                    <button id="helpTenantBtn" icon="QUESTION_CIRCLE_O" themeNames="tertiary-inline"/>
+                </suffix>
+                <prefix>
+                    <button id="editTenantBtn" icon="vaadin:edit" themeNames="tertiary-inline"/>
+                </prefix>
+            </textField>
+
+            <textField id="usernameField"
+                       label="msg://loginForm.username"
+                       required="true"
+                       classNames="login-form-username"
+                       requiredMessage="msg://loginForm.username.requiredMessage"
+                       width="100%"/>
+            <passwordField id="passwordField"
+                           label="msg://loginForm.password"
+                           required="true"
+                           classNames="login-form-password"
+                           requiredMessage="msg://loginForm.password.requiredMessage"
+                           width="100%"/>
+            <hbox id="loginFormSettingsWrapper"
+                  expand="rememberMe"
+                  alignItems="CENTER"
+                  classNames="login-form-settings-wrapper"
+                  width="100%">
+                <checkbox id="rememberMe"
+                          label="msg://loginForm.rememberMe"
+                          classNames="login-form-remember-me"/>
+                <select id="localeSelect"
+                        classNames="login-form-locale-select"/>
+            </hbox>
+            <button id="submitBtn"
+                    text="msg://loginForm.submit"
+                    themeNames="primary"
+                    classNames="login-form-submit"
+                    width="100%"/>
+        </vbox>
     </layout>
 </view>
