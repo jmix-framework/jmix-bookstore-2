@@ -14,8 +14,8 @@
 }
 
 .login-logo {
-    margin-top: -15em;
-    margin-bottom: 3em;
+    margin-top: calc(var(--lumo-space-m) * -15);
+    margin-bottom: calc(var(--lumo-space-m) * 4);
 }
 
 .login-form-error-message {
