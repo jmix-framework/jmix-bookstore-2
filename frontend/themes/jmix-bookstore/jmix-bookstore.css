@@ -1,5 +1,6 @@
 @import "app/login-view.css";
 @import "app/main-view.css";
+@import "app/possible-users.css";
 @import "app/misc.css";
 @import "component/details.css";
 
@@ -151,35 +152,4 @@ vaadin-notification-card[theme="contrast"]::part(overlay) {
 
 .user-avatar-border-position-blue {
     border-color: var(--turquoise-light-2) !important;
-}
-
-.possible-users {
-    width: 100%;
-}
-
-td.possible-users {
-    border-radius: 3px;
-    padding: 10px;
-}
-
-.possible-role {
-    width: 60%;
-}
-
-.possible-user-password::before {
-    /* font-family: FontAwesome;
-    content: '\f023'; */
-    padding-right: 10px;
-}
-
-.possible-user::before {
-    padding-right: 10px;
-    /* font-family: FontAwesome;
-    content: '\f007'; */
-}
-
-.possible-role::before {
-    padding-right: 10px;
-    /* font-family: FontAwesome;
-    content: '\f0c0'; */
 }
