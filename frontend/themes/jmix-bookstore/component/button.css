@@ -1,0 +1,34 @@
+vaadin-button.button-counter {
+    width: var(--_button-size);
+    padding-left: calc(var(--lumo-button-size) / 4);
+    padding-right: calc(var(--lumo-button-size) / 4);
+}
+
+vaadin-button.button-counter::part(prefix) {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+vaadin-button.button-counter::part(label) {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--lumo-font-size-xs);
+    left: var(--lumo-icon-size-s);
+    margin-bottom: var(--lumo-icon-size-m);
+    width: var(--lumo-size-xs);
+    height: var(--lumo-size-xs);
+    padding: calc(var(--lumo-space-xs) - 0.03rem);
+    background-color: var(--lumo-error-color);
+    color: var(--lumo-error-contrast-color);
+    border-radius: 100%;
+}
+
+vaadin-button.button-counter-empty::part(label) {
+    background-color: hsl(0, 0%, 74%);
+}
+
+vaadin-button.button-counter vaadin-icon {
+    padding: 0;
+}

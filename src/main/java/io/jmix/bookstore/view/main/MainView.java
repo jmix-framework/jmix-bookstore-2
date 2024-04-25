@@ -206,6 +206,11 @@ public class MainView extends StandardMainView {
 
         int taskCount = myTaskCount + allGroupTasksCount;
         taskBtn.setText("%s".formatted(taskCount));
+        if (taskCount > 0) {
+            taskBtn.removeClassName("button-counter-empty");
+        } else {
+            taskBtn.addClassName("button-counter-empty");
+        }
     }
 
     protected List<String> getUserGroupCodes() {

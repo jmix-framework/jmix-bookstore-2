@@ -17,7 +17,7 @@
                 <h1 id="viewTitle" classNames="jmix-main-view-title"/>
                 <hbox alignItems="CENTER" classNames="ms-auto me-m">
                     <button id="taskBtn" icon="CHECK_SQUARE_O" text="0"
-                            themeNames="tertiary-inline" classNames="me-m"/>
+                            themeNames="tertiary" classNames="button-counter me-m"/>
                     <ntf:notificationsIndicator classNames="me-m" id="notificationsIndicator"/>
                     <avatar image="avatars/unknown.png" id="userAvatar"/>
                     <userIndicator id="userIndicator"/>
