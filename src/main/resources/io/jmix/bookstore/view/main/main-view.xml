@@ -49,12 +49,13 @@
                 </footer>
             </section>
         </drawerLayout>
-        <initialLayout spacing="true" margin="true">
+        <initialLayout>
             <vbox expand="welcomeBox" alignItems="CENTER">
                 <image id="mainLogoImage" classNames="bookstore-main-screen-logo mb-xl"
-                       width="500px" resource="branding/main-screen-logo-grey.png" themeNames="contain"/>
+                       width="100%" maxWidth="32em"
+                       resource="branding/main-screen-logo-grey.png" themeNames="contain"/>
                 <image id="userAvatarImage"
-                       width="100px"
+                       width="100%" maxWidth="6em"
                        themeNames="contain"
                        resource="avatars/unknown.png"/>
                 <hbox spacing="true" id="welcomeBox">

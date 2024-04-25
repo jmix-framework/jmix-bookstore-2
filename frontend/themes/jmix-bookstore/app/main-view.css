@@ -1,0 +1,10 @@
+.jmix-main-view-title {
+    margin-inline-end: var(--lumo-space-m);
+}
+
+@media screen and (max-width: 1200px) {
+    .jmix-main-view-header .jmix-user-indicator,
+    .jmix-main-view-header #positionLabel {
+        display: none;
+    }
+}
