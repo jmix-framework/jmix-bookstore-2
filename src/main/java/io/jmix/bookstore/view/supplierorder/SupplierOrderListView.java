@@ -1,11 +1,10 @@
 package io.jmix.bookstore.view.supplierorder;
 
 import com.vaadin.flow.component.html.Div;
-import io.jmix.bookstore.product.supplier.SupplierOrder;
-
-import io.jmix.bookstore.view.main.MainView;
-
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.router.Route;
+import io.jmix.bookstore.product.supplier.SupplierOrder;
+import io.jmix.bookstore.view.main.MainView;
 import io.jmix.core.TimeSource;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.facet.Timer;
@@ -30,7 +29,9 @@ public class SupplierOrderListView extends StandardListView<SupplierOrder> {
     private MessageBundle messageBundle;
 
     @ViewComponent
-    private Div nextCalculationLabel;
+    private Div nextCalculationWrapper;
+    @ViewComponent
+    private Span remainingTime;
 
     private LocalDateTime nextTriggerTime;
 
@@ -59,17 +60,15 @@ public class SupplierOrderListView extends StandardListView<SupplierOrder> {
             nextTriggerTime = nextTriggerTime();
         }
 
-//        if (timeUntilNextTrigger.isHigh()) {
-//            nextCalculationLabelHBox.setStyleName("position-badge position-red");
-//        }
-//        else if (timeUntilNextTrigger.isMedium()) {
-//            nextCalculationLabelHBox.setStyleName("position-badge position-yellow");
-//        }
-//        else if (timeUntilNextTrigger.isLow()) {
-//            nextCalculationLabelHBox.setStyleName("position-badge position-green");
-//        }
+        remainingTime.setText(timeUntilNextTrigger.prettyPrint());
 
-        nextCalculationLabel.setText(messageBundle.formatMessage("nextCreationIn", timeUntilNextTrigger.prettyPrint()));
+        if (timeUntilNextTrigger.isHigh()) {
+            nextCalculationWrapper.setClassName("gap-s position-red");
+        } else if (timeUntilNextTrigger.isMedium()) {
+            nextCalculationWrapper.setClassName("gap-s position-yellow");
+        } else if (timeUntilNextTrigger.isLow()) {
+            nextCalculationWrapper.setClassName("gap-s position-green");
+        }
     }
 
     public LocalDateTime nextTriggerTime() {

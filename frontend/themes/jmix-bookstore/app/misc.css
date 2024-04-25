@@ -1,0 +1,28 @@
+.contrast-panel {
+    background-color: #FFFFFF;
+    border-radius: var(--lumo-border-radius-m);
+}
+
+.spinner {
+    height: var(--lumo-size-xs);
+    width: var(--lumo-size-xs);
+    box-sizing: border-box;
+    border: 2px solid var(--lumo-primary-color-10pct);
+    border-top-color: var(--lumo-primary-color);
+    border-right-color: var(--lumo-primary-color);
+    border-radius: 100%;
+    -webkit-animation: rotate-360 500ms infinite linear;
+    -moz-animation: rotate-360 500ms infinite linear;
+    animation: rotate-360 500ms infinite linear;
+    pointer-events: none;
+}
+
+@keyframes rotate-360 {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://supplierOrderListView.title"
       focusComponent="supplierOrdersDataGrid">
     <data>
@@ -28,8 +27,15 @@
     </actions>
     <layout>
         <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
-            <html content="msg://supplierOrderListView.demoInfo"/>
-            <div id="nextCalculationLabel" text="Next Creation in X sec"/>
+            <hbox id="demoInfoContentWrapper" alignItems="CENTER">
+                <html content="msg://supplierOrderListView.demoInfo"/>
+
+                <div id="nextCalculationWrapper" themeNames="badge">
+                    <span id="nextCalculationLabel" text="msg://nextCreationIn"/>
+                    <span id="remainingTime" text="4m 30s" classNames="font-bold me-xs"/>
+                    <div id="spinner" classNames="spinner"/>
+                </div>
+            </hbox>
         </details>
         <genericFilter id="genericFilter"
                        dataLoader="supplierOrdersDl">
