@@ -77,7 +77,7 @@ vaadin-app-layout[primary-section="drawer"]::part(drawer) {
 /* Notifications */
 
 vaadin-notification-card[theme="contrast"]::part(overlay) {
-    background: var(--lumo-primary-color);
+    background: var(--turquoise-dark);
     color: var(--lumo-primary-contrast-color);
 }
 
