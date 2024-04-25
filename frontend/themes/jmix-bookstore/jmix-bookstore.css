@@ -13,6 +13,8 @@ html {
     --dark-purple: #0A2044;
     --app-layout-drawer-background-color: var(--dark-purple);
 
+    --button-counter-size: 1.25rem;
+
     --lumo-base-color: #F1F3F9;
 
     --lumo-primary-color: rgb(76, 207, 225);

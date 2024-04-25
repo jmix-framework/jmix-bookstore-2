@@ -17,8 +17,8 @@ vaadin-button.button-counter::part(label) {
     font-size: var(--lumo-font-size-xs);
     left: var(--lumo-icon-size-s);
     margin-bottom: var(--lumo-icon-size-m);
-    width: var(--lumo-size-xs);
-    height: var(--lumo-size-xs);
+    width: var(--button-counter-size);
+    height: var(--button-counter-size);
     padding: calc(var(--lumo-space-xs) - 0.03rem);
     background-color: var(--lumo-error-color);
     color: var(--lumo-error-contrast-color);
