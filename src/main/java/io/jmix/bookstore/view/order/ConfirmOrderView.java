@@ -20,9 +20,12 @@ import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.view.*;
 import io.jmix.mapsflowui.component.model.feature.LineStringFeature;
 import io.jmix.mapsflowui.component.model.feature.MarkerFeature;
+import io.jmix.mapsflowui.component.model.source.DataVectorSource;
 import io.jmix.mapsflowui.component.model.source.VectorSource;
 import io.jmix.mapsflowui.kit.component.model.style.Style;
+import io.jmix.mapsflowui.kit.component.model.style.image.Anchor;
 import io.jmix.mapsflowui.kit.component.model.style.image.IconStyle;
+import io.jmix.mapsflowui.kit.component.model.style.stroke.Stroke;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Comparator;
@@ -56,9 +59,30 @@ public class ConfirmOrderView extends StandardDetailView<Order> {
     private CollectionContainer<FulfillmentCenter> fulfillmentCentersDc;
     @ViewComponent("fulfilledByMap.shippingAddressLayer.vectorSource")
     private VectorSource shippingAddressVectorSource;
+    @ViewComponent("fulfilledByMap.fulfillmentCentersLayer.dataSource")
+    private DataVectorSource<FulfillmentCenter> dataSource;
 
     private Map<FulfillmentCenter, Optional<CalculatedRoute>> calculatedRoutes;
     private LineStringFeature lineStringFeature;
+
+    @Subscribe
+    public void onInit(final InitEvent event) {
+        dataSource.setStyleProvider(fulfillmentCenter -> {
+            if (fulfillmentCenter.equals(getEditedEntity().getFulfilledBy())) {
+                return new Style()
+                        .withImage(new IconStyle()
+                                .withSrc("icons/map-building-red.svg")
+                                .withAnchor(new Anchor(0.5, 0.90))
+                                .withScale(0.05));
+            } else {
+                return new Style()
+                        .withImage(new IconStyle()
+                                .withAnchor(new Anchor(0.5, 0.90))
+                                .withSrc("icons/map-building-green.svg")
+                                .withScale(0.05));
+            }
+        });
+    }
 
     @Subscribe
     public void onReady(final ReadyEvent event) {
@@ -85,10 +109,10 @@ public class ConfirmOrderView extends StandardDetailView<Order> {
         MarkerFeature markerFeature = new MarkerFeature(shippingAddress.getPosition());
         markerFeature.removeAllStyles();
         markerFeature = markerFeature.withStyles(new Style()
-                    .withImage(new IconStyle()
-                            .withSrc("icons/star.svg")
-                            .withScale(2.0)
-                            .withColor("#FF0000")));
+                .withImage(new IconStyle()
+                        .withAnchor(new Anchor(0.5, 0.90))
+                        .withSrc("icons/map-user.svg")
+                        .withScale(0.05)));
 
         shippingAddressVectorSource.addFeature(markerFeature);
 
@@ -145,7 +169,11 @@ public class ConfirmOrderView extends StandardDetailView<Order> {
         if (lineStringFeature != null) {
             shippingAddressVectorSource.removeFeature(lineStringFeature);
         }
-        lineStringFeature = new LineStringFeature(calculatedRoute.lineString());
+        lineStringFeature = new LineStringFeature(calculatedRoute.lineString())
+                .withStyles(new Style()
+                        .withStroke(new Stroke()
+                                .withColor("#2C93E2")
+                                .withWidth(4d)));
         shippingAddressVectorSource.addFeature(lineStringFeature);
 
         durationField.setValue(calculatedRoute.duration().prettyPrint());
@@ -171,6 +199,7 @@ public class ConfirmOrderView extends StandardDetailView<Order> {
                             fulfillmentCenter -> tryToCalculatedRouteFromFulfillmentCenter(fulfillmentCenter, taskLifeCycle, index.incrementAndGet())
                     ));
         }
+
         private Optional<CalculatedRoute> tryToCalculatedRouteFromFulfillmentCenter(FulfillmentCenter fulfillmentCenter, TaskLifeCycle<Integer> taskLifeCycle, int i) {
             try {
                 taskLifeCycle.publish(i);

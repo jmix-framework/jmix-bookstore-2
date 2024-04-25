@@ -65,7 +65,7 @@
                                 <maps:osmSource/>
                             </maps:tile>
                             <maps:vector id="fulfillmentCentersLayer">
-                                <maps:dataVectorSource dataContainer="fulfillmentCentersDc" property="geometry"/>
+                                <maps:dataVectorSource id="dataSource" dataContainer="fulfillmentCentersDc" property="geometry"/>
                             </maps:vector>
                             <maps:vector id="shippingAddressLayer">
                                 <maps:vectorSource id="vectorSource"/>
