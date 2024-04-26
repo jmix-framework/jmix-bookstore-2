@@ -12,8 +12,11 @@ import io.jmix.mapsflowui.component.model.FitOptions;
 import io.jmix.mapsflowui.component.model.feature.LineStringFeature;
 import io.jmix.mapsflowui.component.model.feature.MarkerFeature;
 import io.jmix.mapsflowui.component.model.source.VectorSource;
+import io.jmix.mapsflowui.kit.component.model.Padding;
 import io.jmix.mapsflowui.kit.component.model.style.Style;
+import io.jmix.mapsflowui.kit.component.model.style.image.Anchor;
 import io.jmix.mapsflowui.kit.component.model.style.image.IconStyle;
+import io.jmix.mapsflowui.kit.component.model.style.stroke.Stroke;
 import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -52,8 +55,9 @@ public class TrackDeliveryMapView extends StandardView {
         startFeature.removeAllStyles();
         startFeature = startFeature.withStyles(new Style()
                 .withImage(new IconStyle()
-                        .withSrc("icons/star.svg")
-                        .withScale(2.0)));
+                        .withAnchor(new Anchor(0.5, 0.90))
+                        .withSrc("icons/map-building-green.svg")
+                        .withScale(0.05)));
 
         vectorSource.addFeature(startFeature);
 
@@ -61,14 +65,19 @@ public class TrackDeliveryMapView extends StandardView {
         endFeature.removeAllStyles();
         endFeature = endFeature.withStyles(new Style()
                 .withImage(new IconStyle()
-                        .withSrc("icons/star.svg")
-                        .withScale(2.0)));
+                        .withAnchor(new Anchor(0.5, 0.90))
+                        .withSrc("icons/map-user.svg")
+                        .withScale(0.05)));
 
         vectorSource.addFeature(endFeature);
 
         geocoding.calculateRoute(startAddress.getPosition(), endAddress.getPosition())
                 .ifPresent(route -> {
-                    LineStringFeature lineStringFeature = new LineStringFeature(route.lineString());
+                    LineStringFeature lineStringFeature = new LineStringFeature(route.lineString())
+                            .withStyles(new Style()
+                                    .withStroke(new Stroke()
+                                            .withColor("#2C93E2")
+                                            .withWidth(4d)));
                     vectorSource.addFeature(lineStringFeature);
 
                     Point truckPosition = route.lineString().getPointN(new Random().nextInt(route.lineString().getNumPoints()));
@@ -76,11 +85,13 @@ public class TrackDeliveryMapView extends StandardView {
                     truckFeature.removeAllStyles();
                     truckFeature = truckFeature.withStyles(new Style()
                             .withImage(new IconStyle()
-                                    .withSrc("icons/star.svg")
-                                    .withScale(2.0)));
+                                    .withAnchor(new Anchor(0.5, 0.90))
+                                    .withSrc("icons/map-truck.svg")
+                                    .withScale(0.05)));
                     vectorSource.addFeature(truckFeature);
 
-                    map.zoomToFeature(truckFeature);
+                    map.fit(new FitOptions(lineStringFeature)
+                            .withPadding(new Padding(40, 40, 40, 40)));
                 });
     }
 }
