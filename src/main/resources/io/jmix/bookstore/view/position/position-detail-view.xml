@@ -17,39 +17,48 @@
         <action id="saveAction" type="detail_saveClose"/>
         <action id="closeAction" type="detail_close"/>
     </actions>
-    <layout>
-        <formLayout id="form" dataContainer="positionDc">
-            <textField id="nameField" property="name"/>
-            <textField id="codeField" property="code"/>
-            <select id="colorField" property="color"/>
-            <textArea id="descriptionField" height="9.5em" property="description"/>
-        </formLayout>
-        <h4 text="msg://io.jmix.bookstore.employee/Position.translations"/>
-        <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button action="translationsDataGrid.create"/>
-            <button action="translationsDataGrid.edit"/>
-            <button action="translationsDataGrid.remove"/>
-        </hbox>
-        <dataGrid id="translationsDataGrid" dataContainer="translationsDc" width="100%" minHeight="20em">
-            <actions>
-                <action id="create" type="list_create">
-                    <properties>
-                        <property name="openMode" value="DIALOG"/>
-                    </properties>
-                </action>
-                <action id="edit" type="list_edit">
-                    <properties>
-                        <property name="openMode" value="DIALOG"/>
-                    </properties>
-                </action>
-                <action id="remove" type="list_remove"/>
-            </actions>
-            <columns>
-                <column property="locale"/>
-                <column property="name"/>
-            </columns>
-        </dataGrid>
-        <hbox id="detailActions">
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+        <vbox id="contentBox" classNames="overflow-auto" expand="dataGridWrapper">
+            <vbox classNames="contrast-panel">
+                <formLayout id="form" dataContainer="positionDc">
+                    <textField id="nameField" property="name"/>
+                    <textField id="codeField" property="code"/>
+                    <select id="colorField" property="color"/>
+                    <textArea id="descriptionField" height="9.5em" property="description"/>
+                </formLayout>
+            </vbox>
+            <vbox id="dataGridWrapper" classNames="contrast-panel" minHeight="30em">
+                <h4 text="msg://io.jmix.bookstore.employee/Position.translations"/>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <button action="translationsDataGrid.create"/>
+                    <button action="translationsDataGrid.edit"/>
+                    <button action="translationsDataGrid.remove"/>
+                </hbox>
+                <dataGrid id="translationsDataGrid" dataContainer="translationsDc" width="100%">
+                    <actions>
+                        <action id="create" type="list_create">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                            </properties>
+                        </action>
+                        <action id="edit" type="list_edit">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                            </properties>
+                        </action>
+                        <action id="remove" type="list_remove"/>
+                    </actions>
+                    <columns>
+                        <column property="locale"/>
+                        <column property="name"/>
+                    </columns>
+                </dataGrid>
+            </vbox>
+        </vbox>
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>

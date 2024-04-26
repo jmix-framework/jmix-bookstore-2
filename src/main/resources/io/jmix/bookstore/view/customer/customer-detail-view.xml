@@ -23,39 +23,47 @@
         <action id="saveAction" type="detail_saveClose"/>
         <action id="closeAction" type="detail_close"/>
     </actions>
-    <layout>
-        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
-            <html content="msg://customerDetailView.demoInfo"/>
-        </details>
-        <formLayout>
-            <vbox>
-                <h5 text="msg://personalInformation"/>
-                <formLayout id="personalInfoForm" dataContainer="customerDc">
-                    <textField id="firstNameField" property="firstName"/>
-                    <textField id="lastNameField" property="lastName"/>
-                    <textField id="emailField" property="email"/>
-                </formLayout>
-            </vbox>
-            <vbox>
-                <hbox alignItems="CENTER" width="100%">
-                    <h5 text="msg://addressInformation"/>
-                    <button id="showOnMapBtn" icon="MAP_MARKER" classNames="ms-auto"/>
-                </hbox>
-                <formLayout dataContainer="customerDc" id="addressInfoForm" width="100%">
-                    <textField id="addressStreetField" property="address.street"/>
-                    <textField id="addressPostCodeField" property="address.postCode"/>
-                    <textField id="addressCityField" property="address.city"/>
-                    <textField id="addressStateField" property="address.state"/>
-                    <textField id="addressCountryField" property="address.country"/>
-                    <textField id="associatedRegionField" property="associatedRegion"/>
-                </formLayout>
-            </vbox>
-            <vbox colspan="2">
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+
+        <vbox id="contentBox" classNames="overflow-auto">
+            <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+                <html content="msg://customerDetailView.demoInfo"/>
+            </details>
+
+            <div classNames="grid-panel">
+                <vbox classNames="contrast-panel">
+                    <h5 text="msg://personalInformation"/>
+                    <formLayout id="personalInfoForm" dataContainer="customerDc">
+                        <textField id="firstNameField" property="firstName"/>
+                        <textField id="lastNameField" property="lastName"/>
+                        <textField id="emailField" property="email"/>
+                    </formLayout>
+                </vbox>
+
+                <vbox classNames="contrast-panel">
+                    <hbox alignItems="CENTER" width="100%">
+                        <h5 text="msg://addressInformation"/>
+                        <button id="showOnMapBtn" icon="MAP_MARKER" classNames="ms-auto"/>
+                    </hbox>
+                    <formLayout dataContainer="customerDc" id="addressInfoForm" width="100%">
+                        <textField id="addressStreetField" property="address.street"/>
+                        <textField id="addressPostCodeField" property="address.postCode"/>
+                        <textField id="addressCityField" property="address.city"/>
+                        <textField id="addressStateField" property="address.state"/>
+                        <textField id="addressCountryField" property="address.country"/>
+                        <textField id="associatedRegionField" property="associatedRegion"/>
+                    </formLayout>
+                </vbox>
+            </div>
+
+            <vbox classNames="contrast-panel" height="100%" minHeight="30em">
                 <h5 text="msg://io.jmix.bookstore.customer/Customer.orders"/>
                 <hbox id="buttonsPanel" classNames="buttons-panel">
                     <button action="ordersDataGrid.read"/>
                 </hbox>
-                <dataGrid id="ordersDataGrid" dataContainer="ordersDc" width="100%" minHeight="20em">
+                <dataGrid id="ordersDataGrid" dataContainer="ordersDc" width="100%">
                     <actions>
                         <action id="read" type="list_read"/>
                     </actions>
@@ -66,8 +74,9 @@
                     </columns>
                 </dataGrid>
             </vbox>
-        </formLayout>
-        <hbox id="detailActions">
+        </vbox>
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>

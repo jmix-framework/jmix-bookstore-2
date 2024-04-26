@@ -20,53 +20,62 @@
         <action id="saveAction" type="detail_saveClose"/>
         <action id="closeAction" type="detail_close"/>
     </actions>
-    <layout>
-        <tabSheet width="100%">
-            <tab id="generalTab" label="msg://io.jmix.bookstore.product/generalInformation">
-                <formLayout>
-                    <vbox>
-                        <h4 text="msg://productInformation"/>
-                        <formLayout id="productInfoForm" dataContainer="productDc">
-                            <textField id="nameField" property="name"/>
-                            <entityComboBox id="bookstore_ProductCategoryComboBox" metaClass="bookstore_ProductCategory"
-                                            dataContainer="productDc" property="category">
-                                <itemsQuery class="io.jmix.bookstore.product.ProductCategory" escapeValueForLike="true"
-                                            searchStringFormat="(?i)%${inputString}%">
-                                    <fetchPlan extends="_base"/>
-                                    <query>
-                                        <![CDATA[select e from bookstore_ProductCategory e where e.name like :searchString escape '\' order by e.name]]>
-                                    </query>
-                                </itemsQuery>
-                                <actions>
-                                    <action id="entityClear" type="entity_clear"/>
-                                </actions>
-                            </entityComboBox>
-                            <textField property="unitPrice.amount"/>
-                            <select property="unitPrice.currency"/>
-                        </formLayout>
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+        <vbox id="contentBox" classNames="overflow-auto">
+            <tabSheet width="100%" height="100%" minHeight="20em">
+                <tab id="generalTab" label="msg://io.jmix.bookstore.product/generalInformation">
+                    <div classNames="grid-panel">
+                        <vbox classNames="contrast-panel">
+                            <h4 text="msg://productInformation"/>
+                            <formLayout id="productInfoForm" dataContainer="productDc">
+                                <textField id="nameField" property="name"/>
+                                <entityComboBox id="bookstore_ProductCategoryComboBox"
+                                                metaClass="bookstore_ProductCategory"
+                                                dataContainer="productDc" property="category">
+                                    <itemsQuery class="io.jmix.bookstore.product.ProductCategory"
+                                                escapeValueForLike="true"
+                                                searchStringFormat="(?i)%${inputString}%">
+                                        <fetchPlan extends="_base"/>
+                                        <query>
+                                            <![CDATA[select e from bookstore_ProductCategory e where e.name like :searchString escape '\' order by e.name]]>
+                                        </query>
+                                    </itemsQuery>
+                                    <actions>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField property="unitPrice.amount"/>
+                                <select property="unitPrice.currency"/>
+                            </formLayout>
+                        </vbox>
+                        <vbox classNames="contrast-panel">
+                            <h4 text="msg://inventoryInformation"/>
+                            <formLayout dataContainer="productDc" id="inventoryInfoForm" width="100%">
+                                <textField id="unitsInStockField" property="unitsInStock"/>
+                                <textField id="unitsOnOrderField" property="unitsOnOrder"/>
+                                <entityPicker id="supplierField" property="supplier">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityPicker>
+                                <checkbox id="activeField" property="active"/>
+                            </formLayout>
+                        </vbox>
+                    </div>
+                </tab>
+                <tab id="descriptionTab" label="msg://io.jmix.bookstore.product/Product.description">
+                    <vbox classNames="contrast-panel" height="100%" minHeight="20em">
+                        <textArea id="descriptionField" property="description" dataContainer="productDc"
+                                  height="100%" width="100%"/>
                     </vbox>
-                    <vbox>
-                        <h4 text="msg://inventoryInformation"/>
-                        <formLayout dataContainer="productDc" id="inventoryInfoForm" width="100%">
-                            <textField id="unitsInStockField" property="unitsInStock"/>
-                            <textField id="unitsOnOrderField" property="unitsOnOrder"/>
-                            <entityPicker id="supplierField" property="supplier">
-                                <actions>
-                                    <action id="entityLookup" type="entity_lookup"/>
-                                    <action id="entityClear" type="entity_clear"/>
-                                </actions>
-                            </entityPicker>
-                            <checkbox id="activeField" property="active"/>
-                        </formLayout>
-                    </vbox>
-                </formLayout>
-            </tab>
-            <tab id="descriptionTab" label="msg://io.jmix.bookstore.product/Product.description">
-                <textArea id="descriptionField" height="9.5em" property="description" dataContainer="productDc"
-                          width="100%"/>
-            </tab>
-        </tabSheet>
-        <hbox id="detailActions">
+                </tab>
+            </tabSheet>
+        </vbox>
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>

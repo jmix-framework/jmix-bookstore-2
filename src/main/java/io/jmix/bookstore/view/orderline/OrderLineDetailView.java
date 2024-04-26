@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 @ViewController("bookstore_OrderLine.detail")
 @ViewDescriptor("order-line-detail-view.xml")
 @EditedEntityContainer("orderLineDc")
+@DialogMode(width = "40em")
 public class OrderLineDetailView extends StandardDetailView<OrderLine> {
 
     @Subscribe

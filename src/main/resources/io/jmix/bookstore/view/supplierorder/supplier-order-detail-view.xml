@@ -21,44 +21,53 @@
         <action id="saveAction" type="detail_saveClose"/>
         <action id="closeAction" type="detail_close"/>
     </actions>
-    <layout>
-        <formLayout id="form" dataContainer="supplierOrderDc">
-            <entityPicker id="supplierField" property="supplier">
-                <actions>
-                    <action id="entityLookup" type="entity_lookup"/>
-                    <action id="entityClear" type="entity_clear"/>
-                </actions>
-            </entityPicker>
-            <select id="statusField" property="status"/>
-            <datePicker id="orderDateField" property="orderDate"/>
-            <fileStorageUploadField id="orderFormField" property="orderForm" fileNameVisible="true"/>
-        </formLayout>
-        <h4 text="msg://io.jmix.bookstore.product.supplier/SupplierOrder.orderLines"/>
-        <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button action="orderLinesDataGrid.create"/>
-            <button action="orderLinesDataGrid.edit"/>
-            <button action="orderLinesDataGrid.remove"/>
-        </hbox>
-        <dataGrid id="orderLinesDataGrid" dataContainer="orderLinesDc" width="100%" minHeight="20em">
-            <actions>
-                <action id="create" type="list_create">
-                    <properties>
-                        <property name="openMode" value="DIALOG"/>
-                    </properties>
-                </action>
-                <action id="edit" type="list_edit">
-                    <properties>
-                        <property name="openMode" value="DIALOG"/>
-                    </properties>
-                </action>
-                <action id="remove" type="list_remove"/>
-            </actions>
-            <columns>
-                <column property="quantity"/>
-                <column property="product"/>
-            </columns>
-        </dataGrid>
-        <hbox id="detailActions">
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+        <vbox id="contentBox" classNames="overflow-auto">
+            <vbox classNames="contrast-panel">
+                <formLayout id="form" dataContainer="supplierOrderDc">
+                    <entityPicker id="supplierField" property="supplier">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <select id="statusField" property="status"/>
+                    <datePicker id="orderDateField" property="orderDate"/>
+                    <fileStorageUploadField id="orderFormField" property="orderForm" fileNameVisible="true"/>
+                </formLayout>
+            </vbox>
+            <vbox classNames="contrast-panel" height="100%" minHeight="30em">
+                <h4 text="msg://io.jmix.bookstore.product.supplier/SupplierOrder.orderLines"/>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <button action="orderLinesDataGrid.create"/>
+                    <button action="orderLinesDataGrid.edit"/>
+                    <button action="orderLinesDataGrid.remove"/>
+                </hbox>
+                <dataGrid id="orderLinesDataGrid" dataContainer="orderLinesDc" width="100%">
+                    <actions>
+                        <action id="create" type="list_create">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                            </properties>
+                        </action>
+                        <action id="edit" type="list_edit">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                            </properties>
+                        </action>
+                        <action id="remove" type="list_remove"/>
+                    </actions>
+                    <columns>
+                        <column property="quantity"/>
+                        <column property="product"/>
+                    </columns>
+                </dataGrid>
+            </vbox>
+        </vbox>
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>

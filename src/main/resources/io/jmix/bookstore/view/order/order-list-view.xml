@@ -52,7 +52,7 @@
         </details>
         <tabSheet width="100%" height="100%">
             <tab id="newOrdersTab" label="msg://newOrders">
-                <vbox height="100%">
+                <vbox height="100%" padding="false">
                     <details id="newOrdersFilterDetails"
                              width="100%"
                              summaryText="msg://newOrdersFilter" opened="true">
@@ -109,7 +109,7 @@
                 </vbox>
             </tab>
             <tab id="confirmedOrdersTab" label="msg://confirmedOrders">
-                <vbox height="100%">
+                <vbox height="100%" padding="false">
                     <genericFilter id="confirmedOrdersFilter"
                             dataLoader="confirmedOrdersDl">
                         <properties include=".*"/>

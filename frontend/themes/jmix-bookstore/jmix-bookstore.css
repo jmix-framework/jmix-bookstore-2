@@ -16,6 +16,7 @@ html {
     --button-counter-size: 1.25rem;
 
     --lumo-base-color: #F1F3F9;
+    --secondary-base-color: #FFF;
 
     --lumo-primary-color: rgb(76, 207, 225);
     --lumo-primary-color-50pct: rgba(76, 207, 225, 0.5);
@@ -27,8 +28,12 @@ html {
 
     /* Button */
 
-    --vaadin-button-background: #FFF;
+    --vaadin-button-background: var(--secondary-base-color);
     --vaadin-button-text-color: var(--lumo-body-text-color);
+
+    /* Grid */
+
+    --vaadin-grid-cell-background: var(--secondary-base-color);
 }
 
 /* Button */
@@ -49,6 +54,8 @@ vaadin-grid {
     --_focus-ring-color: var(--turquoise-dark);
     /*--_lumo-grid-selected-row-color: var(--lumo-primary-color);*/
     --_lumo-grid-selected-row-color: var(--lumo-primary-color-50pct);
+
+    background-color: var(--secondary-base-color);
 }
 
 /* App Layout */

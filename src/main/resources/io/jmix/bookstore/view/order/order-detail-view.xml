@@ -20,73 +20,83 @@
         <action id="saveAction" type="detail_saveClose"/>
         <action id="closeAction" type="detail_close"/>
     </actions>
-    <layout>
-        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
-            <html content="msg://orderDetailView.demoInfo"/>
-        </details>
-        <formLayout>
-            <vbox>
-                <h5 text="msg://io.jmix.bookstore.order.entity/Order.customer"/>
-                <entityComboBox id="customerField" dataContainer="orderDc" property="customer" width="100%">
-                    <actions>
-                        <action id="entityLookup" type="entity_lookup"/>
-                        <action id="entityClear" type="entity_clear"/>
-                    </actions>
-                    <itemsQuery class="io.jmix.bookstore.customer.Customer" escapeValueForLike="true"
-                                searchStringFormat="(?i)%${inputString}%">
-                        <fetchPlan extends="_base"/>
-                        <query>
-                            <![CDATA[select e from bookstore_Customer e
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+
+        <vbox id="contentBox" classNames="overflow-auto" expand="dataGridWrapper">
+            <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+                <html content="msg://orderDetailView.demoInfo"/>
+            </details>
+
+            <div classNames="grid-panel">
+                <vbox classNames="contrast-panel">
+                    <h5 text="msg://io.jmix.bookstore.order.entity/Order.customer"/>
+                    <entityComboBox id="customerField" dataContainer="orderDc" property="customer" width="100%">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                        <itemsQuery class="io.jmix.bookstore.customer.Customer" escapeValueForLike="true"
+                                    searchStringFormat="(?i)%${inputString}%">
+                            <fetchPlan extends="_base"/>
+                            <query>
+                                <![CDATA[select e from bookstore_Customer e
                             where e.firstName like :searchString escape '\'
                             or e.lastName like :searchString escape '\'
                             order by e.firstName asc]]>
-                        </query>
-                    </itemsQuery>
-                </entityComboBox>
-                <vbox id="customerDetailsBox" spacing="true" width="100%">
-                    <hbox id="customerTitleBox" spacing="true" width="100%">
-                        <h4 id="customerDisplayField"/>
-                        <button id="clearCustomerBtn" icon="CLOSE" themeNames="tertiary-inline"/>
-                    </hbox>
-                    <div id="customerAddressField"/>
+                            </query>
+                        </itemsQuery>
+                    </entityComboBox>
+                    <vbox id="customerDetailsBox" spacing="true" width="100%">
+                        <hbox id="customerTitleBox" spacing="true" width="100%">
+                            <h4 id="customerDisplayField"/>
+                            <button id="clearCustomerBtn" icon="CLOSE" themeNames="tertiary-inline"/>
+                        </hbox>
+                        <div id="customerAddressField"/>
+                    </vbox>
                 </vbox>
+                <vbox classNames="contrast-panel">
+                    <h5 text="msg://orderInformation"/>
+                    <formLayout id="form" dataContainer="orderDc">
+                        <textField id="orderNumberField" property="orderNumber" readOnly="true"/>
+                        <datePicker id="orderDateField" property="orderDate"/>
+                        <select id="statusField" property="status" readOnly="true"/>
+                        <entityPicker property="fulfilledBy" readOnly="true"/>
+                    </formLayout>
+                </vbox>
+            </div>
+
+            <vbox id="dataGridWrapper" classNames="contrast-panel" minHeight="30em">
+                <h4 text="msg://io.jmix.bookstore.order.entity/Order.orderLines"/>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <button action="orderLinesDataGrid.create"/>
+                    <button action="orderLinesDataGrid.edit"/>
+                    <button action="orderLinesDataGrid.remove"/>
+                </hbox>
+                <dataGrid id="orderLinesDataGrid" dataContainer="orderLinesDc" width="100%">
+                    <actions>
+                        <action id="create" type="list_create">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                            </properties>
+                        </action>
+                        <action id="edit" type="list_edit">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                            </properties>
+                        </action>
+                        <action id="remove" type="list_remove"/>
+                    </actions>
+                    <columns>
+                        <column property="product"/>
+                        <column property="quantity"/>
+                    </columns>
+                </dataGrid>
             </vbox>
-            <vbox>
-                <h5 text="msg://orderInformation"/>
-                <formLayout id="form" dataContainer="orderDc">
-                    <textField id="orderNumberField" property="orderNumber" readOnly="true"/>
-                    <datePicker id="orderDateField" property="orderDate"/>
-                    <select id="statusField" property="status" readOnly="true"/>
-                    <entityPicker property="fulfilledBy" readOnly="true"/>
-                </formLayout>
-            </vbox>
-        </formLayout>
-        <h4 text="msg://io.jmix.bookstore.order.entity/Order.orderLines"/>
-        <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button action="orderLinesDataGrid.create"/>
-            <button action="orderLinesDataGrid.edit"/>
-            <button action="orderLinesDataGrid.remove"/>
-        </hbox>
-        <dataGrid id="orderLinesDataGrid" dataContainer="orderLinesDc" width="100%" minHeight="20em">
-            <actions>
-                <action id="create" type="list_create">
-                    <properties>
-                        <property name="openMode" value="DIALOG"/>
-                    </properties>
-                </action>
-                <action id="edit" type="list_edit">
-                    <properties>
-                        <property name="openMode" value="DIALOG"/>
-                    </properties>
-                </action>
-                <action id="remove" type="list_remove"/>
-            </actions>
-            <columns>
-                <column property="product"/>
-                <column property="quantity"/>
-            </columns>
-        </dataGrid>
-        <hbox id="detailActions">
+        </vbox>
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>

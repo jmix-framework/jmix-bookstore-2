@@ -25,79 +25,89 @@
         <action id="saveAction" type="detail_saveClose"/>
         <action id="closeAction" type="detail_close"/>
     </actions>
-    <layout>
-        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
-            <html content="msg://employeeDetailView.demoInfo"/>
-        </details>
-        <tabSheet width="100%">
-            <tab id="generalInfoTab" label="msg://generalInfoTab.label">
-                <formLayout id="form">
-                    <vbox>
-                        <h5 text="msg://employeeDetailView.personalInformation"/>
-                        <formLayout dataContainer="employeeDc" width="100%">
-                            <select id="titleField" property="title"/>
-                            <textField id="firstNameField" property="firstName"/>
-                            <textField id="lastNameField" property="lastName"/>
-                            <datePicker id="birthDateField" property="birthDate"/>
-                            <entityPicker id="userField" property="user">
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+        <vbox id="contentBox" classNames="overflow-auto">
+            <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+                <html content="msg://employeeDetailView.demoInfo"/>
+            </details>
+            <tabSheet width="100%" height="100%">
+                <tab id="generalInfoTab" label="msg://generalInfoTab.label">
+                    <div classNames="grid-panel">
+                        <vbox classNames="contrast-panel">
+                            <h5 text="msg://employeeDetailView.personalInformation"/>
+                            <formLayout dataContainer="employeeDc" width="100%">
+                                <select id="titleField" property="title"/>
+                                <textField id="firstNameField" property="firstName"/>
+                                <textField id="lastNameField" property="lastName"/>
+                                <datePicker id="birthDateField" property="birthDate"/>
+                                <entityPicker id="userField" property="user">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityPicker>
+                            </formLayout>
+                        </vbox>
+                        <vbox classNames="contrast-panel">
+                            <hbox alignItems="CENTER" width="100%">
+                                <h5 text="msg://employeeDetailView.addressInformation"/>
+                                <button id="showOnMapBtn" icon="MAP_MARKER" classNames="ms-auto"/>
+                            </hbox>
+                            <formLayout dataContainer="employeeDc" width="100%">
+                                <textField id="addressStreetField" property="address.street"/>
+                                <textField id="addressPostCodeField" property="address.postCode"/>
+                                <textField id="addressCityField" property="address.city"/>
+                                <textField id="addressStateField" property="address.state"/>
+                                <textField id="addressCountryField" property="address.country"/>
+                            </formLayout>
+                        </vbox>
+                    </div>
+                </tab>
+                <tab id="positionTab" label="msg://positionTab.label">
+                    <vbox classNames="contrast-panel">
+                        <formLayout id="employeeForm" dataContainer="employeeDc">
+                            <entityPicker property="position"/>
+                            <datePicker id="hireDateField" property="hireDate"/>
+                            <entityPicker id="reportsToField" property="reportsTo">
                                 <actions>
                                     <action id="entityLookup" type="entity_lookup"/>
                                     <action id="entityClear" type="entity_clear"/>
                                 </actions>
                             </entityPicker>
+                            <datePicker property="probationEndDate"/>
                         </formLayout>
                     </vbox>
-                    <vbox>
-                        <hbox alignItems="CENTER" width="100%">
-                            <h5 text="msg://employeeDetailView.addressInformation"/>
-                            <button id="showOnMapBtn" icon="MAP_MARKER" classNames="ms-auto"/>
+                </tab>
+                <tab id="territoriesTab" label="msg://territoriesTab.label">
+                    <vbox classNames="contrast-panel" height="100%" minHeight="20em">
+                        <hbox id="buttonsPanel" classNames="buttons-panel">
+                            <button action="territoriesDataGrid.add"/>
+                            <button action="territoriesDataGrid.exclude"/>
                         </hbox>
-                        <formLayout dataContainer="employeeDc" width="100%">
-                            <textField id="addressStreetField" property="address.street"/>
-                            <textField id="addressPostCodeField" property="address.postCode"/>
-                            <textField id="addressCityField" property="address.city"/>
-                            <textField id="addressStateField" property="address.state"/>
-                            <textField id="addressCountryField" property="address.country"/>
-                        </formLayout>
+                        <dataGrid id="territoriesDataGrid" dataContainer="territoriesDc" width="100%">
+                            <actions>
+                                <action id="add" type="list_add"/>
+                                <action id="exclude" type="list_exclude"/>
+                            </actions>
+                            <columns>
+                                <column property="name"/>
+                                <column property="region.name"/>
+                            </columns>
+                        </dataGrid>
                     </vbox>
-                </formLayout>
-            </tab>
-            <tab id="positionTab" label="msg://positionTab.label">
-                <formLayout id="employeeForm" dataContainer="employeeDc">
-                    <entityPicker property="position"/>
-                    <datePicker id="hireDateField" property="hireDate"/>
-                    <entityPicker id="reportsToField" property="reportsTo">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <datePicker property="probationEndDate"/>
-                </formLayout>
-            </tab>
-            <tab id="territoriesTab" label="msg://territoriesTab.label">
-                <vbox width="100%">
-                    <hbox id="buttonsPanel" classNames="buttons-panel">
-                        <button action="territoriesDataGrid.add"/>
-                        <button action="territoriesDataGrid.exclude"/>
-                    </hbox>
-                    <dataGrid id="territoriesDataGrid" dataContainer="territoriesDc" width="100%" minHeight="20em">
-                        <actions>
-                            <action id="add" type="list_add"/>
-                            <action id="exclude" type="list_exclude"/>
-                        </actions>
-                        <columns>
-                            <column property="name"/>
-                            <column property="region.name"/>
-                        </columns>
-                    </dataGrid>
-                </vbox>
-            </tab>
-            <tab id="notesTab" label="msg://notesTab.label">
-                <textArea id="notesField" height="9.5em" width="100%" dataContainer="employeeDc" property="notes" />
-            </tab>
-        </tabSheet>
-        <hbox id="detailActions">
+                </tab>
+                <tab id="notesTab" label="msg://notesTab.label">
+                    <vbox classNames="contrast-panel" height="100%" minHeight="20em">
+                        <textArea id="notesField" height="100%" width="100%"
+                                  dataContainer="employeeDc" property="notes"/>
+                    </vbox>
+                </tab>
+            </tabSheet>
+        </vbox>
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>

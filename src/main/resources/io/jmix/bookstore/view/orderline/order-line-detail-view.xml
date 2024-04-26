@@ -19,12 +19,14 @@
         <action id="saveAction" type="detail_saveClose"/>
         <action id="closeAction" type="detail_close"/>
     </actions>
-    <layout>
-        <formLayout id="form" dataContainer="orderLineDc">
-            <vbox colspan="2">
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+        <vbox id="contentBox" classNames="overflow-auto">
+            <vbox classNames="contrast-panel">
                 <h4 text="msg://product"/>
                 <formLayout dataContainer="orderLineDc">
-                    <entityComboBox id="productField" dataContainer="orderLineDc" property="product">
+                    <entityComboBox id="productField" property="product">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
                             <action id="entityOpen" type="entity_open"/>
@@ -38,25 +40,26 @@
                             </query>
                         </itemsQuery>
                     </entityComboBox>
-                    <textField id="quantityField" dataContainer="orderLineDc" property="quantity" maxWidth="10em"/>
+                    <textField id="quantityField" property="quantity"/>
                 </formLayout>
             </vbox>
-            <vbox>
+            <vbox classNames="contrast-panel">
                 <h4 text="msg://price"/>
                 <formLayout dataContainer="orderLineDc">
-                    <textField id="unitPriceAmountField" dataContainer="orderLineDc" property="unitPrice.amount"/>
-                    <select id="unitPriceCurrencyField" dataContainer="orderLineDc" property="unitPrice.currency"/>
+                    <textField id="unitPriceAmountField" property="unitPrice.amount"/>
+                    <select id="unitPriceCurrencyField" property="unitPrice.currency"/>
                 </formLayout>
             </vbox>
-            <vbox>
+            <vbox classNames="contrast-panel">
                 <h4 text="msg://discount"/>
                 <formLayout dataContainer="orderLineDc">
-                    <textField id="discountAmountField" dataContainer="orderLineDc" property="discount.amount"/>
-                    <select id="discountCurrencyField" dataContainer="orderLineDc" property="discount.currency"/>
+                    <textField id="discountAmountField" property="discount.amount"/>
+                    <select id="discountCurrencyField" property="discount.currency"/>
                 </formLayout>
             </vbox>
-        </formLayout>
-        <hbox id="detailActions">
+        </vbox>
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>

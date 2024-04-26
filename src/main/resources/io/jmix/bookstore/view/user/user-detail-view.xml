@@ -19,44 +19,50 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
     </facets>
-    <layout>
-        <formLayout>
-            <vbox>
-                <h4 text="msg://personalInformation"/>
-                <formLayout dataContainer="userDc">
-                    <textField id="firstNameField" property="firstName"/>
-                    <textField id="lastNameField" property="lastName"/>
-                    <textField id="emailField" property="email"/>
-                    <comboBox id="timeZoneField" property="timeZoneId"/>
-                </formLayout>
-            </vbox>
-            <vbox>
-                <h4 text="msg://accountInformation"/>
-                <formLayout dataContainer="userDc">
-                    <comboBox id="tenantField" property="tenant" readOnly="true"/>
-                    <textField id="usernameField" property="username" readOnly="true" />
-                    <passwordField id="passwordField"
-                                   label="msg://io.jmix.bookstore.entity/User.password"
-                                   required="true"
-                                   visible="false"/>
-                    <passwordField id="confirmPasswordField"
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+        <vbox id="contentBox" classNames="overflow-auto">
+            <div classNames="grid-panel">
+                <vbox classNames="contrast-panel">
+                    <h4 text="msg://personalInformation"/>
+                    <formLayout dataContainer="userDc">
+                        <textField id="firstNameField" property="firstName"/>
+                        <textField id="lastNameField" property="lastName"/>
+                        <textField id="emailField" property="email"/>
+                        <comboBox id="timeZoneField" property="timeZoneId"/>
+                    </formLayout>
+                </vbox>
+                <vbox classNames="contrast-panel">
+                    <h4 text="msg://accountInformation"/>
+                    <formLayout dataContainer="userDc">
+                        <comboBox id="tenantField" property="tenant" readOnly="true"/>
+                        <textField id="usernameField" property="username" readOnly="true"/>
+                        <passwordField id="passwordField"
+                                       label="msg://io.jmix.bookstore.entity/User.password"
+                                       required="true"
+                                       visible="false"/>
+                        <passwordField id="confirmPasswordField"
                                        label="msg://confirmPassword"
                                        required="true"
                                        visible="false"/>
-                    <checkbox id="activeField" property="active"/>
-                </formLayout>
+                        <checkbox id="activeField" property="active"/>
+                    </formLayout>
+                </vbox>
+            </div>
+
+            <vbox classNames="contrast-panel">
+                <h4 text="msg://io.jmix.bookstore.entity/User.associatedRegions"/>
+                <dataGrid dataContainer="regionsDc" width="100%" id="regionsDataGrid">
+                    <actions/>
+                    <columns>
+                        <column property="name"/>
+                    </columns>
+                </dataGrid>
             </vbox>
-        </formLayout>
-        <formLayout id="form" dataContainer="userDc">
-        </formLayout>
-        <h4 text="msg://io.jmix.bookstore.entity/User.associatedRegions"/>
-        <dataGrid dataContainer="regionsDc" width="100%" id="regionsDataGrid">
-            <actions/>
-            <columns>
-                <column property="name"/>
-            </columns>
-        </dataGrid>
-        <hbox id="detailActions">
+        </vbox>
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>

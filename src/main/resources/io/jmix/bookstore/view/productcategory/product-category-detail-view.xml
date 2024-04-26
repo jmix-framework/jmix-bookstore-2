@@ -17,7 +17,12 @@
         <action id="closeAction" type="detail_close"/>
     </actions>
     <layout>
-        <formLayout id="form" dataContainer="productCategoryDc">
+        <formLayout id="form"
+                    dataContainer="productCategoryDc"
+                    maxWidth="40em">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+            </responsiveSteps>
             <textField id="nameField" property="name"/>
             <textArea id="descriptionField" height="9.5em" property="description"/>
         </formLayout>

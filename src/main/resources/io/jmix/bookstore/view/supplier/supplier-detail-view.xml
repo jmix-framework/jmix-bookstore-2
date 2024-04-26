@@ -19,8 +19,8 @@
         <action id="closeAction" type="detail_close"/>
     </actions>
     <layout>
-        <formLayout>
-            <vbox>
+        <div classNames="grid-panel">
+            <vbox classNames="contrast-panel">
                 <h4 text="msg://generalInformation"/>
                 <formLayout id="generalForm" dataContainer="supplierDc">
                     <textField id="nameField" property="name"/>
@@ -32,7 +32,7 @@
                     <select id="cooperationStatusField" property="cooperationStatus"/>
                 </formLayout>
             </vbox>
-            <vbox>
+            <vbox classNames="contrast-panel">
                 <h4 text="msg://contactInformation"/>
                 <formLayout dataContainer="supplierDc" id="contactForm" width="100%">
                     <select id="contactTitleField" property="contactTitle"/>
@@ -42,7 +42,7 @@
                     <textField id="websiteField" property="website"/>
                 </formLayout>
             </vbox>
-        </formLayout>
+        </div>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
