@@ -32,7 +32,7 @@
             <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
                 <html content="msg://employeeDetailView.demoInfo"/>
             </details>
-            <tabSheet width="100%" height="100%">
+            <tabSheet width="100%" height="100%" minHeight="40em">
                 <tab id="generalInfoTab" label="msg://generalInfoTab.label">
                     <div classNames="grid-panel">
                         <vbox classNames="contrast-panel">
@@ -81,7 +81,7 @@
                     </vbox>
                 </tab>
                 <tab id="territoriesTab" label="msg://territoriesTab.label">
-                    <vbox classNames="contrast-panel" height="100%" minHeight="20em">
+                    <vbox classNames="contrast-panel" height="100%">
                         <hbox id="buttonsPanel" classNames="buttons-panel">
                             <button action="territoriesDataGrid.add"/>
                             <button action="territoriesDataGrid.exclude"/>
@@ -99,7 +99,7 @@
                     </vbox>
                 </tab>
                 <tab id="notesTab" label="msg://notesTab.label">
-                    <vbox classNames="contrast-panel" height="100%" minHeight="20em">
+                    <vbox classNames="contrast-panel" height="100%">
                         <textArea id="notesField" height="100%" width="100%"
                                   dataContainer="employeeDc" property="notes"/>
                     </vbox>

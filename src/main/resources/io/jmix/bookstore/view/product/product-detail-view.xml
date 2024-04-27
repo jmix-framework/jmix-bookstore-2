@@ -67,7 +67,7 @@
                     </div>
                 </tab>
                 <tab id="descriptionTab" label="msg://io.jmix.bookstore.product/Product.description">
-                    <vbox classNames="contrast-panel" height="100%" minHeight="20em">
+                    <vbox classNames="contrast-panel" height="100%">
                         <textArea id="descriptionField" property="description" dataContainer="productDc"
                                   height="100%" width="100%"/>
                     </vbox>
