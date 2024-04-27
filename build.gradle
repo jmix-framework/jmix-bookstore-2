@@ -95,6 +95,8 @@ dependencies {
     testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 
     testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
+
+    testImplementation 'org.hsqldb:hsqldb'
 }
 
 test {
