@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<view xmlns="http://jmix.io/schema/flowui/view"
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:maps="http://jmix.io/schema/maps/ui"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://customerListView.title"
       focusComponent="customersDataGrid">
@@ -17,7 +17,7 @@
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
-        <urlQueryParameters>
+        <urlQueryParameters id="urlQueryParameters">
             <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
@@ -34,28 +34,48 @@
                        dataLoader="customersDl" opened="false">
             <properties include=".*"/>
         </genericFilter>
-        <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="customersDataGrid.create"/>
-            <button id="editBtn" action="customersDataGrid.edit"/>
-            <button id="removeBtn" action="customersDataGrid.remove"/>
-            <simplePagination id="pagination" dataLoader="customersDl"/>
-        </hbox>
-        <dataGrid id="customersDataGrid"
-                  width="100%"
-                  minHeight="20em"
-                  dataContainer="customersDc"
-                  columnReorderingAllowed="true">
-            <actions>
-                <action id="create" type="list_create"/>
-                <action id="edit" type="list_edit"/>
-                <action id="remove" type="list_remove"/>
-            </actions>
-            <columns>
-                <column property="firstName" filterable="true"/>
-                <column property="lastName" filterable="true"/>
-                <column property="email" filterable="true"/>
-            </columns>
-        </dataGrid>
+        <tabSheet width="100%" height="100%" id="tabSheet">
+            <tab id="listTab" label="msg://customerList">
+                <vbox height="100%">
+                    <hbox id="buttonsPanel" classNames="buttons-panel">
+                        <button id="createBtn" action="customersDataGrid.create"/>
+                        <button id="editBtn" action="customersDataGrid.edit"/>
+                        <button id="removeBtn" action="customersDataGrid.remove"/>
+                        <simplePagination id="pagination" dataLoader="customersDl"/>
+                    </hbox>
+                    <dataGrid id="customersDataGrid"
+                              width="100%"
+                              minHeight="20em"
+                              dataContainer="customersDc"
+                              columnReorderingAllowed="true">
+                        <actions>
+                            <action id="create" type="list_create"/>
+                            <action id="edit" type="list_edit"/>
+                            <action id="remove" type="list_remove"/>
+                        </actions>
+                        <columns>
+                            <column property="firstName" filterable="true"/>
+                            <column property="lastName" filterable="true"/>
+                            <column property="email" filterable="true"/>
+                        </columns>
+                    </dataGrid>
+                </vbox>
+            </tab>
+            <tab id="mapTab" label="msg://customerMap">
+                <maps:geoMap height="100%" width="100%" id="map">
+                    <maps:layers>
+                        <maps:tile>
+                            <maps:osmSource/>
+                        </maps:tile>
+                        <maps:vector id="vectorLayer">
+                            <maps:dataVectorSource dataContainer="customersDc" property="geometry"
+                                                   id="vectorSource"/>
+                        </maps:vector>
+                    </maps:layers>
+                    <maps:mapView centerX="-99.755859" centerY="39.164141" zoom="4.0"/>
+                </maps:geoMap>
+            </tab>
+        </tabSheet>
         <hbox id="lookupActions" visible="false">
             <button id="selectBtn" action="selectAction"/>
             <button id="discardBtn" action="discardAction"/>
