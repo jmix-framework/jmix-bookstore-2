@@ -6,6 +6,8 @@ import io.jmix.core.Id;
 import io.jmix.core.event.EntityChangedEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component("bookstore_SupplierOrderRequestEventListener")
@@ -20,14 +22,12 @@ public class SupplierOrderRequestEventListener {
     }
 
     @TransactionalEventListener
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void onSupplierOrderRequestChangedAfterCommit(EntityChangedEvent<SupplierOrderRequest> event) {
 
         Id<SupplierOrderRequest> supplierOrderRequestId = event.getEntityId();
 
-
-        SupplierOrderRequest supplierOrderRequest = dataManager.load(supplierOrderRequestId)
-                .joinTransaction(false)
-                .one();
+        SupplierOrderRequest supplierOrderRequest = dataManager.load(supplierOrderRequestId).one();
 
         applicationEventPublisher.publishEvent(new SupplierOrderRequestCreatedEvent(supplierOrderRequest));
     }

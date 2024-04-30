@@ -32,7 +32,7 @@ public interface SalesRepresentativeRole {
     String CODE = "sales-representative";
 
     @MenuPolicy(menuIds = {"bookstore_Order.list", "bookstore_Customer.list", "bookstore_Product.list", "bookstore_Territory.list", "bookstore_Region.list", "bookstore_Employee.list", "bookstore_ProductCategory.list"})
-    @ViewPolicy(viewIds = {"bookstore_Order.list", "bookstore_Customer.list", "bookstore_Product.list", "bookstore_Territory.list", "bookstore_Region.list", "bookstore_Order.detail", "bookstore_OrderLine.detail", "bookstore_Customer.detail", "bookstore_Employee.list", "bookstore_Employee.detail", "bookstore_ProductCategory.list", "bookstore_Product.detail", "bookstore_ProductCategory.detail", "bookstore_TrackDeliveryMap", "bookstore_Customer.lookup"})
+    @ViewPolicy(viewIds = {"bookstore_Order.list", "bookstore_Customer.list", "bookstore_Product.list", "bookstore_Territory.list", "bookstore_Region.list", "bookstore_Order.detail", "bookstore_OrderLine.detail", "bookstore_Customer.detail", "bookstore_Employee.list", "bookstore_Employee.detail", "bookstore_ProductCategory.list", "bookstore_Product.detail", "bookstore_ProductCategory.detail", "bookstore_TrackDeliveryMapView", "bookstore_Customer.lookup"})
     void screens();
 
     @EntityAttributePolicy(entityClass = Address.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)

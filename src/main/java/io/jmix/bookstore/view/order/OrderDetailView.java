@@ -7,12 +7,15 @@ import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import io.jmix.bookstore.customer.Customer;
+import io.jmix.bookstore.fulfillment.FulfillmentCenter;
 import io.jmix.bookstore.order.entity.Order;
 import io.jmix.bookstore.order.entity.OrderStatus;
 import io.jmix.bookstore.view.main.MainView;
 import io.jmix.core.MetadataTools;
 import io.jmix.core.TimeSource;
 import io.jmix.flowui.component.combobox.EntityComboBox;
+import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.component.valuepicker.EntityPicker;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +40,18 @@ public class OrderDetailView extends StandardDetailView<Order> {
     private MetadataTools metadataTools;
     @Autowired
     private TimeSource timeSource;
+    @ViewComponent
+    private EntityPicker<FulfillmentCenter> fulfilledByField;
+    @ViewComponent
+    private TypedTextField<Long> orderNumberField;
 
     @Subscribe
     public void onInitEntity(final InitEntityEvent<Order> event) {
         event.getEntity().setStatus(OrderStatus.NEW);
         event.getEntity().setOrderDate(timeSource.now().toLocalDate());
 
+        orderNumberField.setVisible(false);
+        fulfilledByField.setVisible(false);
         customerDetailsBox.setVisible(false);
         displayCustomer(null);
 

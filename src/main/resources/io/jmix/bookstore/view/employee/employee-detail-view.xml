@@ -80,7 +80,7 @@
                         </formLayout>
                     </vbox>
                 </tab>
-                <tab id="territoriesTab" label="msg://territoriesTab.label">
+                <tab id="territoriesTab" label="msg://io.jmix.bookstore.employee/Employee.territories">
                     <vbox classNames="contrast-panel" height="100%">
                         <hbox id="buttonsPanel" classNames="buttons-panel">
                             <button action="territoriesDataGrid.add"/>
@@ -98,7 +98,7 @@
                         </dataGrid>
                     </vbox>
                 </tab>
-                <tab id="notesTab" label="msg://notesTab.label">
+                <tab id="notesTab" label="msg://io.jmix.bookstore.employee/Employee.notes">
                     <vbox classNames="contrast-panel" height="100%">
                         <textArea id="notesField" height="100%" width="100%"
                                   dataContainer="employeeDc" property="notes"/>

@@ -104,6 +104,7 @@
                             <column property="orderNumber"/>
                             <column property="orderDate"/>
                             <column property="customer"/>
+                            <column property="status"/>
                         </columns>
                     </dataGrid>
                 </vbox>
@@ -114,9 +115,9 @@
                             dataLoader="confirmedOrdersDl">
                         <properties include=".*"/>
                         <configurations>
-                            <!-- TODO add default="true" when https://github.com/jmix-framework/jmix/issues/3055 is fixed -->
                             <configuration id="defaultFilter"
                                            operation="AND"
+                                           default="true"
                                            name="msg://io.jmix.bookstore.filter/defaultFilter">
                                 <propertyFilter property="orderNumber" operation="EQUAL" operationEditable="true"/>
                                 <propertyFilter property="status" operation="EQUAL" operationEditable="true"/>
@@ -155,7 +156,8 @@
                             <action id="edit" type="list_edit"/>
                             <action id="remove" type="list_remove"/>
                             <action id="markAsInDelivery" type="list_itemTracking" text="msg://markAsInDelivery" icon="TRUCK"/>
-                            <action id="trackDelivery" type="list_itemTracking" text="msg://trackDelivery"/> <!-- icon="MAP_O" -->
+                            <action id="trackDelivery" type="list_itemTracking" text="msg://trackDelivery"
+                                    icon="MAP_MARKER"/>
                         </actions>
                         <columns>
                             <column property="orderNumber"/>

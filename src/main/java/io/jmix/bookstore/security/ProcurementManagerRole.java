@@ -53,7 +53,7 @@ public interface ProcurementManagerRole {
     void productCategory();
 
     @MenuPolicy(menuIds = {"bookstore_Supplier.list", "bookstore_SupplierOrder.list", "bookstore_Product.list", "bookstore_ProductCategory.list"})
-    @ViewPolicy(viewIds = {"bookstore_Supplier.detail", "bookstore_Supplier.list", "bookstore_SupplierOrderRequest.detail", "bookstore_SupplierOrder.list", "bookstore_SupplierOrder.detail", "bookstore_SupplierOrder.approval", "bookstore_Product.list", "bookstore_ProductCategory.list", "bookstore_ProductCategory.detail", "bookstore_Product.detail", "bookstore_SupplierOrderReviewForm", "bookstore_SupplierOrderApprovalForm"})
+    @ViewPolicy(viewIds = {"bookstore_Supplier.detail", "bookstore_Supplier.list", "bookstore_SupplierOrderRequest.detail", "bookstore_SupplierOrder.list", "bookstore_SupplierOrder.detail", "bookstore_SupplierOrderApprovalForm", "bookstore_Product.list", "bookstore_ProductCategory.list", "bookstore_ProductCategory.detail", "bookstore_Product.detail", "bookstore_SupplierOrderReviewForm", "bookstore_SupplierOrderApprovalForm"})
     void screens();
 
     @EntityAttributePolicy(entityClass = FulfillmentCenter.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)

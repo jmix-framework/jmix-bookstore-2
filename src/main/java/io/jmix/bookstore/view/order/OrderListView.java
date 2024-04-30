@@ -1,23 +1,21 @@
 package io.jmix.bookstore.view.order;
 
 import com.vaadin.flow.component.Html;
+import com.vaadin.flow.router.Route;
 import io.jmix.bookstore.order.entity.Order;
-
 import io.jmix.bookstore.order.entity.OrderStatus;
 import io.jmix.bookstore.view.main.MainView;
-
-import com.vaadin.flow.router.Route;
+import io.jmix.core.AccessManager;
 import io.jmix.core.Messages;
 import io.jmix.core.TimeSource;
 import io.jmix.flowui.DialogWindows;
 import io.jmix.flowui.Dialogs;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.ViewNavigators;
+import io.jmix.flowui.accesscontext.UiShowViewContext;
 import io.jmix.flowui.action.DialogAction;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.kit.action.ActionPerformedEvent;
-import io.jmix.flowui.kit.component.button.JmixButton;
-import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.DataContext;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +39,8 @@ public class OrderListView extends StandardListView<Order> {
     private Notifications notifications;
     @Autowired
     private DialogWindows dialogWindows;
+    @Autowired
+    private AccessManager accessManager;
 
     @ViewComponent
     private DataGrid<Order> ordersDataGrid;
@@ -97,5 +97,12 @@ public class OrderListView extends StandardListView<Order> {
             dataContext.save();
             notifications.create(messageBundle.getMessage("orderMarkedAsInDelivery")).show();
         }
+    }
+
+    @Install(to = "ordersDataGrid.confirm", subject = "enabledRule")
+    private boolean ordersDataGridConfirmEnabledRule() {
+        UiShowViewContext accessContext = new UiShowViewContext("bookstore_Order.confirm");
+        accessManager.applyRegisteredConstraints(accessContext);
+        return accessContext.isPermitted();
     }
 }

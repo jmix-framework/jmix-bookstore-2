@@ -1,22 +1,23 @@
 <p align="center">
-  <img src="https://github.com/jmix-framework/jmix-bookstore/blob/main/img/logo.png?raw=true"/>
+  <img src="https://github.com/jmix-framework/jmix-bookstore-2/blob/main/img/logo.png?raw=true"/>
 </p>
 
 # Jmix Bookstore
 
-Jmix Bookstore is a comprehensive example application built with [Jmix](https://jmix.io/) - A Full-Stack Framework for Business Applications. It implements the use-cases of a retail business that focuses on shipping books throughout the US.
+Jmix Bookstore is a comprehensive example application built with [Jmix](https://jmix.io/) - a full-stack framework for business applications. It showcases the operations of a retail business that specializes in shipping books across the US.
 
 ![Jmix Bookstore - Overview](img/1-overview.png)
 
+The online demo of the Jmix Bookstore is available at <https://demo.jmix.io/bookstore>.
+
 ### Table of Content
 
-- [Example Application](#example-application)
-   * [About the Example](#about-the-example)
-   * [Add-ons](#add-ons)
-   * [Running with Trial Subscription](#running-with-trial-subscription)
-   * [Online Demo](#online-demo)
+- [About the Example](#about-the-example)
+    * [Technical Details](#technical-details)
+    * [Implementation Effort](#implementation-effort)
+    * [Add-ons](#add-ons)
+    * [Building with Trial Subscription](#building-with-trial-subscription)
 - [Application Overview](#application-overview)
-- [Business Functionality](#business-functionality)
    * [Sales](#sales)
       + [Placing Customer Orders](#placing-customer-orders)
    * [Order Fulfillment](#order-fulfillment)
@@ -27,11 +28,11 @@ Jmix Bookstore is a comprehensive example application built with [Jmix](https://
       + [Managing Product Catalog](#managing-product-catalog)
    * [IT](#it)
       + [Managing System Access](#managing-system-access)
-      + [Master data management](#master-data-management)
-- [Implementation](#implementation)
+      + [Master Data Management](#master-data-management)
+- [Implementation](#implementation-details)
    * [Domain Model](#domain-model)
    * [Security](#security)
-   * [Internationalization - I18n](#internationalization---i18n)
+   * [Internationalization](#internationalization)
    * [Multitenancy](#multitenancy)
    * [BPM](#bpm)
    * [Email](#email)
@@ -40,31 +41,25 @@ Jmix Bookstore is a comprehensive example application built with [Jmix](https://
    * [Background Tasks: Quartz](#background-tasks-quartz)
 
 
-## Example Application
+## About the Example
 
-Jmix Bookstore is a retail bookstore, that ships books to customers. The single distribution channel is phone. Customers call in and can order books directly from the phone, without any need to use a computer. They simply speak to a person that takes their orders and makes sure the correct book lands at their doorsteps.
-
-### About the Example
-
-The Jmix Bookstore example application is a comprehensive example of what advanced capabilities Jmix provides for application developers. Compared to the [Jmix Petclinic](https://github.com/jmix-framework/jmix-petclinic) example application, the Bookstore is way bigger, covers more advanced use-cases and shows the capabilities of various add-ons (free as well as premium) and their integration into a Jmix application.
+The Jmix Bookstore example application is a comprehensive example of what advanced capabilities Jmix provides for application developers. Compared to the [Jmix Petclinic](https://github.com/jmix-framework/jmix-petclinic-2) example application, the Bookstore is way bigger, covers more advanced use-cases and shows the capabilities of various add-ons (free as well as premium) and their integration into a Jmix application.
 
 ### Technical Details
 
-Jmix Bookstore runs with the following technical characteristics:
+Jmix Bookstore runs using:
 
-* Jmix 1.4
-* Spring Boot 2.7
-* Java 17
-
-The UI of the Bookstore is implemented using Jmix Classic UI. Flow UI Implementation will follow.
+* Jmix 2
+* Spring Boot 3
+* Java 21
 
 #### Application Size
 
 To give an understanding of the size of the application, here are some rough statistics:
 
-* 20 Entities
-* 8 Enums
-* 36 UI Screens
+* 20 entities
+* 8 enums
+* 36 UI views
 * 6 user roles
 * 10 business processes
 
@@ -73,8 +68,8 @@ To give an understanding of the size of the application, here are some rough sta
 * 14.000 lines of code (Java + XML)
 
 #### Test Code (rough statistics)
-* 100 Test cases
-* 130 Java classes (Test + Test support)
+* 100 test cases
+* 130 Java classes (test + test support)
 * 6.000 lines of code
 
 
@@ -104,7 +99,7 @@ Besides this little overall effort, the resulting application of the Jmix Bookst
 
 ### Add-ons
 
-The application is also a show-case application for multiple add-ons from the [Jmix Marketplace](https://www.jmix.io/marketplace). Jmix Bookstore uses the following add-ons:
+The application also features various add-ons available on the [Jmix Marketplace](https://www.jmix.io/marketplace):
 
 * Multitenancy
 * Email
@@ -115,15 +110,15 @@ The application is also a show-case application for multiple add-ons from the [J
 * Notifications (commercial)
 * Maps (commercial)
 
-### Running with Trial Subscription
+### Building with Trial Subscription
 
-The application uses commercial add-ons, so you need an active subscription to run the app. If you have a trial subscription and want to run the Bookstore application locally, you may achieve this by a few simple steps. 
+The application uses several commercial add-ons, so you need an active Jmix Enterprise subscription to build and run the app locally. You can also do it with the [trial subscription](https://docs.jmix.io/jmix/account-management.html#enterprise-trial) by following the steps below. 
 
 First, get the `jmix-commercial-addons-demo` sample application. You may download it from your account page at https://store.jmix.io/.
 
 Next, copy the `trial-repository` directory from the `jmix-commercial-addons-demo` sample project to the root of the `jmix-bookstore` project.
 
-After that modify the `build.gradle` file of the `jmix-bookstore` project: add the repository with the `trial-repository` directory.
+After that, modify the `build.gradle` file of the `jmix-bookstore` project: add the repository with the `trial-repository` directory.
 
 ```
 repositories {
@@ -147,71 +142,61 @@ repositories {
 }
 ```
 
-Keep in mind that the Bookstore sample must be based on exactly the same Jmix version as a commercial add-ons sample.
+Note that the Bookstore project must be based on exactly the same Jmix version as the commercial add-ons sample project.
 
-### Online Demo
+## Application Overview
 
-The demo of the Jmix Bookstore is available at [demo.jmix.io/bookstore](https://demo.jmix.io/bookstore).
+Jmix Bookstore is a retail bookstore, that ships books to customers. The single distribution channel is phone. Customers call in and can order books directly from the phone, without any need to use a computer. They simply speak to a person that takes their orders and makes sure the correct book lands at their doorsteps.
 
-The following users are available:
+The company consists of the following departments:
+
+* Sales
+* Order Fulfillment
+* Procurement
+* IT
+
+The following users are available in the application:
 
 | Position                     | Username | Password |
 |------------------------------|----------|----------|
+| Administrator                | admin    | admin    |
+| Sales Representative         | lois     | lois     |
+| Sales Representative         | jessica  | jessica  |
 | Order Fulfillment Manager    | adrian   | adrian   |
 | Order Fulfillment Specialist | hikari   | hikari   |
 | Order Fulfillment Specialist | melissa  | melissa  |
 | Procurement Manager          | nicole   | nicole   |
 | Procurement Specialist       | sophia   | sophia   |
 | Procurement Specialist       | william  | william  |
-| Sales Representative         | lois     | lois     |
-| Sales Representative         | jessica  | jessica  |
-| Administrator                | admin    | admin    |
-
-## Application Overview
-
-![Jmix Bookstore - Overview](img/1-overview.png)
-
-After logging in as `admin` the application provides UIs for managing Customers, Orders, Products and associated master data like Employees.
-
-At the top menu, there is an icon for the current tasks of the user as well as unread notifications.
-
-## Business Functionality
-
-The Jmix Bookstore application supports all departments in their use-cases. The company contains of the following departments:
-
-* Order Fulfillment
-* Procurement
-* Sales
-* IT
 
 We will highlight the main business cases of the corresponding departments that are supported by the application.
 
 ### Sales
 
-The sales team is the main interaction point with the customers. The customer calls to place an order. The sales employees are taking over this responsibility. The company splits the customers into different territories. Each sales team member is then responsible for one or more territories:
+The sales team is the main interaction point with the customers. The company splits the customers into different territories. Each sales team member is responsible for one or more territories:
 
-* `Lois Marsh` responsible for all territories in regions "US-South" and "US-East".
-* `Jessica Musgrave` responsible for all territories in the regions "US-North" and "US-West".
+* `Lois Marsh` is responsible for all territories in the "US-South" and "US-East" regions.
+* `Jessica Musgrave` is responsible for all territories in the "US-North" and "US-West" regions.
 
 #### Placing Customer Orders
 
 ![](img/2-sales-representative-list-new-orders.png)
 
-When a customer calls and wants to order some books, the order fulfillment specialists us the ability of the system to place orders. They search for the customers by first name / lastname and optionally create a customer record for new customers.
+When a customer calls and wants to order some books, the sales specialists search for the customers by first name / lastname and optionally create a customer record for new customers.
 
 ![](img/2-sales-representative-create-order.png)
 
-After that, they collect the books that the customer would like to order, the quantity and let the customer know about the price of a particular book and the overall order.
+After that, they collect the books that the customer would like to order, set the quantity and let the customer know about the price of a particular book and the overall order.
 
-Placed orders will be picked up by the order fulfillment employees to confirm the customer order (see: [Order Fulfillment > Confirming Customer Orders](#confirming-customer-orders)). When an order is confirmed by their colleges, the sales employee gets a notification to keep track of which orders need further clarification or where the customer needs to be contacted (see: [Functionalities > Notifications](#notifications)).
+Placed orders will be picked up by the order fulfillment employees to confirm the customer order. When an order is confirmed by their colleagues, the sales employee gets a notification about it (see: [Implementation Details > Notifications](#notifications)).
 
 ![](img/2-sales-representative-confirmed-order-notification.png)
 
 ### Order Fulfillment
 
-The order fulfillment department consists of three employees: `Melissa Arendt` and `Hikari Miyama` as order fulfillment specialists as well as `Adrian Adams` being a order fulfillment manager.
+The order fulfillment department consists of three employees: `Melissa Arendt` and `Hikari Miyama` as order fulfillment specialists as well as `Adrian Adams` being an order fulfillment manager.
 
-They together are responsible for making sure the orders, created by the sales folks are correct and can be fulfilled. Sometimes they see that particular books are low in stock. So they indicate to the procurement department that a book is getting out-of-stock, so that the colleges can order new books from the suppliers.
+They together are responsible for making sure the orders, created by the sales folks are correct and can be fulfilled. Sometimes they see that particular books are low in stock. So they indicate to the procurement department that a book is getting out-of-stock, so that the colleagues can order new books from the suppliers.
 
 #### Confirming Customer Orders
 
@@ -219,9 +204,9 @@ Once the order is placed by the sales department, it needs to be confirmed by th
 
 ![](img/3-order-fulfillment-confirm-order.png)
 
-#### Perform Fill-up requests
+#### Perform Fill-up Requests
 
-After a customer placed an order, the order fulfillment specialist checks about the remaining amount of stock for a book. In case it goes below a threshold, they will request a fill-up for this book in the inventory. During that process, the procurement employees are notified (see: [Functionalities > Notifications](#notifications)), so that they can start the work on performing supplier orders.
+After a customer placed an order, the order fulfillment specialist checks about the remaining amount of stock for a book. In case it goes below a threshold, they will request a fill-up for this book in the inventory. During that process, the procurement employees are notified (see: [Implementation Details > Notifications](#notifications)), so that they can start the work on performing supplier orders.
 
 ![](img/3-order-fulfillment-product-list.png)
 
@@ -249,15 +234,15 @@ Once the review is finished, sometimes an approval is required. The system decid
 
 ![](img/5-procurement-manager-supplier-order-approval-task.png)
 
-This business process is implemented using the BPM add-on (see: [Functionalities > BPM](#BPM)).
+This business process is implemented using the BPM add-on (see: [Implementation Details > BPM](#BPM)).
 
-Finally, after optionally approving the supplier order, a supplier order is placed. The system sends out an automated email containing all relevant information to the configured supplier email address. (see: [Functionalities > Email](#email)).
+Finally, after optionally approving the supplier order, a supplier order is placed. The system sends out an automated email containing all relevant information to the configured supplier email address. (see: [Implementation Details > Email](#email)).
 
 ![](img/6-admin-approved-supplier-order-sent-out-email.png)
 
 #### Managing Product Catalog
 
-The second responsibility is to manage the product catalog of books. For this the procurement employees the application provides UIs to add books to the product catalog as well as removing them from the listing.
+The second responsibility of the procurement team is to manage the product catalog of books. For this the application provides views to add books to the product catalog as well as removing them from the listing.
 
 ![](img/5-procurement-manager-product-details.png)
 
@@ -273,15 +258,15 @@ As (data) security is a very important to the company, the data the employees se
 
 ![](img/6-admin-employee-edit.png)
 
-#### Master data management
+#### Master Data Management
 
-Particular data that changes very infrequent and acts as master data for other parts of the system is also managed by the IT department. This includes the Regions, Territories as well as the fulfillment centers the company operates.
+Particular data that changes very infrequently and acts as master data for other parts of the system is also managed by the IT department. This includes the Regions, Territories as well as the Fulfillment Centers the company operates.
 
 ![](img/6-admin-territory-overview.png)
 
 ![](img/6-admin-fulfillment-center-edit.png)
 
-## Implementation
+## Implementation Details
 
 This section describes different functionalities that are part of the Jmix Bookstore application and also how they implemented using different capabilities of Jmix.
 
@@ -300,9 +285,9 @@ classDiagram
     Product --> Supplier
 ```
 
-A `Customer` are associated to many orders. An `Order` consists of multiple `OrderLine` objects. One `OrderLine` represents a product association with corresponding information about the price. The `Product` entity is grouped into `ProductCategory` entities and references a `Supplier` that is used to request supplier orders.
+A `Customer` is associated with many orders. An `Order` consists of multiple `OrderLine` objects. One `OrderLine` represents a product association with corresponding information about the price. The `Product` entity is grouped into `ProductCategory` entities and references a `Supplier` that is used to request supplier orders.
 
-The domain model that supports the supplier orders contains of the following entities:
+The domain model that supports the supplier orders contains the following entities:
 
 ```mermaid
 classDiagram
@@ -314,9 +299,9 @@ classDiagram
     SupplierOrder --> Supplier
 ```
 
-The `Product` entity is the source entity, that acts as the basis for `SupplierOrderRequest` instances. Those are created during the [Perform Fill-up requests](#perform-fill-up-requests) process. The system converts those requests into `SupplierOrder` entities which hold a `SupplierOrderLine` for each `SupplierOrderRequest` that referenced a `Product` which belongs to the same `Supplier`. This `Supplier` is also used for the `SupplierOrder`.
+The `Product` entity is the source entity, that acts as the basis for `SupplierOrderRequest` instances. Those are created during the [Perform Fill-up Requests](#perform-fill-up-requests) process. The system converts those requests into `SupplierOrder` entities which hold a `SupplierOrderLine` for each `SupplierOrderRequest` that referenced a `Product` which belongs to the same `Supplier`. This `Supplier` is also used for the `SupplierOrder`.
 
-During the [Place supplier orders](#place-supplier-orders) process, those `SupplierOrder` entities are created. The `Employee` that reviewed this `SupplierOrder` (through the BPM process variables) brings up the next subpart of the domain model. 
+During the [Place Supplier Orders](#place-supplier-orders) process, those `SupplierOrder` entities are created. The `Employee` that reviewed this `SupplierOrder` (through the BPM process variables) brings up the next subpart of the domain model. 
 
 The part of the employee information with the corresponding territory associations looks like this:
 
@@ -332,7 +317,7 @@ classDiagram
 
 An `Employee` represents the logical representation of an employee in the company. The `Employee` has a `Position` that (s)he holds within the organisation. Optionally the `Employee` can reference multiple `Territory` instances, that (s)he is responsible for. Those `Territory` entities are grouped into a `Region`.
 
-The system representation of an employee is the `User`, which main purpose is proving system access. The `User` references multiple `Role` entities (not physically in the database, just conceptually via the `RoleAssignmentEntity` from Jmix). 
+The system representation of an employee is the `User`, which main purpose is providing system access. The `User` references multiple `Role` entities (not physically in the database, just conceptually via the `RoleAssignmentEntity` from Jmix). 
 
 Additionally, the `User` references multiple `Region` entities as "associated regions". Those regions are automatically determined by the fact that the `Employee` has multiple `Territories` assigned, which themselves belong to a `Region`. This reference is present to allow the row-level roles to restrict access to Customers / Orders of the same region that the current user is in (see: [Security > row-level roles](#security)).
 
@@ -340,39 +325,39 @@ Additionally, the `User` references multiple `Region` entities as "associated re
 
 The Bookstore example uses different permissions for the different user groups to ensure users can only see the data and use the functionality they need for their daily work.
 
-The Jmix Subsystem is used to achieve this goal. In the [io.jmix.bookstore.security](https://github.com/jmix-framework/jmix-bookstore/tree/main/src/main/java/io/jmix/bookstore/security) package, there are different design-time roles are defined.
+The Jmix Subsystem is used to achieve this goal. In the [io.jmix.bookstore.security](https://github.com/jmix-framework/jmix-bookstore-2/tree/main/src/main/java/io/jmix/bookstore/security) package, different design-time roles are defined.
 
 The employees generally obtain one of the following functional / resource roles:
 
 * `EmployeeRole` - base role for all employees to get basic system access
   * read permission for master data like employees, position, tenants
-  * UI permissions for common UI screens like 'My Task List', 'Address Map Lookup UI', etc.
+  * UI permissions for common UI views like 'My Task List', 'Address Map Lookup UI', etc.
 * `FullAccessRole` - Role for administrative users without any restrictions
 * `OrderFulfillmentRole` - functional role for `Order Fulfillment` position
-  * read & write access to Customer & Order data; supplier order requests
-  * read access to Product and supplier order data
-  * access to corresponding UI screens
+  * read & write access to customer & order data; supplier order requests
+  * read access to product and supplier order data
+  * access to corresponding UI views
 * `ProcurementSpecialistRole`- functional role for `Procurement Specialist` position
     * read & write access to product catalog data
     * read & write access to supplier order data
     * read access to supplier order request data
     * write access to supplier order request _status_ attribute
-    * access to corresponding UI screens
+    * access to corresponding UI views
 * `ProcurementManagerRole`- functional role for `Procurement Manager` position
   * read & write access to product catalog data
   * read & write access to supplier order data
   * read access to supplier order request data
-  * access to corresponding UI screens
+  * access to corresponding UI views
 * `SalesRepresentativeRole`- functional role for `Sales Representative` position
-  * read & write access to Customer & Order data; supplier order requests
+  * read & write access to customer & order data; supplier order requests
   * read access to product catalog data
-  * access to corresponding UI screens
+  * access to corresponding UI views
 
 Additionally, there are two data constraining roles / row-level roles present in the system:
 
 * `ShowOnlyActiveSuppliersRole`- data constraining role for `Procurement Specialist` position
-    * limits Suppliers to only ones that are not in status 'On Hold'
-    * limits Products to only ones that have Suppliers with status not in 'On Hold'
+    * limits suppliers to only ones that are not in status 'On Hold'
+    * limits products to only ones that have suppliers with status not in 'On Hold'
 * `ShowOnlyActiveSuppliersRole`- data constraining role for `Order Fulfillment` and `Sales Representative` position
     * limits customers to only ones that are in the associated regions of the current employee
     * limits orders to only ones where the customers region is in the associated regions of the current employee
@@ -383,24 +368,24 @@ This assignment happens as part of the test data creation in the case of the Boo
 
 For automatic provisioning of the role assignments see the following classes:
 
-* [ItAdministratorEmployeeDataProvider](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/ItAdministratorEmployeeDataProvider.java)
-* [ProcurementManagerDataProvider](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/ProcurementManagerDataProvider.java)
-* [OrderFulfillmentSpecialistDataProvider](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/OrderFulfillmentSpecialistDataProvider.java)
-* [ProcurementManagerDataProvider](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/ProcurementManagerDataProvider.java)
-* [ProcurementSpecialistDataProvider](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/ProcurementSpecialistDataProvider.java)
-* [SalesRepresentativeDataProvider](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/SalesRepresentativeDataProvider.java)
+* [ItAdministratorEmployeeDataProvider](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/ItAdministratorEmployeeDataProvider.java)
+* [ProcurementManagerDataProvider](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/ProcurementManagerDataProvider.java)
+* [OrderFulfillmentSpecialistDataProvider](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/OrderFulfillmentSpecialistDataProvider.java)
+* [ProcurementManagerDataProvider](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/ProcurementManagerDataProvider.java)
+* [ProcurementSpecialistDataProvider](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/ProcurementSpecialistDataProvider.java)
+* [SalesRepresentativeDataProvider](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/test_data/data_provider/employee/SalesRepresentativeDataProvider.java)
 
-### Internationalization - I18n
+### Internationalization
 
 Jmix supports the application to be available in different languages. The Jmix Bookstore is translated into different languages (English and German at the moment). The user can select the desired language on the login screen.
 
 #### Static Translations
 
-In the UI, the texts to display are referenced through the `msg://` prefix, together with a translation key like: `io.jmix.bookstore.employee.territory.screen/territoryBrowse.caption`. For each language, there is a translation file that contains the mappings between those keys and the translated text. See [messages_de.properties](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/resources/io/jmix/bookstore/messages_de.properties) for the german translation.
+In the UI, the texts to display are referenced through the `msg://` prefix, together with a translation key like: `io.jmix.bookstore.view.territory/territoryListView.title`. For each language, there is a translation file that contains the mappings between those keys and the translated text. See [messages_de.properties](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/resources/io/jmix/bookstore/messages_de.properties) for the german translation.
 
-#### Translation of data
+#### Translation of Data
 
-Sometimes it is also required to not only change the static part of the application (like UI Labels, Error messages, Enum Values), but also to allow users to dynamically enter translations for data that is used as reference data e.g.
+Sometimes it is also required to not only change the static part of the application (like UI labels, error messages, enum values), but also to allow users to dynamically enter translations for data that is used as references.
 
 This form of translation is not supported out of the box by Jmix. Instead, it requires the application developer to implement a solution for the concrete use-case.
 
@@ -412,7 +397,7 @@ It is implemented in the following way. The `Position` entity holds a 1:N compos
 * locale (the language the value represents)
 * position (the position it belongs to)
 
-There are standard UIs for the management of the translations generated as part of the Position editor screen. To display the correct translation on the dropdown, the instance name of the `Position` entity contains a lookup for the translation of the current user: 
+There are standard views for managing the translations generated as part of the Position detail view. To display the correct translation on the dropdown, the instance name of the `Position` entity contains a lookup for the translation of the current user: 
 
 
 ```java
@@ -436,98 +421,89 @@ class Position {
 }
 ```
 
-The `CurrentAuthentication` dependency passed into the method allows to retrieve the current locale of the user.
+The `CurrentAuthentication` dependency passed into the method enables retrieving the current user locale.
 
 See the following classes that represent the described behaviour:
-* [Position](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/employee/Position.java) - The entity that should have translation for the name
-* [PositionTranslation](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/employee/PositionTranslation.java) - The entity that holds the translations of a Position 
-* [LocaleConverter](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/entity/datatypes/LocaleConverter.java) - Converter to store `java.util.Locale` instances directly in the DB
-* [LocaleDatatype](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/entity/datatypes/LocaleDatatype.java) - Jmix Datatype definition of `java.util.Locale`
-* [PositionEdit](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/employee/position/screen/PositionEdit.java) - Position Edit Screen that converts the `Locale` instance to a proper name via `MessageTools` (e.g.: `de` will translate to `German`)
+* [Position](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/employee/Position.java) - The entity that should have translation for the name
+* [PositionTranslation](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/employee/PositionTranslation.java) - The entity that holds the translations of a Position 
+* [LocaleConverter](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/entity/datatypes/LocaleConverter.java) - Converter to store `java.util.Locale` instances directly in the DB
+* [LocaleDatatype](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/entity/datatypes/LocaleDatatype.java) - Jmix Datatype definition of `java.util.Locale`
+* [PositionEdit](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/employee/position/screen/PositionEdit.java) - Position Edit Screen that converts the `Locale` instance to a proper name via `MessageTools` (e.g.: `de` will translate to `German`)
 
 ### Multitenancy
 
-In the bookstore example the [Multitenancy add-on](https://www.jmix.io/marketplace/multitenancy/) is used to provide the different users ephemeral test environments of the bookstore. This is mainly used for the hosted version at [https://demo.jmix.io/bookstore](https://demo.jmix.io/bookstore) to prevent cluttered test data from various users when trying out the bookstore online demo. In this application, the Multitenancy add-on is used is the following:
+In the Bookstore example, the [Multitenancy add-on](https://www.jmix.io/marketplace/multitenancy/) is used to provide the different users ephemeral test environments of the bookstore. This is mainly used for the hosted version at [https://demo.jmix.io/bookstore](https://demo.jmix.io/bookstore) to prevent cluttered test data from various users when trying out the bookstore online demo. In this application, the Multitenancy add-on is used as follows:
 
-All business entities (Customer, Order, Product, etc.) have an attribute `tenant` annotated with `@TenantId` through the superclass `StandardTenantEntity`.
+All business entities (Customer, Order, Product, etc.) have the `tenant` attribute annotated with `@TenantId` through the `StandardTenantEntity` superclass.
 
-As for the test environment use-case of the Multitenancy usage it is needed to store additional data on the tenant entity. This is achieved by using Jmix extension mechanism. The entity [TestEnvironmentTenant](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/multitenancy/TestEnvironmentTenant.java) extends the `Tenant` entity that comes from the add-on. It uses `@ReplaceEntity(Tenant.class)` to indicate to Jmix that this entity should be used throughout the application instead of the original `Tenant` entity class.
+For the test environment use-case of the Multitenancy usage, it is needed to store additional data in the tenant entity. This is achieved by using Jmix extension mechanism. The entity [TestEnvironmentTenant](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/multitenancy/TestEnvironmentTenant.java) extends the `Tenant` entity that comes from the add-on. It uses `@ReplaceEntity(Tenant.class)` to indicate to Jmix that this entity should be used throughout the application instead of the original `Tenant` entity class.
 
 See also: [Jmix Documentation: 
 Modularity and Extension / 
 Extending Functionality / Extending Data Model](https://docs.jmix.io/jmix/modularity/extension.html#data-model).
 
-When the user opens the app for the first time, a random tenant identifier is generated like `test-b39b7f` and put into the Tenant ID field in the Login screen:
+When the user opens the app for the first time, a random tenant identifier is generated like `test-a816ec` and put into the Tenant field in the Login screen:
 
 ![Jmix Bookstore - Login](img/1-login.png)
 
-When logging in and the tenant is not already initialised in the DB, the following operations are performed:
+When logging in and the tenant is not already initialised in the database, the following operations are performed:
 
 1. Tenant is created
 2. Tenant `admin` user is created
-3. all example business users are created
-4. system data (BPM process definition, System Reports) are imported for the tenant
-5. master data (Employee Positions, Regions, Territories, etc.) are created
-6. random test data for all business entities are generated
+3. All example business users are created
+4. System data (BPM process definition, System Reports) are imported for the tenant
+5. Master data (Employee Positions, Regions, Territories, etc.) are created
+6. Random test data for all business entities are generated
 
 See the following classes that represent the described behaviour: 
-* [TestEnvironmentTenants](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/multitenancy/TestEnvironmentTenants.java) - Interface providing the main API of the test environment tenant logic
-* [TestEnvironmentTenantsBean](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/multitenancy/TestEnvironmentTenantsBean.java) - Bean implementing `TestEnvironmentTenants` interface
-* [TenantCreation](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/multitenancy/test_environment/TenantCreation.java) - Bean for creating the tenant instance
-* [TestDataCreation](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/test_data/TestDataCreation.java) - Bean for generating / importing test data
-* [TenantTestdataIntegrationTest](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/test/java/io/jmix/bookstore/test_environment/tenant/TenantTestdataIntegrationTest.java) - Integration test that shows how the tenant / test data generation works (only business logic, not UI)
+* [TestEnvironmentTenants](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/multitenancy/TestEnvironmentTenants.java) - Interface providing the main API of the test environment tenant logic
+* [TestEnvironmentTenantsBean](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/multitenancy/TestEnvironmentTenantsBean.java) - Bean implementing `TestEnvironmentTenants` interface
+* [TenantCreation](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/multitenancy/test_environment/TenantCreation.java) - Bean for creating the tenant instance
+* [TestDataCreation](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/test_data/TestDataCreation.java) - Bean for generating / importing test data
+* [TenantTestdataIntegrationTest](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/test/java/io/jmix/bookstore/test_environment/tenant/TenantTestdataIntegrationTest.java) - Integration test that shows how the tenant / test data generation works (only business logic, not UI)
 
 ### BPM
 
-The [BPM add-on](https://www.jmix.io/marketplace/bpm/) is used by the Bookstore application to implement business processes using the BPMN standard. It embeds the flowable BPMN engine into the application and provides UIs for task management.
+The [BPM add-on](https://www.jmix.io/marketplace/bpm/) is used by the Bookstore application to implement business processes using the BPMN-2.0 standard. It embeds the flowable BPMN engine into the application and provides the UI for task management.
 
-The business process where the BPMN engine is used is: [Place Supplier Orders](#place-supplier-orders). The process definition can be seen in the running application as well as in the source code representation (either via XML or through the BPMN Designer of Jmix Studio (see also: [Jmix Documentation:  Using Studio / Studio Features / BPMN Designer](https://docs.jmix.io/jmix/studio/bpmn-designer.html)).
+The BPMN engine is used in the [Place Supplier Orders](#place-supplier-orders) business process. The process definition can be seen in the running application as well as in the source code (either via XML or through the BPMN Designer of Jmix Studio (see also: [Jmix Documentation:  Using Studio / Studio Features / BPMN Designer](https://docs.jmix.io/jmix/studio/bpmn-designer.html)).
 
 ![](img/7-place-supplier-order-bpm.png)
 
 
 ![](img/7-supplier-order-approval-required-dmn.png)
 
-See also: [perform-supplier-order.bpmn20.xml](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/resources/processes/perform-supplier-order.bpmn20.xml)
+See also: [perform-supplier-order.bpmn20.xml](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/resources/processes/perform-supplier-order.bpmn20.xml)
 
 The process contains the following tasks:
 
-1. `Review Supplier Order Draft` - human task to look at the created draft (based on the fill-up requests) and decide to continue with the order or decline the order all together
+1. `Review Supplier Order Draft` - human task to look at the created draft (based on the fill-up requests) and decide to continue with the order or decline the order altogether
 2. `Draft valid?`
-   1. if invalid, the order is marked as invalid and the requester are notified about the invalidity of their request
+   1. if invalid, the order is marked as invalid and the requester is notified about the invalidity of their request
    2. if valid, the order is marked as valid
 3. `Approval required decision` (DMN Task) - DMN table that identifies under which circumstances a valid order needs to go to approval (based on the supplier cooperation status)
 4. `Approval required?`
    1. if required, human task to approve supplier order (with optional feedback loop to the `Procurement Specialist`) is performed by the `Procurement Manager`
    2. if not required, the order is placed
-5. `Place Supplier Order` - Service Task to automatically place the order. It marks the order as placed and creates a Microsoft Word document via [Jmix Reports Integration](#reports) containing the order with its line items as a letter. The rendered word document is stored on the supplier order entity and returned to the process instance to use it in the next step.
-6. `Send Order Form to Supplier` - Email task that sends out the generated order form via Email to the corresponding supplier through [Jmix Email integration](#email).
+5. `Place Supplier Order` - Service Task to automatically place the order. It marks the order as placed and creates a DOCX document via [Jmix Reports Integration](#reports) containing the order with its line items as a letter. The rendered DOCX document is stored on the supplier order entity and returned to the process instance to use it in the next step.
+6. `Send Order Form to Supplier` - Email task that sends out the generated order form via email to the corresponding supplier using [Jmix Email integration](#email).
 
-The process is programmatically triggered as part of the scheduled task 'Supplier Order Draft Creation', where for each new draft a BPMN process is started and assigned to users with the role `Procurement Specialist`.
+The process is programmatically triggered as part of the scheduled task 'Supplier Order Draft Creation', where for each new draft a process instance is started and assigned to users with the `Procurement Specialist` role.
 
 See the following classes that are related to the BPM usage:
 
-* [perform-supplier-order.bpmn20.xml](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/resources/processes/perform-supplier-order.bpmn20.xml) - The BPMN process definition for the `perform supplier order` process
-* [PerformSupplierOrderService](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/product/supplier/bpm/PerformSupplierOrderService.java) - Interface representing the logic that is called during the BPMN service tasks
-* [PerformSupplierOrderServiceBean](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/product/supplier/bpm/PerformSupplierOrderServiceBean.java) - Bean that implements `PerformSupplierOrderService` and provides logic to notify requesters about invalid requests as well as placing the supplier order on the supplier system
-* [SupplierOrderDraftCreation](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/product/supplier/creation/SupplierOrderDraftCreation.java) - Bean that creates the process instances based on the supplier order drafts it creates
-* [SupplierOrderReview](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/product/supplier/screen/supplierorder/SupplierOrderReview.java) - Custom UI screen that implements the human task of the process to review the requested supplier order
-* [SupplierOrderApproval](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/product/supplier/screen/supplierorder/SupplierOrderApproval.java) - Custom UI screen that implements the human task of the process to approve a supplier order
+* [perform-supplier-order.bpmn20.xml](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/resources/processes/perform-supplier-order.bpmn20.xml) - The BPMN-2.0 process definition for the `perform supplier order` process
+* [PerformSupplierOrderService](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/product/supplier/bpm/PerformSupplierOrderService.java) - Interface representing the logic that is called during the BPMN service tasks
+* [PerformSupplierOrderServiceBean](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/product/supplier/bpm/PerformSupplierOrderServiceBean.java) - Bean that implements `PerformSupplierOrderService` and provides logic to notify requesters about invalid requests as well as placing the supplier order on the supplier system
+* [SupplierOrderDraftCreation](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/product/supplier/creation/SupplierOrderDraftCreation.java) - Bean that creates the process instances based on the supplier order drafts it creates
+* [SupplierOrderReviewForm](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/view/supplierorder/SupplierOrderReviewForm.java) - Custom UI view that implements the human task of the process to review the requested supplier order
+* [SupplierOrderApproval](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/view/supplierorder/SupplierOrderApprovalForm.java) - Custom UI view that implements the human task of the process to approve a supplier order
 
 ### Email
 
-As the last step of the [Place Supplier Orders](#place-supplier-orders) business process, the BPM business process integrates the [Email add-on](https://www.jmix.io/marketplace/email-sending/) into the process. The supplier order form is send to the supplier via Email. For sending out the Email the add-on is the responsible component.
+As the last step of the [Place Supplier Orders](#place-supplier-orders) business process, the BPMN-2.0 business process integrates the [Email add-on](https://www.jmix.io/marketplace/email-sending/). The supplier order form is sent to the supplier via email.
 
-Besides adding the add-on to the `build.gradle` it is required to configure the connection settings to the SMTP server in the `application.properties`:
-
-````groovy
-// ...
-dependencies {
-    // ...
-    implementation 'io.jmix.email:jmix-email-starter'
-    implementation 'io.jmix.email:jmix-email-ui-starter'
-}
-````
+Besides adding the add-on to the project, it is required to configure the connection settings to the SMTP server in the `application.properties` file:
 
 ```properties
 # ...
@@ -549,19 +525,19 @@ spring.mail.username=<<MAIL_SERVER_USERNAME>>
 spring.mail.password=<<MAIL_SERVER_PASSWORD>>
 ```
 
-The add-on comes with an administrative UI to see what the status is of outgoing Emails. It contains the ability to read the emails, download the attachments and trigger re-send in case something went wrong during transmission.
+The add-on comes with an administrative UI to see what the status is of outgoing emails. It contains the ability to read the emails, download the attachments and trigger re-send in case something went wrong during transmission.
 
 ![](img/6-admin-approved-supplier-order-sent-out-email.png)
 
 ### Reports
 
-The Reports [add-on](https://www.jmix.io/marketplace/reports/) is used in the Bookstore example as part of the [Place Supplier Orders](#place-supplier-orders) BPM process. When the order is placed, the supplier order form (as Microsoft Word document) is created. To achieve this, the Report `Supplier Order Form` is configured via the administrative UI:
+The Reports [add-on](https://www.jmix.io/marketplace/reports/) is used in the Bookstore example as part of the [Place Supplier Orders](#place-supplier-orders) BPMN-2.0 process. When the order is placed, the supplier order form (as DOCX document) is created. To achieve this, the `Supplier Order Form` report is configured via the administrative UI:
 
 ![](img/7-admin-report-supplier-order-form.png)
 
-The Report contains a report template as a Word document that contains placeholders where the actual data is inserted.
+The Report contains a report template as a DOCX document that contains placeholders where the actual data is inserted.
 
-To contain the correct data (supplier order, order lines), the corresponding data from the BPM process is passed in when the report execution is triggered. This happens within the Service task `Place Supplier Order` implemented in [PerformSupplierOrderServiceBean](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/product/supplier/bpm/PerformSupplierOrderServiceBean.java) through the `ReportRunner` API from the reports add-on (see also: [Jmix Documentation: Add-ons / Reports / Running Reports / Reports API](https://docs.jmix.io/jmix/reports/run-report.html#reports-api)):
+To contain the correct data (supplier order, order lines), the corresponding data from the BPMN-2.0 process is passed in when the report execution is triggered. This happens within the `Place Supplier Order` Service task implemented in [PerformSupplierOrderServiceBean](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/product/supplier/bpm/PerformSupplierOrderServiceBean.java) through the `ReportRunner` API from the reports add-on (see also: [Jmix Documentation: Add-ons / Reports / Running Reports / Reports API](https://docs.jmix.io/jmix/reports/run-report.html#reports-api)):
 
 ```java
 class PerformSupplierOrderBean {
@@ -593,9 +569,9 @@ The Bookstore notifies about the following business events:
 | [Perform Fill-up requests](#perform-fill-up-requests)     | Supplier Order Request created | Order Fulfillment Specialist | Procurement Specialist |
 | [Place Supplier Orders](#place-supplier-orders)           | Supplier Order Draft created   | System                       | Procurement            |
 
-The notifications are send out by the system as part of state transitions of entities. Generally it uses the `NotificationManager` API from the notifications add-on to deliver the in-app notifications to the users. See [NotificationCenter](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/notification/NotificationCenter.java).
+The notifications are send out by the system as part of state transitions of entities. Generally it uses the `NotificationManager` API from the notifications add-on to deliver the in-app notifications to the users. See [NotificationCenter](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/notification/NotificationCenter.java).
 
-In the bookstore example an additional abstraction is implemented. The Notification Center is the main class responsible for sending out the in-app notifications. It listens to all Spring events of type [InAppNotificationSource](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/notification/InAppNotificationSource.java). This means that within the application the Spring application events mechanism is used to produce custom events at various points in the application.
+In the bookstore example an additional abstraction is implemented. The Notification Center is the main class responsible for sending out the in-app notifications. It listens to all Spring events of the [InAppNotificationSource](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/notification/InAppNotificationSource.java) type. This means that within the application the Spring application events mechanism is used to produce custom events at various points in the application.
 
 Here is an example of the event interaction from the [Order Fulfillment > Confirming Customer Orders](#confirming-customer-orders) process for sending out an in-app notification:
 
@@ -610,10 +586,9 @@ actor Sales Emplyoee
     [Jmix] NotificationManager-->>Sales Emplyoee: Order Confirmed
 ```
 
-The data (sender, receiver, title and text) for the corresponding Events of type `InAppNotificationSource`
-are provided by implementing a bean of type `NotificationDetailDataProvider<OrderConfirmedEvent>`. For the Order Confirmation example from above the following bean implements this responsibility: [OrderConfirmedNotificationDetailDataProvider](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/order/notification/OrderConfirmedNotificationDetailDataProvider.java).
+The data (sender, receiver, title and text) for the corresponding events of the `InAppNotificationSource` type are provided by implementing a bean of the `NotificationDetailDataProvider<OrderConfirmedEvent>` type. For the Order Confirmation example from above the following bean implements this responsibility: [OrderConfirmedNotificationDetailDataProvider](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/order/notification/OrderConfirmedNotificationDetailDataProvider.java).
 
-The `NotificationCenter` finds the corresponding data provider bean that match a particular event type to retrieve the notification data.
+`NotificationCenter` finds the corresponding data provider bean that matches a particular event type to retrieve the notification data.
 
 ### Background Tasks: Quartz
 
@@ -625,7 +600,7 @@ In the Bookstore example the [Quartz add-on](https://www.jmix.io/marketplace/qua
 Example: `SupplierOrderDraftCreation`:
 
 For the scheduled task of the supplier order draft creation a Quartz Job is registered as a spring bean together with a trigger configuration
-(see: [SupplierOrderDraftCreationConfig](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/product/supplier/creation/SupplierOrderDraftCreationConfig.java)):
+(see: [SupplierOrderDraftCreationConfig](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/product/supplier/creation/SupplierOrderDraftCreationConfig.java)):
 
 ```java
 @Configuration
@@ -654,9 +629,9 @@ public class SupplierOrderDraftCreationConfig {
 }
 ```
 
-This mechanism registers the Job `SupplierOrderDraftCreationJob` automatically in the system when the application starts up. In the quartz add-on it is also possible to configure those scheduled tasks via the UI. But in this example it is registered through source-code to show an alternative approach.
+This mechanism registers `SupplierOrderDraftCreationJob` automatically in the system when the application starts up. In the quartz add-on it is also possible to configure those scheduled tasks via the UI. But in this example it is registered through the source code to show an alternative approach.
 
-Here is the implementation of the Job class that is executed as part of this scheduled task: `SupplierOrderDraftCreationJob`:
+Here is the implementation of the job class that is executed as part of this scheduled task: `SupplierOrderDraftCreationJob`:
 ````java
 public class SupplierOrderDraftCreationJob implements Job {
 
@@ -679,10 +654,10 @@ public class SupplierOrderDraftCreationJob implements Job {
 }
 
 ````
-(see: [SupplierOrderDraftCreationJob](https://github.com/jmix-framework/jmix-bookstore/blob/main/src/main/java/io/jmix/bookstore/product/supplier/creation/SupplierOrderDraftCreationJob.java)).
+(see: [SupplierOrderDraftCreationJob](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/src/main/java/io/jmix/bookstore/product/supplier/creation/SupplierOrderDraftCreationJob.java)).
 
 The class needs to implement the `org.quartz.Job` interface, but does not need to be marked as a Spring `@Component`.
 
 The execution context is authenticated with system authentication via the `@Authenticated` annotation on the execute method. See also: [Jmix Documentation: Security / Authentication / System Authentication](https://docs.jmix.io/jmix/security/authentication.html#system).
 
-The actual business logic of creating supplier order instances is implemented in the bean `SupplierOrderDraftCreation` to separate execution context from business logic.
+The actual business logic of creating supplier order instances is implemented in the `SupplierOrderDraftCreation` bean to separate execution context from business logic.

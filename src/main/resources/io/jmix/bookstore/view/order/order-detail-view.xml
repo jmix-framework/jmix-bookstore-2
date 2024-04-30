@@ -62,7 +62,7 @@
                         <textField id="orderNumberField" property="orderNumber" readOnly="true"/>
                         <datePicker id="orderDateField" property="orderDate"/>
                         <select id="statusField" property="status" readOnly="true"/>
-                        <entityPicker property="fulfilledBy" readOnly="true"/>
+                        <entityPicker property="fulfilledBy" readOnly="true" id="fulfilledByField"/>
                     </formLayout>
                 </vbox>
             </div>

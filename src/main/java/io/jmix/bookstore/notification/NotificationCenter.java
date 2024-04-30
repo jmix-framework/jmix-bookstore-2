@@ -1,14 +1,12 @@
 package io.jmix.bookstore.notification;
 
 import io.jmix.core.DataManager;
-import io.jmix.core.security.Authenticated;
 import io.jmix.notifications.NotificationManager;
 import io.jmix.notifications.entity.ContentType;
 import io.jmix.security.role.assignment.RoleAssignmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,8 +32,6 @@ public class NotificationCenter {
     }
 
 
-    @Async
-    @Authenticated
     @EventListener
     public void onInAppNotificationSourceEvent(InAppNotificationSource event) {
 
