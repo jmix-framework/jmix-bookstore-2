@@ -1,10 +1,7 @@
 package io.jmix.bookstore.view.login;
 
 import com.google.common.base.Strings;
-import com.vaadin.flow.component.AbstractField;
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.Html;
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.html.Paragraph;
@@ -24,6 +21,7 @@ import io.jmix.flowui.component.checkbox.JmixCheckbox;
 import io.jmix.flowui.component.select.JmixSelect;
 import io.jmix.flowui.component.textfield.JmixPasswordField;
 import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.kit.action.ActionPerformedEvent;
 import io.jmix.flowui.kit.component.ComponentUtils;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
@@ -132,8 +130,8 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         }
     }
 
-    @Subscribe("submitBtn")
-    public void onSubmitBtnClick(final ClickEvent<JmixButton> event) {
+    @Subscribe("submitAction")
+    public void onSubmitAction(final ActionPerformedEvent event) {
         errorMessage.setVisible(false);
 
         String username = usernameField.getValue();
