@@ -110,9 +110,21 @@ The application also features various add-ons available on the [Jmix Marketplace
 * Notifications (commercial)
 * Maps (commercial)
 
-### Building with Trial Subscription
+### Running Locally
 
-The application uses several commercial add-ons, so you need an active Jmix Enterprise subscription to build and run the app locally. You can also do it with the [trial subscription](https://docs.jmix.io/jmix/account-management.html#enterprise-trial) by following the steps below. 
+You can run the containerized application locally as follows:
+
+- Make sure you have Docker installed
+- Download [docker-compose.yml](https://github.com/jmix-framework/jmix-bookstore-2/blob/main/docker-compose.yml) file to a local folder
+- Open a terminal in that directory and run 
+    ```shell
+    docker-compose up
+    ```
+- For using [LocaitionIQ](https://locationiq.com/) to calculate routes and locations, set `BOOKSTORE_LOCATIONIQ_API_KEY` environment variable to your API key in your terminal or globally in the operating system before starting the containers.
+
+### Building Locally
+
+The application uses several commercial add-ons, so you need an active Jmix Enterprise subscription to build the application locally. You can also do it with the [trial subscription](https://docs.jmix.io/jmix/account-management.html#enterprise-trial) by following the steps below. 
 
 First, get the `jmix-commercial-addons-demo` sample application. You may download it from your account page at https://store.jmix.io/.
 

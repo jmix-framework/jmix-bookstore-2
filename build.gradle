@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '2.2.1.1'
+    id 'io.jmix' version '2.2.2'
     id 'java'
     id 'com.github.fhermansson.assertj-generator' version '1.1.5'
 }
@@ -8,7 +8,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'com.vaadin'
 
 jmix {
-    bomVersion = '2.2.999-SNAPSHOT'
+    bomVersion = '2.2.2'
     projectId = 'bookstore'
 }
 
@@ -120,4 +120,15 @@ assertjGenerator {
             'io.jmix.bookstore.entity.Money',
     ]
     useJakartaAnnotations = true
+}
+
+tasks.named("bootBuildImage") {
+    imageName = "docker.io/jmix/${project.name}"
+    publish = true
+    docker {
+        publishRegistry {
+            username = System.getenv("DOCKER_HUB_LOGIN")
+            password = System.getenv("DOCKER_HUB_PASSWORD")
+        }
+    }
 }
