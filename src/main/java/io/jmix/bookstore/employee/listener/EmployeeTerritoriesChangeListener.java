@@ -24,7 +24,8 @@ public class EmployeeTerritoriesChangeListener {
     @EventListener
     public void onEmployeeChangedBeforeCommit(EntityChangedEvent<Employee> event) {
 
-        if (event.getChanges().isChanged("territories")) {
+        if (event.getType() != EntityChangedEvent.Type.DELETED
+                && event.getChanges().isChanged("territories")) {
             Employee employee = dataManager.load(event.getEntityId()).one();
 
             User user = employee.getUser();

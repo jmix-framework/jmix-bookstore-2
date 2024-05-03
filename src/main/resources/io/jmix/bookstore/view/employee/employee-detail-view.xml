@@ -68,7 +68,12 @@
                 <tab id="positionTab" label="msg://positionTab.label">
                     <vbox classNames="contrast-panel">
                         <formLayout id="employeeForm" dataContainer="employeeDc">
-                            <entityPicker property="position"/>
+                            <entityPicker property="position">
+                                <actions>
+                                    <action id="entityLookup" type="entity_lookup"/>
+                                    <action id="entityClear" type="entity_clear"/>
+                                </actions>
+                            </entityPicker>
                             <datePicker id="hireDateField" property="hireDate"/>
                             <entityPicker id="reportsToField" property="reportsTo">
                                 <actions>
