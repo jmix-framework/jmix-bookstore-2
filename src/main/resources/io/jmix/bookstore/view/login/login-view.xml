@@ -2,12 +2,6 @@
 <view xmlns="http://jmix.io/schema/flowui/view"
       focusComponent="usernameField"
       title="msg://LoginView.title">
-    <actions>
-        <action id="submitAction"
-                text="msg://loginForm.submit"
-                actionVariant="PRIMARY"
-                shortcutCombination="ENTER"/>
-    </actions>
     <layout justifyContent="CENTER" alignItems="CENTER" classNames="jmix-login-main-layout">
 
         <vbox id="loginFormWrapper" alignItems="CENTER" classNames="login-form-wrapper">
@@ -61,7 +55,7 @@
             </hbox>
             <button id="submitBtn"
                     classNames="login-form-submit"
-                    action="submitAction"
+                    text="msg://loginForm.submit" themeNames="primary"
                     width="100%"/>
         </vbox>
     </layout>

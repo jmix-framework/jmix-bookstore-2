@@ -101,6 +101,8 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
     public void onInit(final InitEvent event) {
         initLocales();
         initDefaultCredentials();
+        // TODO replace with action when https://github.com/jmix-framework/jmix/issues/3213 is fixed
+        submitBtn.addClickShortcut(Key.ENTER);
     }
 
     @Subscribe
@@ -130,8 +132,8 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         }
     }
 
-    @Subscribe("submitAction")
-    public void onSubmitAction(final ActionPerformedEvent event) {
+    @Subscribe(id = "submitBtn", subject = "clickListener")
+    public void onSubmitBtnClick(final ClickEvent<JmixButton> event) {
         errorMessage.setVisible(false);
 
         String username = usernameField.getValue();
