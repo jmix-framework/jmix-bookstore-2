@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://io.jmix.multitenancyflowui.view.tenant/listTitle"
+      messagesGroup="io.jmix.multitenancyflowui.view.tenant"
+      extends="io/jmix/multitenancyflowui/view/tenant/tenant-list-view.xml">
+    <data readOnly="true">
+        <collection id="tenantsDc"
+                    class="io.jmix.multitenancy.entity.Tenant">
+            <fetchPlan extends="_base"/>
+        </collection>
+    </data>
+    <layout>
+        <dataGrid id="tenantsTable">
+            <columns>
+                <column property="lastLogin"/>
+                <column property="testdataInitialised"/>
+            </columns>
+            <actions>
+                <action id="create" enabled="false"/>
+                <action id="edit" enabled="false"/>
+                <action id="remove" enabled="false"/>
+            </actions>
+        </dataGrid>
+    </layout>
+</view>
