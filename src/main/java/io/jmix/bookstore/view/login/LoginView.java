@@ -122,6 +122,12 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         localeSelect.setValue(VaadinSession.getCurrent().getLocale());
     }
 
+    @Subscribe("localeSelect")
+    public void onLocaleSelectComponentValueChange(final AbstractField.ComponentValueChangeEvent<JmixSelect<Locale>, Locale> event) {
+        Locale locale = event.getValue();
+        VaadinSession.getCurrent().setLocale(locale);
+    }
+
     protected void initDefaultCredentials() {
         if (StringUtils.isNotBlank(defaultUsername)) {
             usernameField.setTypedValue(defaultUsername);
