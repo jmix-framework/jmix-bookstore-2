@@ -24,7 +24,7 @@
             padding="false" spacing="false"
             expand="contentBox">
         <vbox id="contentBox" classNames="overflow-auto">
-            <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+            <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
                 <html content="msg://fulfillmentCenterDetailView.demoInfo"/>
             </details>
             <tabSheet width="100%" height="100%" minHeight="30em">
@@ -62,7 +62,7 @@
                         </vbox>
                         <vbox classNames="contrast-panel">
                             <button id="locationLookupBtn" text="msg://locationLookupBtn.text"/>
-                            <maps:geoMap height="100%" width="100%" id="map">
+                            <maps:geoMap height="100%" width="100%" id="map" minHeight="20em">
                                 <maps:layers>
                                     <maps:tile>
                                         <maps:osmSource/>

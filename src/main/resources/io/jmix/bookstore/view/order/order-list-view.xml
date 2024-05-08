@@ -47,7 +47,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+        <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
             <html content="msg://orderListView.demoInfo"/>
         </details>
         <tabSheet width="100%" height="100%">
@@ -112,7 +112,7 @@
             <tab id="confirmedOrdersTab" label="msg://confirmedOrders">
                 <vbox height="100%" padding="false">
                     <genericFilter id="confirmedOrdersFilter"
-                            dataLoader="confirmedOrdersDl">
+                                   dataLoader="confirmedOrdersDl" opened="false">
                         <properties include=".*"/>
                         <configurations>
                             <configuration id="defaultFilter"

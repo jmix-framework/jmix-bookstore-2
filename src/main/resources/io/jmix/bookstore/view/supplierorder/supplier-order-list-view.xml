@@ -26,7 +26,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+        <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
             <hbox id="demoInfoContentWrapper" alignItems="CENTER">
                 <html content="msg://supplierOrderListView.demoInfo"/>
 

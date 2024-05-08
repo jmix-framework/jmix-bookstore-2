@@ -27,7 +27,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+        <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
             <html content="msg://customerListView.demoInfo"/>
         </details>
         <genericFilter id="genericFilter"

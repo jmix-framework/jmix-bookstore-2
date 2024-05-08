@@ -27,7 +27,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+        <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
             <html content="msg://territoryListView.demoInfo"/>
         </details>
         <div classNames="grid-panel" height="100%" minHeight="30em">
@@ -53,7 +53,7 @@
             </vbox>
             <vbox classNames="contrast-panel">
                 <checkbox id="zoomCheckbox" label="Zoom on selection" value="true"/>
-                <maps:geoMap height="100%" width="100%" id="map">
+                <maps:geoMap height="100%" width="100%" id="map" minHeight="20em">
                     <maps:layers>
                         <maps:tile>
                             <maps:osmSource/>

@@ -25,7 +25,7 @@
             expand="contentBox">
 
         <vbox id="contentBox" classNames="overflow-auto" expand="dataGridWrapper">
-            <details opened="true" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+            <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
                 <html content="msg://orderDetailView.demoInfo"/>
             </details>
 
