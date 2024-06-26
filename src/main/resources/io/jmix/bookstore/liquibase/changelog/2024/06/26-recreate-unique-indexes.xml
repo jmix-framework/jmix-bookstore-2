@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="bookstore">
+        <dropIndex indexName="idx_bookstore_order_order_number_unq" tableName="bookstore_order"/>
+    </changeSet>
+    <changeSet id="2" author="bookstore" dbms="postgresql">
+        <createIndex indexName="IDX_BOOKSTORE_ORDER_ORDER_NUMBER_UNQ" tableName="BOOKSTORE_ORDER" unique="true">
+            <column name="TENANT"/>
+            <column name="ORDER_NUMBER"/>
+        </createIndex>
+
+        <modifySql>
+            <append value="where DELETED_DATE is null"/>
+        </modifySql>
+    </changeSet>
+    <changeSet id="3" author="bookstore">
+        <dropIndex indexName="idx_bookstore_product_category_unq" tableName="bookstore_product_category"/>
+    </changeSet>
+    <changeSet id="4" author="bookstore" dbms="postgresql">
+        <createIndex indexName="IDX_BOOKSTORE_PRODUCT_CATEGORY_UNQ" tableName="BOOKSTORE_PRODUCT_CATEGORY"
+                     unique="true">
+            <column name="NAME"/>
+            <column name="TENANT"/>
+        </createIndex>
+
+        <modifySql>
+            <append value="where DELETED_DATE is null"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>
