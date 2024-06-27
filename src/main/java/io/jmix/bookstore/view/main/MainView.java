@@ -49,7 +49,7 @@ public class MainView extends StandardMainView {
     private Dialogs dialogs;
     @Autowired
     private Notifications notifications;
-    @Autowired
+    @ViewComponent
     private MessageBundle messageBundle;
     @Autowired
     private CurrentAuthentication currentAuthentication;

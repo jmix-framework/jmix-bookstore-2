@@ -32,7 +32,7 @@ public class FulfillmentCenterDetailView extends StandardDetailView<FulfillmentC
     private Geocoding geocoding;
     @Autowired
     private Notifications notifications;
-    @Autowired
+    @ViewComponent
     private MessageBundle messageBundle;
 
     @Subscribe

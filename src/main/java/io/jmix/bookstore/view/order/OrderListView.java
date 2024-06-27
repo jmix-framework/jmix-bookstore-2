@@ -31,7 +31,7 @@ public class OrderListView extends StandardListView<Order> {
     private ViewNavigators viewNavigators;
     @Autowired
     private Dialogs dialogs;
-    @Autowired
+    @ViewComponent
     private MessageBundle messageBundle;
     @Autowired
     private Messages messages;

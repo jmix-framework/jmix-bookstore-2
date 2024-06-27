@@ -25,7 +25,7 @@ public class SupplierOrderListView extends StandardListView<SupplierOrder> {
     private TimeSource timeSource;
     @Autowired
     private Notifications notifications;
-    @Autowired
+    @ViewComponent
     private MessageBundle messageBundle;
 
     @ViewComponent

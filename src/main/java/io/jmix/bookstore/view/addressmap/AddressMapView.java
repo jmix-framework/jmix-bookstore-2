@@ -23,7 +23,7 @@ public class AddressMapView extends StandardView {
 
     @Autowired
     private Notifications notifications;
-    @Autowired
+    @ViewComponent
     private MessageBundle messageBundle;
 
     @ViewComponent

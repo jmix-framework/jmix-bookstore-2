@@ -34,7 +34,7 @@ public class SupplierOrderReviewForm extends StandardView {
 
     @Autowired
     private ProcessFormContext processFormContext;
-    @Autowired
+    @ViewComponent
     private MessageBundle messageBundle;
     @Autowired
     private CurrentAuthentication currentAuthentication;

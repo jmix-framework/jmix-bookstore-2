@@ -44,7 +44,7 @@ public class ConfirmOrderView extends StandardDetailView<Order> {
 
     @Autowired
     private Notifications notifications;
-    @Autowired
+    @ViewComponent
     private MessageBundle messageBundle;
     @Autowired
     private Geocoding geocoding;

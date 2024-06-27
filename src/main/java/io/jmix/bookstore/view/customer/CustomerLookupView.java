@@ -24,7 +24,7 @@ public class CustomerLookupView extends StandardListView<Customer> {
     private CollectionContainer<Customer> customersDc;
     @Autowired
     private Notifications notifications;
-    @Autowired
+    @ViewComponent
     private MessageBundle messageBundle;
 
     @Subscribe("customerFilterField")

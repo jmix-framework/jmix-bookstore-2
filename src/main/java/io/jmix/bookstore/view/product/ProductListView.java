@@ -32,7 +32,7 @@ public class ProductListView extends StandardListView<Product> {
     private CurrentAuthentication currentAuthentication;
     @Autowired
     private Notifications notifications;
-    @Autowired
+    @ViewComponent
     private MessageBundle messageBundle;
 
     @Subscribe("productsDataGrid.fillUpInventory")
