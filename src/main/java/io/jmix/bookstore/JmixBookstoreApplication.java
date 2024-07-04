@@ -11,16 +11,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import jakarta.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 @Push
@@ -54,8 +54,8 @@ public class JmixBookstoreApplication implements AppShellConfigurator {
         return dataSourceProperties.initializeDataSourceBuilder().build();
     }
 
-    @PostConstruct
-    public void postConstruct() {
+    @EventListener
+    public void onApplicationContextRefreshed(final ContextRefreshedEvent event) {
         notificationTypesRepository.registerTypes(
                 new NotificationType("info", "INFO_CIRCLE"),
                 new NotificationType("warn", "WARNING")
