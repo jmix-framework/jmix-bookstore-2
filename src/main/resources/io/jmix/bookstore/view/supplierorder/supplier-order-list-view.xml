@@ -26,16 +26,13 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
-            <hbox id="demoInfoContentWrapper" alignItems="CENTER">
-                <html content="msg://supplierOrderListView.demoInfo"/>
-
-                <div id="nextCalculationWrapper" themeNames="badge">
-                    <span id="nextCalculationLabel" text="msg://nextCreationIn"/>
-                    <span id="remainingTime" text="4m 30s" classNames="font-bold me-xs"/>
-                    <div id="spinner" classNames="spinner"/>
-                </div>
-            </hbox>
+        <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%" opened="true">
+            <html content="msg://supplierOrderListView.demoInfo"/>
+            <div id="nextCalculationWrapper" themeNames="badge" css="margin-top: 1em;">
+                <span id="nextCalculationLabel" text="msg://nextCreationIn"/>
+                <span id="remainingTime" text="4m 30s" classNames="font-bold me-xs"/>
+                <div id="spinner" classNames="spinner"/>
+            </div>
         </details>
         <genericFilter id="genericFilter"
                        dataLoader="supplierOrdersDl">
