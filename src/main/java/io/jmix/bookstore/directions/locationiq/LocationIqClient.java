@@ -224,35 +224,16 @@ public class LocationIqClient implements Geocoding {
     }
 
     /**
-     * Record to represent the JSON response of the LocationIQ Directions API with geojson geometry format.
+     * Record to represent the JSON response of the LocationIQ Directions API that allows converting addresses, 
+     * into geographic coordinates (latitude and longitude).
      * Example JSON response (displayed only relevant parts)
      * <pre>
-     * {
-     *   "code": "Ok",
-     *   "routes": [
-     *     {
-     *       "geometry": {
-     *         "coordinates": [
-     *           [
-     *             -0.161136,
-     *             51.523832
-     *           ],
-     *           [
-     *             -0.160984,
-     *             51.523516
-     *           ],
-     *           [
-     *             -0.161606,
-     *             51.522557
-     *           ]
-     *         ],
-     *         "type": "LineString"
+     *   [
+     *       {
+     *           "lat": "48.8588897",
+     *           "lon": "2.3200410217200766",
      *       },
-     *       "duration": 138.8,
-     *       "distance": 844.5
-     *     }
      *   ]
-     * }
      * </pre>
      */
     record ForwardGeocodingPlace(double lat, double lon) {
