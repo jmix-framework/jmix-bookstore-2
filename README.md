@@ -110,6 +110,9 @@ The application also features various add-ons available on the [Jmix Marketplace
 * BPM (commercial)
 * Notifications (commercial)
 * Maps (commercial)
+* Pessimistic Locking
+* Grid Export Actions
+* German Translation
 
 ### Running Locally
 
