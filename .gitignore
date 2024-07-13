@@ -26,5 +26,9 @@ frontend/generated/
 pnpmfile.js
 vite.generated.ts
 webpack.generated.js
+tsconfig.json
+pnpm-lock.yaml
+.flow-node-tasks.lock
+.npmrc
 
 .DS_Store
