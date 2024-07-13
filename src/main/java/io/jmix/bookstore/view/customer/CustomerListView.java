@@ -35,7 +35,7 @@ public class CustomerListView extends StandardListView<Customer> {
 
         vectorSource.addGeoObjectClickListener(clickEvent -> {
             Customer customer = clickEvent.getItem();
-            viewNavigators.detailView(Customer.class)
+            viewNavigators.detailView(this, Customer.class)
                     .editEntity(customer)
                     .navigate();
         });
