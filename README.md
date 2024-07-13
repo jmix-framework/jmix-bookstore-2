@@ -54,6 +54,9 @@ Jmix Bookstore runs using:
 * Spring Boot 3
 * Java 21
 
+In addition, to build the project :
+* pnpm >= 7.0 (`npm install -g pnpm`)
+
 #### Application Size
 
 To give an understanding of the size of the application, here are some rough statistics:
