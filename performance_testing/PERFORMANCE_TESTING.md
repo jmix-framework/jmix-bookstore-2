@@ -27,7 +27,7 @@ in [this commit](https://github.com/jmix-framework/jmix-bookstore-2/commit/a87d9
 See [application.properties](../src/main/resources/application.properties):
 
 ```properties
-# Jmeter tests support
+# JMeter tests support
 vaadin.disable-xsrf-protection=true
 vaadin.syncIdCheck=false
 ```
@@ -42,7 +42,7 @@ List of additional software used in Bookstore application performance tests:
 
 - [PostgreSQL](https://www.postgresql.org/) database.
 - [Node exporter](https://github.com/prometheus/node_exporter) to expose server metrics such as CPU loading.
-- [Jmeter](https://jmeter.apache.org/) with [Prometheus Listener](https://github.com/johrstrom/jmeter-prometheus-plugin)
+- [JMeter](https://jmeter.apache.org/) with [Prometheus Listener](https://github.com/johrstrom/jmeter-prometheus-plugin)
   to generate test load and provide client-side metrics.
 - [Prometheus](https://prometheus.io/) to collect and store results.
 - [Grafana](https://grafana.com/) for visualisation.
@@ -52,7 +52,7 @@ List of additional software used in Bookstore application performance tests:
 There are two servers and one metrics machine.
 
 * **Application server** contains application that run as a boot jar and node exporter.
-* **Database server** contains PostgreSQL database and Jmeter
+* **Database server** contains PostgreSQL database and JMeter
 * **Metrics machine** contains Prometheus and Grafana
 
 [//]: # (TODO Servers diagram)
@@ -235,8 +235,8 @@ The results of measurments are shown in the table below:
 |---------------------------|:----------------------------------------:|:------------------:|:--------------------:|:-------------------------------------:|:--------------------:|:------------:|
 | 2                         |                1.74 (87%)                |        7.2         |         3.6          |                  1.5                  |        0.300         |      94      |
 | 5                         |                3.4 (68%)                 |        2.8         |         2.5          |                  1.5                  |        0.015         |      90      |
-| 10                        |                5.6 (56%)                 |        2.34        |         2.1          |                  1.3                  |        0.014         |      91      |
-| 14                        |                                          |                    |                      |                                       |                      |              |
+| 10                        |                5.6 (56%)                 |        2.3         |         2.1          |                  1.3                  |        0.014         |      91      |
+| 14                        |                 6.6(47%)                 |        2.2         |         1.9          |                  1.2                  |        0.017         |      89      |
 
 [//]: # (TODO conclusions, maybe another tests with another amount of users/?cores? if possible)
 
@@ -244,9 +244,8 @@ The results of measurments are shown in the table below:
 
 ## Restrictions
 
-These results should be considered as a very rough estimate of the Jmix Bookstore application's performance, as they are
-based
-on the following simplifications:
+These results should be considered as a very rough estimation of the Jmix Bookstore application performance upper bound,
+as they are based on the following simplifications:
 
 * All users log in with the same credentials
 * All users repeat the same simplest scenario due to Vaadin client emulation issues.
