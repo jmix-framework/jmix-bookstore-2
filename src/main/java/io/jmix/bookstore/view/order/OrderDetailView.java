@@ -11,15 +11,21 @@ import io.jmix.bookstore.fulfillment.FulfillmentCenter;
 import io.jmix.bookstore.order.entity.Order;
 import io.jmix.bookstore.order.entity.OrderStatus;
 import io.jmix.bookstore.view.main.MainView;
+import io.jmix.core.DataManager;
 import io.jmix.core.MetadataTools;
+import io.jmix.core.SaveContext;
 import io.jmix.core.TimeSource;
 import io.jmix.flowui.component.combobox.EntityComboBox;
 import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.component.valuepicker.EntityPicker;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+
+import java.util.Set;
 
 @Route(value = "orders/:id", layout = MainView.class)
 @ViewController("bookstore_Order.detail")
@@ -37,6 +43,9 @@ public class OrderDetailView extends StandardDetailView<Order> {
     private EntityComboBox<Customer> customerField;
 
     @Autowired
+    private MeterRegistry meterRegistry;
+
+    @Autowired
     private MetadataTools metadataTools;
     @Autowired
     private TimeSource timeSource;
@@ -44,6 +53,8 @@ public class OrderDetailView extends StandardDetailView<Order> {
     private EntityPicker<FulfillmentCenter> fulfilledByField;
     @ViewComponent
     private TypedTextField<Long> orderNumberField;
+    @Autowired
+    private DataManager dataManager;
 
     @Subscribe
     public void onInitEntity(final InitEntityEvent<Order> event) {
@@ -92,5 +103,19 @@ public class OrderDetailView extends StandardDetailView<Order> {
     @Subscribe
     public void onBeforeSave(final BeforeSaveEvent event) {
         getEditedEntity().setShippingAddress(getEditedEntity().getCustomer().getAddress());
+    }
+
+    @Install(target = Target.DATA_CONTEXT)
+    private Set<Object> saveDelegate(final SaveContext saveContext) {
+        Timer.Sample sample = Timer.start(meterRegistry);
+        try {
+            return dataManager.save(saveContext);
+        } finally {
+            Timer timer = Timer.builder("jmix_bookstore_order_save_time")
+                    .publishPercentiles(0.5, 0.75, 0.95)
+                    .register(meterRegistry);
+            sample.stop(timer);
+        }
+
     }
 }

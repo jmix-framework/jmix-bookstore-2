@@ -10,6 +10,7 @@
             <loader id="newOrdersDl" readOnly="true">
                 <query>
                     <![CDATA[select e from bookstore_Order e
+                    where e.status = 'NEW'
                     order by e.orderNumber desc]]>
                 </query>
             </loader>
@@ -27,7 +28,27 @@
                     <condition>
                         <and>
                             <c:jpql>
-                                <c:where><![CDATA[e.status <> 'NEW']]></c:where>
+                                <c:where><![CDATA[e.status <> 'NEW' and e.status <> 'DELIVERED']]></c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+        <collection id="finishedOrdersDc"
+                    class="io.jmix.bookstore.order.entity.Order">
+            <fetchPlan extends="_base">
+                <property name="fulfilledBy" fetchPlan="_base"/>
+                <property name="shippingAddress"/>
+            </fetchPlan>
+            <loader id="finishedOrdersDl">
+                <query>
+                    <![CDATA[select e from bookstore_Order e
+                    order by e.orderNumber desc]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where><![CDATA[e.status = 'DELIVERED']]></c:where>
                             </c:jpql>
                         </and>
                     </condition>
@@ -47,16 +68,17 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+        <details id="orderListDemoInfo" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info"
+                 width="100%">
             <html content="msg://orderListView.demoInfo"/>
         </details>
-        <tabSheet width="100%" height="100%">
+        <tabSheet id="orderListTabSheet" width="100%" height="100%">
             <tab id="newOrdersTab" label="msg://newOrders">
                 <vbox height="100%" padding="false">
                     <details id="newOrdersFilterDetails"
                              width="100%"
                              summaryText="msg://newOrdersFilter" opened="true">
-                        <formLayout>
+                        <formLayout id="newOrdersFilterLayout">
                             <propertyFilter dataLoader="newOrdersDl" operation="EQUAL" property="customer">
                                 <entityComboBox id="customerComboBox" metaClass="bookstore_Customer">
                                     <itemsQuery class="io.jmix.bookstore.customer.Customer" escapeValueForLike="true"
@@ -83,9 +105,9 @@
                         </formLayout>
                     </details>
                     <hbox id="buttonsPanel" classNames="buttons-panel">
-                        <button id="createBtn" action="ordersDataGrid.create"/>
+                        <button id="orderCreateBtn" action="ordersDataGrid.create"/>
                         <button id="editBtn" action="ordersDataGrid.edit"/>
-                        <button action="ordersDataGrid.confirm" id="confirmBtn"/>
+                        <button id="confirmBtn" action="ordersDataGrid.confirm"/>
                         <simplePagination id="pagination" dataLoader="newOrdersDl"/>
                     </hbox>
                     <dataGrid id="ordersDataGrid"
@@ -121,7 +143,7 @@
                                            name="msg://io.jmix.bookstore.filter/defaultFilter">
                                 <propertyFilter property="orderNumber" operation="EQUAL" operationEditable="true"/>
                                 <propertyFilter property="status" operation="EQUAL" operationEditable="true"/>
-<!--                                <propertyFilter property="shippingDate" operation="DATE_INTERVAL" operationEditable="true"/>-->
+                                <!--                                <propertyFilter property="shippingDate" operation="DATE_INTERVAL" operationEditable="true"/>-->
                                 <jpqlFilter parameterClass="io.jmix.bookstore.product.Product"
                                             label="msg://containsProduct">
                                     <condition>
@@ -147,6 +169,7 @@
                         <button action="confirmedOrdersDataGrid.remove"/>
                         <button action="confirmedOrdersDataGrid.markAsInDelivery"/>
                         <button action="confirmedOrdersDataGrid.trackDelivery"/>
+                        <button action="confirmedOrdersDataGrid.markAsDelivered"/>
                         <simplePagination id="confirmedOrdersPagination" dataLoader="confirmedOrdersDl"/>
                     </hbox>
                     <dataGrid id="confirmedOrdersDataGrid"
@@ -155,10 +178,63 @@
                         <actions>
                             <action id="edit" type="list_edit"/>
                             <action id="remove" type="list_remove"/>
-                            <action id="markAsInDelivery" type="list_itemTracking" text="msg://markAsInDelivery" icon="TRUCK"/>
+                            <action id="markAsInDelivery" type="list_itemTracking" text="msg://markAsInDelivery"
+                                    icon="TRUCK"/>
                             <action id="trackDelivery" type="list_itemTracking" text="msg://trackDelivery"
                                     icon="MAP_MARKER"/>
+                            <action id="markAsDelivered" type="list_itemTracking" text="msg://markAsDelivered"
+                                    icon="CHECK_CIRCLE_O"/>
                         </actions>
+                        <columns>
+                            <column property="orderNumber"/>
+                            <column property="orderDate"/>
+                            <column property="customer"/>
+                            <column property="shippingDate"/>
+                            <column property="status"/>
+                            <column property="fulfilledBy"/>
+                            <column property="shippingAddress"/>
+                        </columns>
+                    </dataGrid>
+                </vbox>
+            </tab>
+            <tab id="finishedOrdersTab" label="msg://finishedOrders">
+                <vbox height="100%" padding="false">
+                    <genericFilter id="finishedOrdersFilter"
+                                   dataLoader="finishedOrdersDl" opened="false">
+                        <properties include=".*"/>
+                        <configurations>
+                            <configuration id="defaultFinishedOrdersFilter"
+                                           operation="AND"
+                                           default="true"
+                                           name="msg://io.jmix.bookstore.filter/defaultFilter">
+                                <propertyFilter property="orderNumber" operation="EQUAL" operationEditable="true"/>
+                                <jpqlFilter parameterClass="io.jmix.bookstore.product.Product"
+                                            label="msg://containsProduct">
+                                    <condition>
+                                        <c:jpql>
+                                            <c:join>join {E}.orderLines o</c:join>
+                                            <c:where>o.product.id = ?</c:where>
+                                        </c:jpql>
+                                    </condition>
+                                </jpqlFilter>
+                                <propertyFilter property="customer.associatedRegion"
+                                                operation="EQUAL"
+                                                operationEditable="true"
+                                                label="msg://customerRegion"/>
+                                <propertyFilter property="shippingAddress.postCode"
+                                                operation="STARTS_WITH"
+                                                operationEditable="true"
+                                                label="msg://shippingAddressPostCode"/>
+                            </configuration>
+                        </configurations>
+                    </genericFilter>
+                    <hbox id="finishedOrdersButtonsPanel" classNames="buttons-panel">
+
+                    </hbox>
+                    <dataGrid id="finishedOrdersDataGrid"
+                              width="100%"
+                              dataContainer="finishedOrdersDc">
+                        <actions/>
                         <columns>
                             <column property="orderNumber"/>
                             <column property="orderDate"/>

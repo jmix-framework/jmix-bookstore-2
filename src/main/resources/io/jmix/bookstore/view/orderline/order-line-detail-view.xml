@@ -60,7 +60,7 @@
         </vbox>
         <hbox id="detailActions"
               classNames="px-m py-s bg-contrast-5">
-            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="orderLineDetailsaveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>
     </layout>

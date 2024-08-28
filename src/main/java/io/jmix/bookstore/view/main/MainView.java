@@ -30,16 +30,24 @@ import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
 import io.jmix.multitenancy.core.TenantProvider;
 import org.flowable.task.api.TaskQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+
+import static io.jmix.bookstore.JmixBookstoreApplication.PERFORMANCE_TESTS_PROFILE;
 
 @Route("")
 @ViewController("bookstore_MainView")
 @ViewDescriptor("main-view.xml")
 public class MainView extends StandardMainView {
+
+    private static final Logger log = LoggerFactory.getLogger(MainView.class);
 
     @Autowired
     private TenantProvider tenantProvider;
@@ -59,6 +67,14 @@ public class MainView extends StandardMainView {
     private BpmTaskService bpmTaskService;
     @Autowired(required = false)
     protected BpmTenantProvider bpmTenantProvider;
+    @Autowired
+    private CurrentUserSubstitution currentUserSubstitution;
+    @Autowired
+    private UserGroupService userGroupService;
+    @Autowired
+    private DialogWindows dialogWindows;
+    @Autowired
+    private Environment environment;
 
     @ViewComponent
     private Span tenantLabel;
@@ -70,15 +86,10 @@ public class MainView extends StandardMainView {
     private JmixImage<Object> userAvatarImage;
     @ViewComponent
     private H2 welcomeMessage;
-    @Autowired
-    private DialogWindows dialogWindows;
-    @Autowired
-    private CurrentUserSubstitution currentUserSubstitution;
-    @Autowired
-    private UserGroupService userGroupService;
-
     @ViewComponent
     private JmixButton taskBtn;
+    @ViewComponent
+    private Timer taskNotificationTimer;
 
     private String currentUserName;
     protected List<String> userGroupCodes;
@@ -94,6 +105,11 @@ public class MainView extends StandardMainView {
         initLayout();
         initTenantTestdataIfNecessary();
         updateTaskCounter();
+
+        if (Arrays.asList(environment.getActiveProfiles()).contains(PERFORMANCE_TESTS_PROFILE)) {
+            log.debug("Application is run in performance testing mode. 'taskNotificationTimer' will be disabled");
+            taskNotificationTimer.stop();
+        }
     }
 
     private void initTenantTestdataIfNecessary() {
@@ -105,8 +121,7 @@ public class MainView extends StandardMainView {
                             try {
                                 taskLifeCycle.publish();
                                 testEnvironmentTenants.generateRandomTestdata(tenantId);
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 return false;
                             }
                             return true;
@@ -118,8 +133,7 @@ public class MainView extends StandardMainView {
                                 notifications.create(messageBundle.getMessage("testdataCreated"))
                                         .withPosition(Notification.Position.BOTTOM_END)
                                         .show();
-                            }
-                            else {
+                            } else {
                                 notifications.create(messageBundle.getMessage("testdataNotCreatedCaption"), messageBundle.getMessage("testdataNotCreatedDescription"))
                                         .withType(Notifications.Type.ERROR)
                                         .show();
@@ -135,7 +149,7 @@ public class MainView extends StandardMainView {
     }
 
     private void initLayout() {
-        String username = currentUser().getUsername().replaceAll(currentTenant()+"\\|", "");
+        String username = currentUser().getUsername().replaceAll(currentTenant() + "\\|", "");
         userAvatar.setImage("avatars/%s.png".formatted(username));
         userAvatarImage.setSrc("avatars/%s.png".formatted(username));
 

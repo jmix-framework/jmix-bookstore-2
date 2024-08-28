@@ -15,10 +15,17 @@ import io.jmix.flowui.ViewNavigators;
 import io.jmix.flowui.accesscontext.UiShowViewContext;
 import io.jmix.flowui.action.DialogAction;
 import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.tabsheet.JmixTabSheet;
 import io.jmix.flowui.kit.action.ActionPerformedEvent;
+import io.jmix.flowui.model.CollectionLoader;
 import io.jmix.flowui.model.DataContext;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
+import java.util.Arrays;
+
+import static io.jmix.bookstore.JmixBookstoreApplication.PERFORMANCE_TESTS_PROFILE;
 
 @Route(value = "orders", layout = MainView.class)
 @ViewController("bookstore_Order.list")
@@ -41,15 +48,34 @@ public class OrderListView extends StandardListView<Order> {
     private DialogWindows dialogWindows;
     @Autowired
     private AccessManager accessManager;
+    @Autowired
+    private Environment environment;
+    @Autowired
+    private TimeSource timeSource;
 
     @ViewComponent
     private DataGrid<Order> ordersDataGrid;
     @ViewComponent
     private DataGrid<Order> confirmedOrdersDataGrid;
-    @Autowired
-    private TimeSource timeSource;
     @ViewComponent
     private DataContext dataContext;
+    @ViewComponent
+    private CollectionLoader<Order> confirmedOrdersDl;
+    @ViewComponent
+    private CollectionLoader<Order> finishedOrdersDl;
+    @ViewComponent
+    private JmixTabSheet orderListTabSheet;
+
+
+    @Subscribe
+    public void onInit(final InitEvent event) {
+        if (Arrays.asList(environment.getActiveProfiles()).contains(PERFORMANCE_TESTS_PROFILE)) {
+            orderListTabSheet.getElement().getChildren().filter(elm -> "vaadin-tabs".equals(elm.getTag())).findFirst().ifPresent(
+                    elm -> elm.setAttribute("id", "orderListVaadinTabs")
+            );
+        }
+    }
+
 
     @Subscribe("ordersDataGrid.confirm")
     public void onOrdersDataGridConfirm(final ActionPerformedEvent event) {
@@ -66,6 +92,19 @@ public class OrderListView extends StandardListView<Order> {
                 .withActions(
                         new DialogAction(DialogAction.Type.OK).withHandler(actionPerformedEvent ->
                                 markCurrentOrderAsInDelivery()),
+                        new DialogAction(DialogAction.Type.CANCEL)
+                )
+                .open();
+    }
+
+    @Subscribe("confirmedOrdersDataGrid.markAsDelivered")
+    public void onConfirmedOrdersDataGridMarkAsDelivered(final ActionPerformedEvent event) {
+        dialogs.createOptionDialog()
+                .withHeader(messageBundle.getMessage("confirmMarkAsDeliveredCaption"))
+                .withContent(new Html(messageBundle.getMessage("confirmMarkAsDeliveredMessage")))
+                .withActions(
+                        new DialogAction(DialogAction.Type.OK).withHandler(actionPerformedEvent ->
+                                markCurrentOrderAsDelivered()),
                         new DialogAction(DialogAction.Type.CANCEL)
                 )
                 .open();
@@ -96,6 +135,19 @@ public class OrderListView extends StandardListView<Order> {
             orderToMarkAsInDelivery.setShippingDate(timeSource.now().toLocalDate());
             dataContext.save();
             notifications.create(messageBundle.getMessage("orderMarkedAsInDelivery")).show();
+            confirmedOrdersDl.load();
+            finishedOrdersDl.load();
+        }
+    }
+
+    private void markCurrentOrderAsDelivered() {
+        Order orderToMarkAsDelivered = confirmedOrdersDataGrid.getSingleSelectedItem();
+        if (orderToMarkAsDelivered != null) {
+            orderToMarkAsDelivered.setStatus(OrderStatus.DELIVERED);
+            dataContext.save();
+            notifications.create(messageBundle.getMessage("orderMarkedAsDelivered")).show();
+            confirmedOrdersDl.load();
+            finishedOrdersDl.load();
         }
     }
 

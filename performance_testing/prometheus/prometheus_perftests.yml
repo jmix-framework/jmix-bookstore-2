@@ -1,0 +1,33 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  scrape_protocols:
+    - OpenMetricsText1.0.0
+    - OpenMetricsText0.0.1
+    - PrometheusText0.0.4
+  evaluation_interval: 15s
+alerting:
+  alertmanagers:
+    - follow_redirects: true
+      enable_http2: true
+      scheme: http
+      timeout: 10s
+      api_version: v2
+      static_configs:
+        - targets: [ ]
+scrape_configs:
+  - job_name: spring_micrometer
+    metrics_path: /actuator/prometheus
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ '<app_server_address>:8080' ]
+  - job_name: 'app_node'
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - <app_server_address>:9100
+  - job_name: 'jmeter'
+    metrics_path: /metrics
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ '<db_server_address>:9270' ]

@@ -17,4 +17,12 @@ public class AppSecurityConfiguration {
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/branding/**").permitAll());
         return http.build();
     }
+
+    @Bean
+    @Order(JmixSecurityFilterChainOrder.FLOWUI - 15)
+    public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.securityMatcher("/actuator/**")
+                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/actuator/**").permitAll());
+        return http.build();
+    }
 }
