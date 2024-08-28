@@ -17,7 +17,8 @@ implementation 'io.micrometer:micrometer-registry-prometheus'
 implementation 'org.springframework.boot:spring-boot-starter-actuator'
    ``` 
 
-The rest of endpoint set up can be seen at commit
+The rest of endpoint set up and other minor changes can be seen
+in [this commit](https://github.com/jmix-framework/jmix-bookstore-2/commit/a87d987d9eb458b8b2a6c9c3dc49868a3abb134e).
 
 [//]: # (todo link to commit)
 
