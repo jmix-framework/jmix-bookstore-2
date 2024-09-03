@@ -1,4 +1,4 @@
-// Remove all from this file and put the output of "VariableExtractor PreProcessor" jmeter scenario script here.
+// Remove all from this file and put the log output of the "VariableExtractor PreProcessor" jmeter scenario script here.
 // E.g. for OrderCreation.jmx it looked like this:
 all_idOf_loginFormWrapper,28,28,
 all_idOf_discountCurrencyField,428,482,536,

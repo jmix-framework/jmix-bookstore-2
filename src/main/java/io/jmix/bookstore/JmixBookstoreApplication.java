@@ -34,7 +34,7 @@ import javax.sql.DataSource;
 @EnableAsync
 @SpringBootApplication
 public class JmixBookstoreApplication implements AppShellConfigurator {
-    public static final String PERFORMANCE_TESTS_PROFILE = "perfTests";
+    public static final String PERFORMANCE_TESTS_PROFILE = "perf-tests";
 
     @Autowired
     private Environment environment;
