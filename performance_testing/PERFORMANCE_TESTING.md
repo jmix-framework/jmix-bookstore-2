@@ -66,8 +66,8 @@ Application and Database Servers are virtual machines with next characteristics 
 
 * **Virtualization:** Proxmox VE, qemu-kvm
 * **CPU**: 8 cores, x86-64-v3
-* **RAM**: 16 Gb
-* **HDD**: 200 Gb
+* **RAM**: 16 GB
+* **HDD**: 200 GB
 * **OS**: Ubuntu 22.04
 
 Host Hardware:
@@ -190,7 +190,7 @@ The [test plan](jmeter/OrderCreation.jmx) have been run on the db server with co
 
 ### Measurements
 
-Let's look at the visualisation of the results for test with 5Gb of heap size 1000 users acting
+Let's look at the visualization of the results for test with 5GB of heap size and 1000 users acting
 according to the described [test plan](#implementation) with default parameters and `rampUpPeriod=230` seconds.
 
 #### Memory
@@ -234,7 +234,7 @@ Therefore, we will exclude the first 10 minutes from our analysis and focus on t
 one of the subsequent periods when the value remains relatively constant.
 This typically occurs around the 40-minute mark of the load test.
 
-For OrderListView the average load time will be 2.8s (for 1000 users and 5Gb of heap size).
+For OrderListView the average load time will be 2.8s (for 1000 users and 5GB of heap size).
 
 #### Entity Saving Time
 
@@ -244,7 +244,7 @@ Average entity saving time is relatively small (0.015s) when compared to view lo
 
 ## Results
 
-Tests have been run for applications with next heap memory sizes: 2 Gb, 5 Gb, 10 Gb, 14 Gb.
+Tests have been run for applications with next heap memory sizes: 2 GB, 5 GB, 10 GB, 14 GB.
 For each case 1000 users acted according to the scenario described above with:
 
 * `loginWait` = 10s
@@ -256,7 +256,7 @@ For each case 1000 users acted according to the scenario described above with:
 
 The results of measurements are shown in the table below.
 
-| Allocated heap memory, Gb | Average used heap memory, Gb(%) | List view average load time, s | Detail view average load time, s | Save Order and return to list view average time, s | Order saving average time, s | CPU usage, % |
+| Allocated heap memory, GB | Average used heap memory, GB(%) | List view average load time, s | Detail view average load time, s | Save Order and return to list view average time, s | Order saving average time, s | CPU usage, % |
 |:-------------------------:|:-------------------------------:|:------------------------------:|:--------------------------------:|:--------------------------------------------------:|:----------------------------:|:------------:|
 |             2             |           1.74 (87%)            |              7.2               |               3.6                |                        1.5                         |            0.300             |      94      |
 |             5             |            3.4 (68%)            |              2.8               |               2.5                |                        1.5                         |            0.015             |      90      |
@@ -265,11 +265,12 @@ The results of measurements are shown in the table below.
 
 ## Restrictions
 
-These tests are based on a number of simplifications and the results should be considered with the following limitations
+These tests are based on a number of simplifications, and the results should be considered with the following
+limitations
 in mind:
 
-* All users log in with the same credentials
-* All users repeat the same simplest scenario in order to avoid necessity of Vaadin clients usage.
+* All users log in with the same credentials.
+* All users repeat the same simplest scenario to avoid the necessity of using Vaadin clients.
 * Image loading has been disabled to simplify the HTTP requests set in the scenario.
 * Task notification timer has been disabled for simplicity.
 
