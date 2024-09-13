@@ -157,6 +157,10 @@ repositories {
 
 Note that the Bookstore project must be based on exactly the same Jmix version as the commercial add-ons sample project.
 
+### Performance Testing
+
+See [PERFORMANCE_TESTING](performance_testing/PERFORMANCE_TESTING.md) for the description of performance tests executed for this application. The document includes the required configuration, information about infrastructure, tooling and test scenario. The test results demonstrate the behavior of the application with 1000 concurrent users.
+
 ## Application Overview
 
 Jmix Bookstore is a retail bookstore, that ships books to customers. The single distribution channel is phone. Customers call in and can order books directly from the phone, without any need to use a computer. They simply speak to a person that takes their orders and makes sure the correct book lands at their doorsteps.
