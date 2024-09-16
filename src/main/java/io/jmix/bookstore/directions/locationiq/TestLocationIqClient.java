@@ -16,9 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Optional;
 
 /**
- * A custom HTTP API Client to interact with the LocationIQ API Service.
- * It is possible to create a free account for personal / experimental usage.
- * See: <a href="https://locationiq.com/">LocationIQ</a>
+ * LocationIqClient mock for performance tests.
  */
 @Component("test_bookstore_Geocoding")
 @Profile(JmixBookstoreApplication.PERFORMANCE_TESTS_PROFILE)
@@ -32,13 +30,7 @@ public class TestLocationIqClient extends LocationIqClient {
 
 
     /**
-     * Calculating a route based on two points against the LocationIQ API.
-     * See: <a href="https://locationiq.com/docs-html/index.html#directions">LocationIQ - Directions API</a>
-     *
-     * @param start    the starting point of the route
-     * @param end      the end point of the route
-     * @param accuracy the calculation accuracy which is considered when calculating the route
-     * @return a CalculatedRoute representing the route if possible to calculate
+     * @return a test route consists of single line between start and end point.
      */
     @Override
     public Optional<CalculatedRoute> calculateRoute(Point start, Point end, RouteAccuracy accuracy) {

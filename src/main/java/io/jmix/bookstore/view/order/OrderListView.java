@@ -69,7 +69,7 @@ public class OrderListView extends StandardListView<Order> {
 
     @Subscribe
     public void onInit(final InitEvent event) {
-        if (Arrays.asList(environment.getActiveProfiles()).contains(PERFORMANCE_TESTS_PROFILE)) {
+        if (Arrays.asList(environment.getActiveProfiles()).contains(PERFORMANCE_TESTS_PROFILE)) {//fix id absence for tests
             orderListTabSheet.getElement().getChildren().filter(elm -> "vaadin-tabs".equals(elm.getTag())).findFirst().ifPresent(
                     elm -> elm.setAttribute("id", "orderListVaadinTabs")
             );
