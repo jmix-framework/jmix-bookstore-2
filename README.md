@@ -18,6 +18,7 @@ The online demo of the Jmix Bookstore is available at <https://demo.jmix.io/book
     * [Add-ons](#add-ons)
     * [Running Locally](#running-locally)
     * [Building Locally](#building-locally)
+  * [Performance Testing](#performance-testing)
 - [Application Overview](#application-overview)
    * [Sales](#sales)
       + [Placing Customer Orders](#placing-customer-orders)
