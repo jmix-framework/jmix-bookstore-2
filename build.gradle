@@ -102,6 +102,8 @@ dependencies {
 
     testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
 
+    testImplementation 'org.hsqldb:hsqldb'
+
 }
 
 test {
