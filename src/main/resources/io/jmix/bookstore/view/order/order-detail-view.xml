@@ -25,7 +25,8 @@
             expand="contentBox">
 
         <vbox id="contentBox" classNames="overflow-auto" expand="dataGridWrapper">
-            <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+            <details id="orderDetailDemoInfo" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info"
+                     width="100%">
                 <html content="msg://orderDetailView.demoInfo"/>
             </details>
 
@@ -70,7 +71,7 @@
             <vbox id="dataGridWrapper" classNames="contrast-panel" minHeight="30em">
                 <h4 text="msg://io.jmix.bookstore.order.entity/Order.orderLines"/>
                 <hbox id="buttonsPanel" classNames="buttons-panel">
-                    <button action="orderLinesDataGrid.create"/>
+                    <button id="createOrderLineBtn" action="orderLinesDataGrid.create"/>
                     <button action="orderLinesDataGrid.edit"/>
                     <button action="orderLinesDataGrid.remove"/>
                 </hbox>
@@ -97,7 +98,7 @@
         </vbox>
         <hbox id="detailActions"
               classNames="px-m py-s bg-contrast-5">
-            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="orderDetailsaveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>
     </layout>

@@ -27,14 +27,14 @@ import io.jmix.mapsflowui.kit.component.model.style.image.Anchor;
 import io.jmix.mapsflowui.kit.component.model.style.image.IconStyle;
 import io.jmix.mapsflowui.kit.component.model.style.stroke.Stroke;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import static io.jmix.bookstore.JmixBookstoreApplication.PERFORMANCE_TESTS_PROFILE;
 
 @Route(value = "confirm-order/:id", layout = MainView.class)
 @ViewController("bookstore_Order.confirm")
@@ -50,6 +50,8 @@ public class ConfirmOrderView extends StandardDetailView<Order> {
     private Geocoding geocoding;
     @Autowired
     private Dialogs dialogs;
+    @Autowired
+    private Environment environment;
 
     @ViewComponent
     private TypedTextField<Object> durationField;
@@ -203,7 +205,9 @@ public class ConfirmOrderView extends StandardDetailView<Order> {
         private Optional<CalculatedRoute> tryToCalculatedRouteFromFulfillmentCenter(FulfillmentCenter fulfillmentCenter, TaskLifeCycle<Integer> taskLifeCycle, int i) {
             try {
                 taskLifeCycle.publish(i);
-                TimeUnit.SECONDS.sleep(1);
+                if (!Arrays.asList(environment.getActiveProfiles()).contains(PERFORMANCE_TESTS_PROFILE)) {
+                    TimeUnit.SECONDS.sleep(1);
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
