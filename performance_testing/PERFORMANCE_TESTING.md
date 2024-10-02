@@ -54,7 +54,7 @@ There are three servers: two for running tests and one for collecting metrics:
 * **Database Server** contains a PostgreSQL database and a JMeter application. This server stores persistent data and creates a test load.
 * **Metrics Server** includes Prometheus and Grafana applications. Collects and processes metrics.
 
-<img src="doc/serverDiagram.png" width="850" alt="Server diagram"/>
+<img src="doc/serverDiagram.png" width="750" alt="Server diagram"/>
 
 ### Server Configuration
 
