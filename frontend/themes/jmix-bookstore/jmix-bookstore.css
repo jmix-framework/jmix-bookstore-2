@@ -102,6 +102,7 @@ vaadin-app-layout[primary-section="drawer"]::part(drawer) {
         gap: 5px;
     }
 
+
     .strong {
         font-weight: bold;
     }

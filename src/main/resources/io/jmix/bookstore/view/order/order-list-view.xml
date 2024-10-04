@@ -257,50 +257,71 @@
                 </vbox>
             </tab>
             <tab id="ordersKanbanBoardTab" label="msg://orderBoard">
-                <kanban:kanban id="ordersKanbanBoard"
-                               dataContainer="allOrdersDc"
-                               width="100%" height="90%"
-                               autoSave="true"
-                               classNames="kanban-board-mixin"
-                               columnActionsEnabled="true"
-                               applyColumnColorToTasks="true"
-                               columnColorEntireSurfaceEnabled="true"
-                               taskUserAvatarVisible="true" taskDueDateVisible="true"
-                               columnSummaryEnabled="true">
-                    <kanban:propertiesMapping id="id" status="status" text="representationText"
-                                              username="customer.firstName"
-                                              dueDate="shippingDate"
-                                              tags="representationTextOrderLines"/>
-                    <kanban:columns>
-                        <kanban:column dataField="NEW"
-                                       label="msg://order.kanban.column.new.label"
-                                       color="#006AF5"/>
-                        <kanban:column dataField="CONFIRMED"
-                                       label="msg://order.kanban.column.confirmed.label"
-                                       color="#CA150C"/>
-                        <kanban:column dataField="IN_DELIVERY"
-                                       label="msg://order.kanban.column.in-delivery.label"
-                                       color="#FFCC00"/>
-                        <kanban:column dataField="DELIVERED"
-                                       label="msg://order.kanban.column.delivered.label"
-                                       color="#192434" reorder="false"/>
-                    </kanban:columns>
-                    <kanban:columnFooterRendererFunction>
+                <vbox>
+                    <hbox classNames="buttons-panel">
+                        <button id="ordersKanbanBoardCreateBtn" action="ordersKanbanBoard.create"/>
+                        <button id="ordersKanbanBoardEditBtn" action="ordersKanbanBoard.edit"/>
+                        <button id="ordersKanbanBoardRemoveBtn" action="ordersKanbanBoard.remove"/>
+                    </hbox>
+                    <kanban:kanban id="ordersKanbanBoard"
+                                   dataContainer="allOrdersDc"
+                                   width="100%" height="90%"
+                                   autoSave="true"
+                                   dropPlaceholderAllowed="true"
+                                   classNames="kanban-board-mixin"
+                                   columnActionsEnabled="true"
+                                   applyColumnColorToTasks="true"
+                                   columnColorEntireSurfaceEnabled="true"
+                                   taskUserAvatarVisible="true" taskDueDateVisible="true"
+                                   columnSummaryEnabled="true">
+                        <kanban:propertiesMapping id="id" status="status" text="representationText"
+                                                  username="customer.firstName"
+                                                  dueDate="shippingDate"
+                                                  tags="representationTextOrderLines"/>
+                        <kanban:columns>
+                            <kanban:column dataField="NEW"
+                                           label="msg://order.kanban.column.new.label"
+                                           color="#006AF5"/>
+                            <kanban:column dataField="CONFIRMED"
+                                           label="msg://order.kanban.column.confirmed.label"
+                                           color="#CA150C"/>
+                            <kanban:column dataField="IN_DELIVERY"
+                                           label="msg://order.kanban.column.in-delivery.label"
+                                           color="#FFCC00"/>
+                            <kanban:column dataField="DELIVERED"
+                                           label="msg://order.kanban.column.delivered.label"
+                                           color="#192434" reorder="false"/>
+                        </kanban:columns>
+                        <kanban:columnFooterRendererFunction>
                         <![CDATA[
-                        (footer, data, dataField) => {
-                            // gets numbers
-                            const digitsString = footer.textContent.match(/(\d+)/)[0];
-                            const number = Number(digitsString);
+                            (footer, data, dataField) => {
+                                // gets numbers
+                                const digitsString = footer.textContent.match(/(\d+)/)[0];
+                                const number = Number(digitsString);
 
-                            if (number > 1) {
-                                footer.style.color = '#CA150C';
-                            } else {
-                                footer.style.color = 'var(--smart-surface-color)';
+                                if (number > 1) {
+                                    footer.style.color = '#CA150C';
+                                } else {
+                                    footer.style.color = 'var(--smart-surface-color)';
+                                }
                             }
-                        }
-                        ]]>
-                    </kanban:columnFooterRendererFunction>
-                </kanban:kanban>
+                            ]]>
+                        </kanban:columnFooterRendererFunction>
+                        <kanban:actions>
+                            <kanban:action id="create" type="list_create">
+                                <kanban:properties>
+                                    <kanban:property name="openMode" value="DIALOG"/>
+                                </kanban:properties>
+                            </kanban:action>
+                            <kanban:action id="edit" type="list_edit">
+                                <kanban:properties>
+                                    <kanban:property name="openMode" value="DIALOG"/>
+                                </kanban:properties>
+                            </kanban:action>
+                            <kanban:action id="remove" type="list_remove"/>
+                        </kanban:actions>
+                    </kanban:kanban>
+                </vbox>
             </tab>
         </tabSheet>
         <hbox id="lookupActions" visible="false">
