@@ -8,7 +8,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'com.vaadin'
 
 jmix {
-    bomVersion = '2.3.3'
+    bomVersion = '2.4.999-SNAPSHOT'
     projectId = 'bookstore'
 }
 
@@ -16,6 +16,7 @@ group = 'io.jmix'
 version = '0.0.1-SNAPSHOT'
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven {
         url 'https://global.repo.jmix.io/repository/public'
@@ -67,6 +68,8 @@ dependencies {
     implementation 'io.jmix.email:jmix-email-starter'
     implementation 'io.jmix.email:jmix-email-flowui-starter'
     implementation 'io.jmix.translations:jmix-translations-de'
+
+    implementation 'io.jmix.kanban:jmix-kanban-flowui-starter'
 
     implementation 'io.jmix.flowui:jmix-flowui-kit'
 

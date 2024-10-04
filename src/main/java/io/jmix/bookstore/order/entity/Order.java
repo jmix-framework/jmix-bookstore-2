@@ -8,17 +8,17 @@ import io.jmix.core.DeletePolicy;
 import io.jmix.core.MetadataTools;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.OnDelete;
-import io.jmix.core.metamodel.annotation.Composition;
-import io.jmix.core.metamodel.annotation.DependsOnProperties;
-import io.jmix.core.metamodel.annotation.InstanceName;
-import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.core.metamodel.annotation.*;
 import io.jmix.core.metamodel.datatype.DatatypeFormatter;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_ORDER", indexes = {
@@ -71,6 +71,27 @@ public class Order extends StandardTenantEntity {
     @JoinColumn(name = "FULFILLED_BY_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private FulfillmentCenter fulfilledBy;
+
+    @DependsOnProperties({"customer", "orderDate", "orderNumber", "status"})
+    @JmixProperty
+    public String getRepresentationText() {
+        return MessageFormat.format("""
+                <div class='task-body'>
+                    <div class='task-line'>Order: <strong>#{0}</strong></div>
+                    <div class='task-line'>Date: <strong>{1}</strong></div>
+                    <div class='task-line'>Customer: <strong>{2}</strong></div>
+                </div>
+                """, orderNumber, orderDate, customer.getFullName());
+
+    }
+
+    @DependsOnProperties({"orderLines"})
+    @JmixProperty
+    public String getRepresentationTextOrderLines() {
+        return orderLines.stream()
+                .map(line -> MessageFormat.format("{0} x{1}", line.getProduct().getName(), line.getQuantity()))
+                .collect(Collectors.joining(","));
+    }
 
     public void setOrderNumber(Long orderNumber) {
         this.orderNumber = orderNumber;
