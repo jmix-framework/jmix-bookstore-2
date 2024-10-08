@@ -123,6 +123,59 @@ vaadin-app-layout[primary-section="drawer"]::part(drawer) {
     }
 }
 
+.order-calendar {
+
+    --today-indicator: #dff7fd;
+    --even-fill-body: #49afbf;
+
+
+    .fc-timegrid-slot-label {
+        font-weight: bold; /* Делает текст жирным */
+    }
+
+
+    /* Индикатор текущего времени */
+    .fc-timegrid-now-indicator {
+        background-color: blue; /* Цвет индикатора */
+        height: 2px; /* Толщина индикатора */
+    }
+
+    /* Текущий день (день недели) */
+    .fc-timegrid-col.fc-day-today {
+        background-color: var(--today-indicator); /* Цвет фона */
+        color: blue; /* Цвет текста */
+    }
+
+    /* Текущий день (если используется день-сетка) */
+    .fc-daygrid-day.fc-day-today {
+        background-color: var(--today-indicator); /* Цвет фона */
+        color: blue; /* Цвет текста */
+    }
+}
+
+.order-calendar-header {
+    --lumo-size-xl: 4rem;
+    --lumo-size-l: 3rem;
+    --lumo-size-m: 2.5rem;
+    --lumo-size-s: 2rem;
+    --lumo-size-xs: 1.75rem;
+
+    .button-edged-left {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .button-edged-right {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    .button-edged {
+        border-radius: 0;
+    }
+}
+
+
 
 /* Notifications */
 

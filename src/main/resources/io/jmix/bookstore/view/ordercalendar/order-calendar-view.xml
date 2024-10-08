@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:calendar="http://jmix.io/schema/fullcalendar/ui"
+      title="msg://orderCalendarView.title">
+    <actions>
+        <action id="calendarTodayAction" text="msg://calendarTodayAction.title" icon="vaadin:date-input"/>
+        <action id="calendarPrevAction" icon="vaadin:arrow-left"/>
+        <action id="calendarNextAction" icon="vaadin:arrow-right"/>
+    </actions>
+    <layout>
+        <hbox id="buttonsPanel" classNames="order-calendar-header" width="100%" justifyContent="BETWEEN" alignItems="BASELINE">
+            <hbox>
+                <button action="calendarTodayAction" classNames="view-button today-button borderless"/>
+                <hbox spacing="false" boxSizing="CONTENT_BOX">
+                    <button action="calendarPrevAction" classNames="button-edged-left"/>
+                    <button action="calendarNextAction" classNames="button-edged-right"/>
+                </hbox>
+            </hbox>
+            <h3 id="calendarTitle" classNames="calendar-title" alignSelf="CENTER"/>
+
+            <comboBox id="orderCalendarProjectionComboBox"
+                      label="msg://calendarProjectionComboBox.title"
+                      width="20em"/>
+        </hbox>
+
+
+        <calendar:calendar id="orderCalendar" width="100%" height="90%"
+                           classNames="order-calendar"
+                           allDayMaintainDurationEnabled="true"
+                           nowIndicatorVisible="true"
+                           weekNumbersVisible="true"
+                           selectionEnabled="true"
+                           firstDayOfWeek="MONDAY"
+                           dragScroll="true"
+                           scrollTime="PT1S"
+                           scrollTimeReset="true"
+                           moreLinkText="Show more"
+                           navigationLinksEnabled="true"
+                           dayHeadersVisible="true"
+                           eventInteractive="true"
+                           eventDurationEditable="true"
+                           eventOverlap="false"/>
+    </layout>
+</view>
