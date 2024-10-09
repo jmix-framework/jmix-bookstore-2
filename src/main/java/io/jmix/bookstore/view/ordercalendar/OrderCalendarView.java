@@ -123,9 +123,9 @@ public class OrderCalendarView extends StandardView {
         event.setDurationEditable(true);
         event.setDisplay(Display.BLOCK);
         event.setOverlap(true);
-        event.setBackgroundColor("var(--even-fill-body)"); // Зеленый фон
-        event.setBorderColor("#333");
-        event.setTextColor("#fff");
+        event.setBackgroundColor("var(--event-fill-body)"); // Зеленый фон
+        event.setBorderColor("var(--event-border-color)");
+        event.setTextColor("var(--secondary-base-color)");
 
         return event;
     }

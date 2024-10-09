@@ -126,13 +126,13 @@ vaadin-app-layout[primary-section="drawer"]::part(drawer) {
 .order-calendar {
 
     --today-indicator: #dff7fd;
-    --even-fill-body: #49afbf;
+    --event-fill-body: #49afbf;
+    --event-border-color: #333;
 
 
     .fc-timegrid-slot-label {
         font-weight: bold; /* Делает текст жирным */
     }
-
 
     /* Индикатор текущего времени */
     .fc-timegrid-now-indicator {

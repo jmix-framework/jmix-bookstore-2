@@ -15,6 +15,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.List;
@@ -43,6 +44,12 @@ public class Order extends StandardTenantEntity {
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Customer customer;
+
+    @DependsOnProperties({"customer"})
+    @JmixProperty
+    public String getCustomerName() {
+        return customer.getFullName();
+    }
 
     @OnDelete(DeletePolicy.CASCADE)
     @Composition
@@ -91,6 +98,15 @@ public class Order extends StandardTenantEntity {
         return orderLines.stream()
                 .map(line -> MessageFormat.format("{0} x{1}", line.getProduct().getName(), line.getQuantity()))
                 .collect(Collectors.joining(","));
+    }
+
+    @DependsOnProperties({"orderLines"})
+    @JmixProperty
+    public BigDecimal getOrderLinePrice() {
+        return orderLines.stream()
+                .map(line -> line.getProduct().getUnitPrice().getAmount().multiply(BigDecimal.valueOf(line.getQuantity())))
+                .reduce(BigDecimal::add)
+                .orElseThrow();
     }
 
     public void setOrderNumber(Long orderNumber) {
