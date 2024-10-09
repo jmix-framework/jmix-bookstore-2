@@ -89,7 +89,12 @@ public class Order extends StandardTenantEntity {
                     <div class='task-line'>Customer: <strong>{2}</strong></div>
                 </div>
                 """, orderNumber, orderDate, customer.getFullName());
+    }
 
+    @DependsOnProperties({"fulfilledBy"})
+    @JmixProperty
+    public String getFulfilmentCenterName() {
+        return fulfilledBy != null ? fulfilledBy.getName() : null;
     }
 
     @DependsOnProperties({"orderLines"})
