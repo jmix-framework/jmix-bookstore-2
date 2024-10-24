@@ -97,6 +97,19 @@ public class Order extends StandardTenantEntity {
         return fulfilledBy != null ? fulfilledBy.getName() : null;
     }
 
+    @DependsOnProperties({"orderDate"})
+    @JmixProperty
+    public String getOrderDateMonth() {
+        return orderDate != null ? orderDate.getMonth().name() : null;
+    }
+
+    @DependsOnProperties({"shippingAddress"})
+    @JmixProperty
+    public String getShippingAddressText() {
+        return shippingAddress != null ? shippingAddress.getInstanceName() : null;
+    }
+
+
     @DependsOnProperties({"orderLines"})
     @JmixProperty
     public String getRepresentationTextOrderLines() {

@@ -7,12 +7,14 @@ import io.jmix.bookstore.order.entity.OrderLine;
 import io.jmix.bookstore.order.entity.OrderStatus;
 import io.jmix.bookstore.product.Product;
 import io.jmix.core.DataManager;
+import io.jmix.email.impl.EmailerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @Service
@@ -28,29 +30,35 @@ public class OrderFakeGenerator {
         List<Product> products = dataManager.load(Product.class)
                 .all()
                 .list();
-        return generateRandomOrders(customers, products, count);
+        List<Address> addresses = dataManager.load(Order.class)
+                .all()
+                .list()
+                .stream()
+                .map(Order::getShippingAddress)
+                .filter(Objects::nonNull)
+                .toList();
+        return generateRandomOrders(customers, addresses, products, count);
     }
 
 
-    public List<Order> generateRandomOrders(List<Customer> customers, List<Product> products, int count) {
+    public List<Order> generateRandomOrders(List<Customer> customers, List<Address> addresses, List<Product> products, int count) {
         List<Order> orders = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Customer customer = customers.get(new Random().nextInt(customers.size()));
-            orders.add(generateRandomOrder(customer, products));
+            orders.add(generateRandomOrder(customer, addresses, products));
         }
         return orders;
     }
 
-    public Order generateRandomOrder(Customer customer, List<Product> products) {
+    public Order generateRandomOrder(Customer customer, List<Address> addresses, List<Product> products) {
         Order order = dataManager.create(Order.class);
-
         order.setOrderNumber(generateRandomOrderNumber());
         order.setCustomer(customer);
 
         order.setStatus(generateRandomStatus());
         order.setOrderDate(generateRandomDate());
 
-        order.setShippingAddress(generateRandomAddress());
+        order.setShippingAddress(addresses.get(new Random().nextInt(addresses.size())));
         if (new Random().nextBoolean()) {
             order.setShippingDate(generateRandomDate());
         }
@@ -75,7 +83,7 @@ public class OrderFakeGenerator {
         return statuses[new Random().nextInt(statuses.length)];
     }
 
-    private Address generateRandomAddress() {
+    private Address generateRandomAddress(List<Address> addresses) {
         Address address = dataManager.create(Address.class);
         address.setCity("Random City " + new Random().nextInt(10));
         address.setCountry("Random Country " + new Random().nextInt(10));

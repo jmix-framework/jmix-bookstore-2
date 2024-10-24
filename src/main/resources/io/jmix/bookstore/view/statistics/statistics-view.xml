@@ -24,17 +24,18 @@
             <pivot:properties>
                 <pivot:property name="customerName"/>
                 <pivot:property name="status"/>
+                <pivot:property name="orderDateMonth"/>
                 <pivot:property name="orderLinePrice"/>
                 <pivot:property name="fulfilmentCenterName"/>
+                <pivot:property name="shippingAddressText"/>
             </pivot:properties>
             <pivot:aggregations default="MAXIMUM"/>
             <pivot:rows>
-                <pivot:row value="msg://io.jmix.bookstore.order.entity/Order.fulfilmentCenterName"/>
+                <pivot:row value="msg://io.jmix.bookstore.order.entity/Order.orderDateMonth"/>
             </pivot:rows>
             <pivot:columns>
                 <pivot:column value="msg://io.jmix.bookstore.order.entity/Order.status"/>
                 <pivot:column value="msg://io.jmix.bookstore.order.entity/Order.customerName"/>
-                <pivot:column value="msg://io.jmix.bookstore.order.entity/Order.orderLinePrice"/>
             </pivot:columns>
         </pivot:pivotTable>
     </layout>
