@@ -27,6 +27,12 @@ public interface Hr {
 
     @UiComponentPolicy(
             viewClass = EmployeeListView.class,
+            componentIds = {"genericFilter"},
+            action = UiComponentPolicyAction.ENABLED,
+            effect = UiComponentPolicyEffect.DENY
+    )
+    @UiComponentPolicy(
+            viewClass = EmployeeListView.class,
             componentIds = {"employeesDataGrid.create"},
             action = UiComponentPolicyAction.ENABLED,
             effect = UiComponentPolicyEffect.DENY
