@@ -13,6 +13,8 @@ services:
   postgres:
     container_name: jmix-bookstore-db
     image: postgres:15
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
