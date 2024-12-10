@@ -247,6 +247,11 @@
                     </dataGrid>
                 </vbox>
             </tab>
+            <tab id="ordersKanbanBoardTab" label="msg://orderBoard">
+                <vbox>
+
+                </vbox>
+            </tab>
         </tabSheet>
         <hbox id="lookupActions" visible="false">
             <button id="selectBtn" action="selectAction"/>
