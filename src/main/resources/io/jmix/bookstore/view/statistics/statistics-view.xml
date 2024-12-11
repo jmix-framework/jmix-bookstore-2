@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://statisticsView.title">
+    <data>
+        <collection id="ordersDc" class="io.jmix.bookstore.order.entity.Order">
+            <fetchPlan extends="_base">
+                <property name="orderLines" fetch="JOIN" fetchPlan="_base"/>
+                <property name="fulfilledBy" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="ordersDl" maxResults="50">
+                <query>
+                    <![CDATA[select e from bookstore_Order e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+
+    </layout>
+</view>
