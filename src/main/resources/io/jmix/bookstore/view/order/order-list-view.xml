@@ -15,6 +15,15 @@
                 </query>
             </loader>
         </collection>
+        <collection id="allOrdersDc"
+                    class="io.jmix.bookstore.order.entity.Order">
+            <fetchPlan extends="_base"/>
+            <loader id="allOrdersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_Order e]]>
+                </query>
+            </loader>
+        </collection>
         <collection id="confirmedOrdersDc"
                     class="io.jmix.bookstore.order.entity.Order">
             <fetchPlan extends="_base">
@@ -59,7 +68,7 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-<!--            <genericFilter component="genericFilter"/>-->
+            <!--            <genericFilter component="genericFilter"/>-->
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>

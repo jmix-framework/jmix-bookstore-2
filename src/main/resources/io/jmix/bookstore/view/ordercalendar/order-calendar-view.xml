@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://orderCalendarView.title">
+
+    <layout>
+        <hbox id="buttonsPanel" classNames="order-calendar-header" width="100%" justifyContent="BETWEEN" alignItems="BASELINE">
+            <hbox>
+
+            </hbox>
+            <h3 id="calendarTitle" classNames="calendar-title" alignSelf="CENTER"/>
+
+        </hbox>
+
+
+
+    </layout>
+</view>
