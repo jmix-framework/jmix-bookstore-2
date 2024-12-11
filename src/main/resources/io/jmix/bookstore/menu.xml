@@ -2,6 +2,8 @@
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
     <item view="bookstore_Order.list" title="msg://io.jmix.bookstore.view.order/orderListView.title" icon="vaadin:cart"/>
+    <item view="bookstore_OrderCalendarView.view" title="msg://io.jmix.bookstore.view.order/order.calendar" icon="vaadin:calendar"/>
+
     <item view="bookstore_Customer.list" title="msg://io.jmix.bookstore.view.customer/customerListView.title" icon="vaadin:user-card"/>
     <menu id="products" title="msg://io.jmix.bookstore/menu.products" icon="vaadin:book">
         <item view="bookstore_Product.list" title="msg://io.jmix.bookstore.view.product/productListView.title"/>
