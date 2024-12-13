@@ -69,6 +69,12 @@ dependencies {
     implementation 'io.jmix.email:jmix-email-flowui-starter'
     implementation 'io.jmix.translations:jmix-translations-de'
 
+    implementation 'io.jmix.kanban:jmix-kanban-flowui-starter'
+    implementation 'io.jmix.pivottable:jmix-pivottable-flowui-starter'
+    implementation 'io.jmix.fullcalendar:jmix-fullcalendar-flowui-starter'
+    implementation 'io.jmix.uiconstraints:jmix-uiconstraints-starter'
+
+
     implementation 'io.jmix.flowui:jmix-flowui-kit'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'

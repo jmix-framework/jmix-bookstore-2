@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<view xmlns="http://jmix.io/schema/flowui/view"
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:kanban="http://jmix.io/schema/kanban/ui"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://orderListView.title"
       focusComponent="ordersDataGrid">
@@ -258,7 +258,49 @@
             </tab>
             <tab id="ordersKanbanBoardTab" label="msg://orderBoard">
                 <vbox>
+                    <hbox classNames="buttons-panel">
+                        <button id="ordersKanbanBoardCreateBtn" action="ordersKanbanBoard.create"/>
+                        <button id="ordersKanbanBoardRemoveBtn" action="ordersKanbanBoard.remove"/>
+                    </hbox>
+                    <kanban:kanban id="ordersKanbanBoard"
+                                   dataContainer="allOrdersDc"
+                                   width="100%" height="90%"
+                                   autoSave="true"
+                                   classNames="kanban-board-mixin"
+                                   columnActionsEnabled="true"
+                                   columnSummaryEnabled="true">
 
+                        <kanban:propertiesMapping id="id" status="status" text="representationText"
+                                                  username="customer.firstName"
+                                                  dueDate="shippingDate"
+                                                  tags="representationTextOrderLines"/>
+
+                        <kanban:columns>
+                            <kanban:column dataField="NEW"
+                                           label="msg://order.kanban.column.new.label"
+                                           color="#006AF5"/>
+                            <kanban:column dataField="CONFIRMED"
+                                           label="msg://order.kanban.column.confirmed.label"
+                                           color="#CA150C"/>
+                            <kanban:column dataField="IN_DELIVERY"
+                                           label="msg://order.kanban.column.in-delivery.label"
+                                           color="#FFCC00"/>
+                            <kanban:column dataField="DELIVERED"
+                                           label="msg://order.kanban.column.delivered.label"
+                                           color="#192434" reorder="false"/>
+                        </kanban:columns>
+
+                        <kanban:actions>
+                            <kanban:action id="create" type="list_create">
+                                <kanban:properties>
+                                    <kanban:property name="openMode" value="DIALOG"/>
+                                </kanban:properties>
+                            </kanban:action>
+
+                            <kanban:action id="remove" type="list_remove"/>
+                        </kanban:actions>
+
+                    </kanban:kanban>
                 </vbox>
             </tab>
         </tabSheet>

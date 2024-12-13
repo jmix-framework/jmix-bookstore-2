@@ -78,7 +78,7 @@ vaadin-app-layout[primary-section="drawer"]::part(drawer) {
 
     .jmix-menu-item-link:hover,
     vaadin-details-summary:hover,
-    vaadin-details-summary:hover::part(toggle){
+    vaadin-details-summary:hover::part(toggle) {
         color: var(--lumo-primary-color);
     }
 }
@@ -86,6 +86,96 @@ vaadin-app-layout[primary-section="drawer"]::part(drawer) {
 .jmix-main-view-application-title-base-link {
     padding: var(--lumo-space-s);
 }
+
+.kanban-board-mixin {
+    .task-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .task-line {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+    }
+
+
+    .strong {
+        font-weight: bold;
+    }
+
+    .smart-kanban-task-due.overdue {
+        color: var(--lumo-body-text-color);
+        text-decoration: underline;
+    }
+
+    .smart-kanban-task-due::after {
+        content: none;
+        display: none;
+    }
+
+    .smart-kanban-task-tag {
+        color: var(--dark-purple);
+        background-color: var(--lumo-primary-color-50pct);
+    }
+}
+
+.order-calendar {
+
+    --today-indicator: #dff7fd;
+    --event-fill-body: #49afbf;
+    --event-border-color: #333;
+
+
+    .fc-timegrid-slot-label {
+        font-weight: bold; /* Делает текст жирным */
+    }
+
+    /* Индикатор текущего времени */
+    .fc-timegrid-now-indicator {
+        background-color: blue; /* Цвет индикатора */
+        height: 2px; /* Толщина индикатора */
+    }
+
+    /* Текущий день (день недели) */
+    .fc-timegrid-col.fc-day-today {
+        background-color: var(--today-indicator); /* Цвет фона */
+        color: blue; /* Цвет текста */
+    }
+
+    /* Текущий день (если используется день-сетка) */
+    .fc-daygrid-day.fc-day-today {
+        background-color: var(--today-indicator); /* Цвет фона */
+        color: blue; /* Цвет текста */
+    }
+}
+
+.order-calendar-header {
+    --lumo-size-xl: 4rem;
+    --lumo-size-l: 3rem;
+    --lumo-size-m: 2.5rem;
+    --lumo-size-s: 2rem;
+    --lumo-size-xs: 1.75rem;
+
+    .button-edged-left {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .button-edged-right {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    .button-edged {
+        border-radius: 0;
+    }
+}
+
+
 
 /* Notifications */
 

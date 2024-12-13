@@ -24,6 +24,7 @@ import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.CollectionLoader;
 import io.jmix.flowui.model.DataContext;
 import io.jmix.flowui.view.*;
+import io.jmix.kanbanflowui.kit.component.event.KanbanTaskDoubleClickEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
@@ -176,6 +177,30 @@ public class OrderListView extends StandardListView<Order> {
         return accessContext.isPermitted();
     }
 
+    // is this needed? in which case we use the controller for the kanban board?
+
+    @Install(to = "ordersKanbanBoard", subject = "saveDelegate")
+    public void ordersKanbanBoardSaveDelegate(final Order order) {
+        refreshDataContainers(dataManager.save(order));
+        notifications.create("Task '%s' saved!".formatted(MessageFormat.format("#{0}", order.getOrderNumber())))
+                .withThemeVariant(NotificationVariant.LUMO_SUCCESS)
+                .withPosition(Notification.Position.TOP_END)
+                .show();
+    }
+
+    @Subscribe("ordersKanbanBoard")
+    public void onOrdersKanbanBoardTaskDoubleClick(final KanbanTaskDoubleClickEvent<Order> event) {
+        dialogWindows.detail(this, Order.class)
+                .withViewClass(OrderDetailView.class)
+                .editEntity(event.getItem())
+                .withAfterCloseListener(e -> {
+                    if (e.closedWith(StandardOutcome.SAVE)) {
+                        Order order = e.getView().getEditedEntity();
+                        refreshDataContainers(order);
+                    }
+                })
+                .open();
+    }
 
     private void refreshDataContainers(Order updated) {
         allOrdersDc.replaceItem(updated);

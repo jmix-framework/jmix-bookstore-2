@@ -6,6 +6,7 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import io.jmix.bookstore.perftests.BookstoreListMenu;
+import io.jmix.core.repository.EnableJmixDataRepositories;
 import io.jmix.flowui.component.main.JmixListMenu;
 import io.jmix.flowui.sys.registration.ComponentRegistration;
 import io.jmix.flowui.sys.registration.ComponentRegistrationBuilder;
@@ -33,6 +34,7 @@ import javax.sql.DataSource;
 @PWA(name = "Jmix Bookstore", shortName = "Jmix Bookstore")
 @EnableAsync
 @SpringBootApplication
+@EnableJmixDataRepositories
 public class JmixBookstoreApplication implements AppShellConfigurator {
     public static final String PERFORMANCE_TESTS_PROFILE = "perf-tests";
 

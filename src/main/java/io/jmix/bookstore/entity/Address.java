@@ -1,9 +1,6 @@
 package io.jmix.bookstore.entity;
 
-import io.jmix.core.metamodel.annotation.DependsOnProperties;
-import io.jmix.core.metamodel.annotation.InstanceName;
-import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.core.metamodel.annotation.PropertyDatatype;
+import io.jmix.core.metamodel.annotation.*;
 import io.jmix.maps.Geometry;
 import org.locationtech.jts.geom.Point;
 
