@@ -177,15 +177,10 @@ public class OrderListView extends StandardListView<Order> {
         return accessContext.isPermitted();
     }
 
-    // is this needed? in which case we use the controller for the kanban board?
 
     @Install(to = "ordersKanbanBoard", subject = "saveDelegate")
     public void ordersKanbanBoardSaveDelegate(final Order order) {
         refreshDataContainers(dataManager.save(order));
-        notifications.create("Task '%s' saved!".formatted(MessageFormat.format("#{0}", order.getOrderNumber())))
-                .withThemeVariant(NotificationVariant.LUMO_SUCCESS)
-                .withPosition(Notification.Position.TOP_END)
-                .show();
     }
 
     @Subscribe("ordersKanbanBoard")
