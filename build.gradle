@@ -111,6 +111,7 @@ dependencies {
 
     testImplementation 'org.hsqldb:hsqldb'
 
+    implementation 'io.jmix.charts:jmix-charts-flowui-starter'
 }
 
 test {

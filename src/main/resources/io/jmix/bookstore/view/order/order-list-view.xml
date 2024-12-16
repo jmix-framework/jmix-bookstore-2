@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<view xmlns="http://jmix.io/schema/flowui/view" xmlns:kanban="http://jmix.io/schema/kanban/ui"
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:charts="http://jmix.io/schema/charts/ui" xmlns:kanban="http://jmix.io/schema/kanban/ui"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://orderListView.title"
       focusComponent="ordersDataGrid">
@@ -258,10 +258,12 @@
             </tab>
             <tab id="ordersKanbanBoardTab" label="msg://orderBoard">
                 <vbox>
+
                     <hbox classNames="buttons-panel">
                         <button id="ordersKanbanBoardCreateBtn" action="ordersKanbanBoard.create"/>
                         <button id="ordersKanbanBoardRemoveBtn" action="ordersKanbanBoard.remove"/>
                     </hbox>
+
                     <kanban:kanban id="ordersKanbanBoard"
                                    dataContainer="allOrdersDc"
                                    width="100%" height="90%"
@@ -301,6 +303,18 @@
                         </kanban:actions>
 
                     </kanban:kanban>
+                </vbox>
+            </tab>
+
+            <tab id="ordersChartTab" label="Chart">
+                <vbox>
+                    <charts:chart id="pie" width="40em" height="40em" alignSelf="CENTER">
+                        <charts:series>
+                            <charts:pie name="Order" radius="50% 80%">
+                                <charts:label formatter="{b} : {d}%" overflow="NONE"/>
+                            </charts:pie>
+                        </charts:series>
+                    </charts:chart>
                 </vbox>
             </tab>
         </tabSheet>

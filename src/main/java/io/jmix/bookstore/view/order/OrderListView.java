@@ -7,6 +7,10 @@ import com.vaadin.flow.router.Route;
 import io.jmix.bookstore.order.entity.Order;
 import io.jmix.bookstore.order.entity.OrderStatus;
 import io.jmix.bookstore.view.main.MainView;
+import io.jmix.chartsflowui.component.Chart;
+import io.jmix.chartsflowui.data.item.MapDataItem;
+import io.jmix.chartsflowui.kit.component.model.DataSet;
+import io.jmix.chartsflowui.kit.data.chart.ListChartItems;
 import io.jmix.core.AccessManager;
 import io.jmix.core.DataManager;
 import io.jmix.core.Messages;
@@ -30,6 +34,7 @@ import org.springframework.core.env.Environment;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.Map;
 
 import static io.jmix.bookstore.JmixBookstoreApplication.PERFORMANCE_TESTS_PROFILE;
 
@@ -85,14 +90,19 @@ public class OrderListView extends StandardListView<Order> {
     @ViewComponent
     private CollectionContainer<Order> newOrdersDc;
 
+    @ViewComponent
+    private Chart pie;
+
 
     @Subscribe
     public void onInit(final InitEvent event) {
-        if (Arrays.asList(environment.getActiveProfiles()).contains(PERFORMANCE_TESTS_PROFILE)) {//fix id absence for tests
+        if (Arrays.asList(environment.getActiveProfiles()).contains(PERFORMANCE_TESTS_PROFILE)) {
             orderListTabSheet.getElement().getChildren().filter(elm -> "vaadin-tabs".equals(elm.getTag())).findFirst().ifPresent(
                     elm -> elm.setAttribute("id", "orderListVaadinTabs")
             );
         }
+
+        loadChartData();
     }
 
 
@@ -101,6 +111,42 @@ public class OrderListView extends StandardListView<Order> {
         viewNavigators.detailView(ordersDataGrid)
                 .withViewClass(ConfirmOrderView.class)
                 .navigate();
+    }
+
+    private void loadChartData() {
+        final Integer confirmedStatus = dataManager.loadValue(
+                        "select count(o) from bookstore_Order o where o.status = 'CONFIRMED'", Integer.class)
+                .one();
+
+        final Integer newStatus = dataManager.loadValue(
+                        "select count(o) from bookstore_Order o where o.status = 'NEW'", Integer.class)
+                .one();
+
+        final Integer inDeliveryStatus = dataManager.loadValue(
+                        "select count(o) from bookstore_Order o where o.status = 'IN_DELIVERY'", Integer.class)
+                .one();
+
+        final Integer deliveredStatus = dataManager.loadValue(
+                        "select count(o) from bookstore_Order o where o.status = 'DELIVERED'", Integer.class)
+                .one();
+
+        ListChartItems<MapDataItem> items = new ListChartItems<>(
+                new MapDataItem(Map.of("category", "New", "value", newStatus)),
+                new MapDataItem(Map.of("category", "In Delivery", "value", inDeliveryStatus)),
+                new MapDataItem(Map.of("category", "Delivered", "value", deliveredStatus)),
+                new MapDataItem(Map.of("category", "Confirmed", "value", confirmedStatus))
+        );
+
+        pie.setDataSet(
+                new DataSet()
+                        .withSource(
+                                new DataSet.Source<MapDataItem>()
+                                        .withDataProvider(items)
+                                        .withCategoryField("category")
+                                        .withValueField("value")
+                        )
+        );
+
     }
 
     @Subscribe("confirmedOrdersDataGrid.markAsInDelivery")
@@ -196,6 +242,9 @@ public class OrderListView extends StandardListView<Order> {
                 })
                 .open();
     }
+
+
+
 
     private void refreshDataContainers(Order updated) {
         allOrdersDc.replaceItem(updated);

@@ -58,7 +58,6 @@ public class OrderCalendarView extends StandardView {
 
     @Subscribe
     public void onBeforeShow(final BeforeShowEvent event) {
-//        updateCalendarOptions();
 
         orderCalendar.addDataProvider(new ListCalendarDataProvider(getOrderCalendarEvents()));
 
@@ -70,31 +69,6 @@ public class OrderCalendarView extends StandardView {
                 CalendarDisplayModes.MULTI_MONTH_YEAR));
         orderCalendarProjectionComboBox.setValue(CalendarDisplayModes.TIME_GRID_WEEK);
     }
-
-//    @Subscribe("orderCalendar")
-//    public void onOrderCalendarDatesSet(final DatesSetEvent e) {
-//
-//        LocalDate startDate = e.getStartDate();
-//        LocalDate endDate = e.getEndDate();
-//
-//        DateTimeFormatter monthDayFormatter = DateTimeFormatter.ofPattern("d MMM", Locale.ENGLISH);
-//        DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH);
-//
-//        String formattedDate;
-//        if (startDate.getYear() == endDate.getYear()) {
-//            formattedDate = MessageFormat.format("{0} - {1}, {2}",
-//                    startDate.format(monthDayFormatter),
-//                    endDate.format(monthDayFormatter),
-//                    endDate.format(yearFormatter));
-//        } else {
-//            formattedDate = MessageFormat.format("{0}, {1} - {2}, {3}",
-//                    startDate.format(monthDayFormatter),
-//                    startDate.format(yearFormatter),
-//                    endDate.format(monthDayFormatter),
-//                    endDate.format(yearFormatter));
-//        }
-//        calendarTitle.setText(formattedDate);
-//    }
 
 
     public List<CalendarEvent> getOrderCalendarEvents() {
@@ -137,33 +111,6 @@ public class OrderCalendarView extends StandardView {
         orderCalendar.navigateToToday();
     }
 
-//    @Supply(to = "orderCalendarProjectionComboBox", subject = "renderer")
-//    private Renderer<CalendarDisplayModes> orderCalendarProjectionComboBoxRenderer() {
-//        return new ComponentRenderer<>(e -> {
-//            String label = getLabelByValue(e);
-//            Icon icon = switch (e) {
-//                case LIST_YEAR -> VaadinIcon.LINES_LIST.create();
-//                case TIME_GRID_DAY -> VaadinIcon.GRID_V.create();
-//                case TIME_GRID_WEEK -> VaadinIcon.GRID_H.create();
-//                case DAY_GRID_MONTH -> VaadinIcon.GRID_BIG_O.create();
-//                case MULTI_MONTH_YEAR -> VaadinIcon.GRID_SMALL_O.create();
-//                default -> throw new IllegalStateException("Unexpected value: " + e);
-//            };
-//
-//            HorizontalLayout contentBox = uiComponents.create(HorizontalLayout.class);
-//            contentBox.setPadding(false);
-//
-//            contentBox.add(icon);
-//            contentBox.add(label);
-//
-//            return contentBox;
-//        });
-//    }
-//
-//    private String orderCalendarProjectionComboBoxItemLabelGenerator(final CalendarDisplayModes mode) {
-//        return getLabelByValue(mode);
-//    }
-
     @Install(to = "orderCalendarProjectionComboBox", subject = "itemLabelGenerator")
     private String getLabelByValue(CalendarDisplayModes mode) {
         return switch (mode) {
@@ -180,66 +127,4 @@ public class OrderCalendarView extends StandardView {
     public void onOrderCalendarProjectionComboBoxComponentValueChange(final AbstractField.ComponentValueChangeEvent<JmixComboBox<CalendarDisplayModes>, CalendarDisplayModes> event) {
         orderCalendar.setCalendarDisplayMode(event.getValue());
     }
-
-//    @SuppressWarnings({"unchecked", "rawtypes"})
-//    private void updateCalendarOptions() {
-//        try {
-//            Field optionsField = JmixFullCalendar.class.getDeclaredField("options");
-//
-//            // Открытие доступа к защищенному полю
-//            optionsField.setAccessible(true);
-//
-//            FullCalendarOptions options = (FullCalendarOptions) optionsField.get(orderCalendar);
-//
-//            Field optionsMapField = JmixFullCalendarOptions.class.getDeclaredField("optionsMap");
-//            optionsMapField.setAccessible(true);
-//
-//            Map optionMap = (Map) optionsMapField.get(options);
-//            optionMap.put("slotLabelFormat", new CalendarOption("slotLabelFormat") {
-//                @SuppressWarnings("DataFlowIssue")
-//                @Nullable
-//                @Override
-//                protected Object getValueToSerialize() {
-//                    return Map.of("hour", "numeric", "hour12", true);
-//                }
-//
-//                @Override
-//                protected String getName() {
-//                    return super.getName();
-//                }
-//
-//                @Override
-//                protected boolean isDirty() {
-//                    return true;
-//                }
-//            });
-//
-//            optionMap.put("dayHeaderFormat", new CalendarOption("dayHeaderFormat") {
-//                @SuppressWarnings("DataFlowIssue")
-//                @Nullable
-//                @Override
-//                protected Object getValueToSerialize() {
-//                    return Map.of("weekday", "long", "day", "2-digit");
-//                }
-//
-//                @Override
-//                protected String getName() {
-//                    return super.getName();
-//                }
-//
-//                @Override
-//                protected boolean isDirty() {
-//                    return true;
-//                }
-//            });
-//
-//
-//            Method performUpdateOptions = JmixFullCalendar.class.getDeclaredMethod("performUpdateOptions", Boolean.TYPE);
-//
-//            performUpdateOptions.setAccessible(true);
-//            performUpdateOptions.invoke(orderCalendar, true);
-//        } catch (Exception e) {
-//            throw new RuntimeException("UI caller exception", e);
-//        }
-//    }
 }
