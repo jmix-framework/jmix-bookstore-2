@@ -206,6 +206,7 @@
                     </dataGrid>
                 </vbox>
             </tab>
+
             <tab id="finishedOrdersTab" label="msg://finishedOrders">
                 <vbox height="100%" padding="false">
                     <genericFilter id="finishedOrdersFilter"
@@ -256,6 +257,7 @@
                     </dataGrid>
                 </vbox>
             </tab>
+
             <tab id="ordersKanbanBoardTab" label="msg://orderBoard">
                 <vbox>
 
@@ -308,7 +310,7 @@
 
             <tab id="ordersChartTab" label="Chart">
                 <vbox>
-                    <charts:chart id="pie" width="40em" height="40em" alignSelf="CENTER">
+                    <charts:chart id="pie" width="60em" height="40em" alignSelf="CENTER">
                         <charts:series>
                             <charts:pie name="Order" radius="50% 80%">
                                 <charts:label formatter="{b} : {d}%" overflow="NONE"/>
