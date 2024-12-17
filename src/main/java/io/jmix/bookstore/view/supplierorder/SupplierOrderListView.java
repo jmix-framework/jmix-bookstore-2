@@ -4,6 +4,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.router.Route;
 import io.jmix.bookstore.product.supplier.SupplierOrder;
+import io.jmix.bookstore.product.supplier.creation.SupplierOrderDraftCreationConfig;
 import io.jmix.bookstore.view.main.MainView;
 import io.jmix.core.TimeSource;
 import io.jmix.flowui.Notifications;
@@ -74,9 +75,9 @@ public class SupplierOrderListView extends StandardListView<SupplierOrder> {
     public LocalDateTime nextTriggerTime() {
         LocalDateTime dateTime = timeSource.now().toLocalDateTime();
         int minutes = dateTime.getMinute();
-        int mod = minutes % 5;
+        int mod = minutes % SupplierOrderDraftCreationConfig.INTERVAL_MIN;
 
-        return dateTime.plusMinutes(5 - mod)
+        return dateTime.plusMinutes(SupplierOrderDraftCreationConfig.INTERVAL_MIN - mod)
                 .truncatedTo(ChronoUnit.MINUTES);
     }
 }

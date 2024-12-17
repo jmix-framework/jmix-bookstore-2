@@ -11,6 +11,8 @@ import static org.quartz.CronScheduleBuilder.cronSchedule;
 @Profile("!integration-test")
 public class SupplierOrderDraftCreationConfig {
 
+    public static final int INTERVAL_MIN = 5;
+
     @Bean
     JobDetail supplierOrderDraft() {
         return JobBuilder.newJob()
@@ -27,7 +29,7 @@ public class SupplierOrderDraftCreationConfig {
                 .withIdentity("supplierOrderDraftTrigger")
                 .startNow()
                 .withSchedule(
-                        cronSchedule("0 0/5 * * * ?")
+                        cronSchedule("0 0/%d * * * ?".formatted(INTERVAL_MIN))
                 )
                 .build();
     }
