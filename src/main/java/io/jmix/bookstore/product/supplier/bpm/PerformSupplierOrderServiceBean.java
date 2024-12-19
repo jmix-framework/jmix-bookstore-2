@@ -110,6 +110,7 @@ public class PerformSupplierOrderServiceBean implements PerformSupplierOrderServ
 
         supplierOrderWithUpdatedStatus.setOrderForm(orderFormFile);
 
+        log.info("Saving SupplierOrder");
         dataManager.save(supplierOrderWithUpdatedStatus);
 
         return orderFormFile;
@@ -121,6 +122,7 @@ public class PerformSupplierOrderServiceBean implements PerformSupplierOrderServ
                 .addParam("reviewedBy", reviewedBy)
                 .run();
 
+        log.info("Saving supplier-order-form.docx to file storage");
         ByteArrayInputStream documentBytes = new ByteArrayInputStream(document.getContent());
         return fileStorage.saveStream("supplier-order-form.docx", documentBytes);
     }

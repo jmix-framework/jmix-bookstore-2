@@ -14,8 +14,10 @@
     <logger name="org.atmosphere" level="WARN"/>
 
     <logger name="io.jmix" level="INFO"/>
-    <logger name="io.jmix.core.datastore" level="INFO"/>
+    <logger name="io.jmix.core.datastore" level="DEBUG"/>
     <logger name="eclipselink.logging.sql" level="INFO"/>
     <logger name="io.jmix.core.AccessLogger" level="INFO"/>
+
+    <logger name="io.jmix.email" level="TRACE"/>
 
 </configuration>
