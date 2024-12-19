@@ -13,7 +13,8 @@ import java.util.List;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_TERRITORY", indexes = {
-        @Index(name = "IDX_BOOKSTORE_TERRITORY_REGION", columnList = "REGION_ID")
+        @Index(name = "IDX_BOOKSTORE_TERRITORY_REGION", columnList = "REGION_ID"),
+        @Index(name = "IDX_BOOKSTORE_TERRITORY_TENANT", columnList = "TENANT")
 })
 @Entity(name = "bookstore_Territory")
 public class Territory extends StandardTenantEntity {

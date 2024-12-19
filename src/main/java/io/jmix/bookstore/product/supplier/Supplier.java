@@ -12,7 +12,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 @JmixEntity
-@Table(name = "BOOKSTORE_SUPPLIER")
+@Table(name = "BOOKSTORE_SUPPLIER", indexes = {
+        @Index(name = "IDX_BOOKSTORE_SUPPLIER_TENANT", columnList = "TENANT")
+})
 @Entity(name = "bookstore_Supplier")
 public class Supplier extends StandardTenantEntity {
     @InstanceName

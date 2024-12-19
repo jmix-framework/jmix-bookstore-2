@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name = "BOOKSTORE_EMPLOYEE", indexes = {
         @Index(name = "IDX_BOOKSTOREEMPLOYE_REPORTSTO", columnList = "REPORTS_TO_ID"),
         @Index(name = "IDX_BOOKSTORE_EMPLOYEE_USER", columnList = "USER_ID"),
-        @Index(name = "IDX_BOOKSTORE_EMPLOYEE_POSITION", columnList = "POSITION_ID")
+        @Index(name = "IDX_BOOKSTORE_EMPLOYEE_POSITION", columnList = "POSITION_ID"),
+        @Index(name = "IDX_BOOKSTORE_EMPLOYEE_TENANT", columnList = "TENANT")
 })
 @Entity(name = "bookstore_Employee")
 public class Employee extends StandardTenantEntity {

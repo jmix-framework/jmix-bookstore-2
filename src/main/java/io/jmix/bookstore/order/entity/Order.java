@@ -23,7 +23,8 @@ import java.util.List;
 @JmixEntity
 @Table(name = "BOOKSTORE_ORDER", indexes = {
         @Index(name = "IDX_ORDER_CUSTOMER_ID", columnList = "CUSTOMER_ID"),
-        @Index(name = "IDX_BOOKSTORE_ORDER_FULFILLED_BY", columnList = "FULFILLED_BY_ID")
+        @Index(name = "IDX_BOOKSTORE_ORDER_FULFILLED_BY", columnList = "FULFILLED_BY_ID"),
+        @Index(name = "IDX_BOOKSTORE_ORDER_TENANT", columnList = "TENANT")
 }, uniqueConstraints = {
         @UniqueConstraint(name = "IDX_BOOKSTORE_ORDER_ORDER_NUMBER_UNQ", columnNames = {"TENANT", "ORDER_NUMBER"})
 })

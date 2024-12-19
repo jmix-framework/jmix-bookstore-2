@@ -12,7 +12,8 @@ import jakarta.validation.constraints.NotNull;
 @JmixEntity
 @Table(name = "BOOKSTORE_SUPPLIER_ORDER_REQUEST", indexes = {
         @Index(name = "IDX_BOOKSTORE_SUPPLIER_ORDER_REQUEST_PRODUCT", columnList = "PRODUCT_ID"),
-        @Index(name = "IDX_BOOKSTORE_SUPPLIER_ORDER_REQUEST_REQUESTED_BY", columnList = "REQUESTED_BY_ID")
+        @Index(name = "IDX_BOOKSTORE_SUPPLIER_ORDER_REQUEST_REQUESTED_BY", columnList = "REQUESTED_BY_ID"),
+        @Index(name = "IDX_BOOKSTORE_SUPPLIER_ORDER_REQUEST_TENANT", columnList = "TENANT")
 })
 @Entity(name = "bookstore_SupplierOrderRequest")
 public class SupplierOrderRequest extends StandardTenantEntity {

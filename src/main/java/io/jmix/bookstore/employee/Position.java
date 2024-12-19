@@ -15,7 +15,9 @@ import java.util.List;
 import java.util.Locale;
 
 @JmixEntity
-@Table(name = "BOOKSTORE_POSITION")
+@Table(name = "BOOKSTORE_POSITION", indexes = {
+        @Index(name = "IDX_BOOKSTORE_POSITION_TENANT", columnList = "TENANT")
+})
 @Entity(name = "bookstore_Position")
 public class Position extends StandardTenantEntity {
 
