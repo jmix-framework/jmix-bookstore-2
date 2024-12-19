@@ -37,11 +37,18 @@ jobs:
 #        with:
 #          report_paths: '**/build/test-results/test/TEST-*.xml'
 
-      - name: Build Docker Image
-        # if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Build JAR
         env:
           PREMIUM_REPO_USER: ${{ secrets.PREMIUM_REPO_USER }}
           PREMIUM_REPO_PASS: ${{ secrets.PREMIUM_REPO_PASS }}
+        run: ./gradlew -Pvaadin.productionMode=true bootJar
+
+      - name: Build Docker Image
+        # if: ${{ github.ref == 'refs/heads/main' }}
+        run: docker build -t jmix/jmix-bookstore:test .
+
+      - name: Push Docker Image
+        env:
           DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-        run: ./gradlew -Pvaadin.productionMode=true bootBuildImage
+        run: docker push jmix/jmix-bookstore:test
