@@ -248,7 +248,7 @@ The procurement specialist reviews the aggregated requests and can potentially m
 
 ![](img/4-procurement-specialist-supplier-order-review-task.png)
 
-Once the review is finished, sometimes an approval is required. The system decides based on cooperation status with that supplier if the order is send for approval to the procurement manager.
+Once the review is finished, an approval is required if the cooperation status of the supplier is not "Important". 
 
 ![](img/5-procurement-manager-supplier-order-approval-task.png)
 
