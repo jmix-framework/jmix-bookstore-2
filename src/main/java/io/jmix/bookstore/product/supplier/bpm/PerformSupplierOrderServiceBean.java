@@ -124,7 +124,9 @@ public class PerformSupplierOrderServiceBean implements PerformSupplierOrderServ
 
         log.info("Saving supplier-order-form.docx to file storage");
         ByteArrayInputStream documentBytes = new ByteArrayInputStream(document.getContent());
-        return fileStorage.saveStream("supplier-order-form.docx", documentBytes);
+        FileRef fileRef = fileStorage.saveStream("supplier-order-form.docx", documentBytes);
+        log.info("Saved supplier-order-form.docx");
+        return fileRef;
     }
 
 }
