@@ -135,17 +135,6 @@ assertjGenerator {
     useJakartaAnnotations = true
 }
 
-tasks.named("bootBuildImage") {
-    imageName = "docker.io/jmix/${project.name}"
-    publish = true
-    docker {
-        publishRegistry {
-            username = System.getenv("DOCKER_HUB_LOGIN")
-            password = System.getenv("DOCKER_HUB_PASSWORD")
-        }
-    }
-}
-
 idea {
     module {
         excludeDirs.addAll(files '.jmix', 'node_modules', 'src/main/frontend/generated/', 'src/main/bundles')
