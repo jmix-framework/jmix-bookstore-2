@@ -11,7 +11,7 @@ import static org.quartz.CronScheduleBuilder.cronSchedule;
 @Profile("!integration-test")
 public class SupplierOrderDraftCreationConfig {
 
-    public static final int INTERVAL_MIN = 5;
+    public static final int INTERVAL_MIN = 2;
 
     @Bean
     JobDetail supplierOrderDraft() {
