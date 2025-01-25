@@ -72,8 +72,6 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    implementation 'org.postgresql:postgresql'
-
     // used for GeoJsonReader to parse geojson format from the LocationIQ API
     implementation 'org.locationtech.jts.io:jts-io-common:1.17.1'
 
@@ -99,6 +97,7 @@ dependencies {
     testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
 
     testImplementation 'org.hsqldb:hsqldb'
+    implementation 'org.hsqldb:hsqldb'
 }
 
 test {
