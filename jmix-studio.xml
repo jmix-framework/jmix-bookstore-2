@@ -35,7 +35,7 @@
                   <DataStoreSettingsV2>
                     <option name="generateDdlType" value="CREATE_AND_UPDATE" />
                     <option name="supportedTypes">
-                      <option value="postgres" />
+                      <option value="hsql" />
                     </option>
                   </DataStoreSettingsV2>
                 </value>
@@ -72,14 +72,11 @@
           <option name="dbType" value="postgres" />
           <option name="dbmsVersion" />
           <option name="host" value="localhost" />
-          <option name="pass" value="postgres" />
+          <option name="pass" value="root" />
           <option name="url" value="jdbc:postgresql://localhost/bookstore" />
-          <option name="user" value="postgres" />
+          <option name="user" value="root" />
         </SavedDbProperties>
       </list>
     </option>
-  </component>
-  <component name="TranslationAddonsNotifySettings">
-    <option name="dontShowAgain" value="true" />
   </component>
 </project>
