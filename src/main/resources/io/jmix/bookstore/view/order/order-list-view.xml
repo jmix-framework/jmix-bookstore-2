@@ -117,7 +117,11 @@
                               columnReorderingAllowed="true">
                         <actions>
                             <action id="create" type="list_create"/>
-                            <action id="edit" type="list_edit"/>
+                            <action id="edit" type="list_edit">
+                                <properties>
+                                    <property name="openMode" value="DIALOG"/>
+                                </properties>
+                            </action>
                             <action id="remove" type="list_remove"/>
                             <action id="confirm" type="list_itemTracking" icon="CHECK_CIRCLE"
                                     text="msg://confirmOrder"/>
@@ -176,7 +180,11 @@
                               width="100%"
                               dataContainer="confirmedOrdersDc">
                         <actions>
-                            <action id="edit" type="list_edit"/>
+                            <action id="edit" type="list_edit">
+                                <properties>
+                                    <property name="openMode" value="DIALOG"/>
+                                </properties>
+                            </action>
                             <action id="remove" type="list_remove"/>
                             <action id="markAsInDelivery" type="list_itemTracking" text="msg://markAsInDelivery"
                                     icon="TRUCK"/>

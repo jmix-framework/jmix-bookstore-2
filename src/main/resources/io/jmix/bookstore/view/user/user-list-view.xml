@@ -43,7 +43,11 @@
                   dataContainer="usersDc">
             <actions>
                 <action id="create" type="list_create"/>
-                <action id="edit" type="list_edit"/>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
                 <action id="remove" type="list_remove"/>
                 <action id="showRoleAssignments" type="sec_showRoleAssignments"/>
                 <action id="changePassword" type="sec_changePassword"/>
