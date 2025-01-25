@@ -15,7 +15,8 @@ import jakarta.validation.constraints.NotNull;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_FULFILLMENT_CENTER", indexes = {
-        @Index(name = "IDX_BOOKSTORE_FULFILLMENT_CENTER_REGION", columnList = "REGION_ID")
+        @Index(name = "IDX_BOOKSTORE_FULFILLMENT_CENTER_REGION", columnList = "REGION_ID"),
+        @Index(name = "IDX_BOOKSTORE_FULFILLMENT_CENTER_TENANT", columnList = "TENANT")
 })
 @Entity(name = "bookstore_FulfillmentCenter")
 public class FulfillmentCenter extends StandardTenantEntity {

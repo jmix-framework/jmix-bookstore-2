@@ -36,7 +36,7 @@ public interface EmployeeRole {
     void position();
 
     @MenuPolicy(menuIds = {"bookstore_FulfillmentCenter.list", "bookstore_ProductCategory.list", "bookstore_Territory.list", "bookstore_Region.list", "bookstore_Position.list", "bookstore_Employee.list"})
-    @ViewPolicy(viewIds = {"bookstore_AddressMapView", "bookstore_FulfillmentCenter.list", "bookstore_ProductCategory.list", "bookstore_Territory.list", "bookstore_Region.list", "bookstore_Position.list", "bookstore_Employee.list"})
+    @ViewPolicy(viewIds = {"bookstore_AddressMapView", "bookstore_FulfillmentCenter.list", "bookstore_ProductCategory.list", "bookstore_Territory.list", "bookstore_Region.list", "bookstore_Position.list", "bookstore_Employee.list", "bookstore_ProductCategory.detail"})
     void screens();
 
     @EntityAttributePolicy(entityClass = FulfillmentCenter.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)

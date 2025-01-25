@@ -15,12 +15,6 @@
                 <p id="errorMessageDescription" classNames="login-form-error-message-description"/>
             </div>
 
-            <button id="possibleUsersBtn" text="msg://possibleUsersHelp" themeNames="tertiary">
-                <prefix>
-                    <icon icon="INFO_CIRCLE_O"/>
-                </prefix>
-            </button>
-
             <textField id="tenantField" datatype="string" readOnly="true" label="msg://tenant" width="100%">
                 <suffix>
                     <button id="helpTenantBtn" icon="QUESTION_CIRCLE_O" themeNames="tertiary-inline"/>
@@ -35,7 +29,19 @@
                        required="true"
                        classNames="login-form-username"
                        requiredMessage="msg://loginForm.username.requiredMessage"
-                       width="100%"/>
+                       width="100%">
+                <suffix>
+                    <hbox>
+                        <dropdownButton id="testUsersBtn" themeNames="tertiary-inline"/>
+                        <button id="possibleUsersBtn" title="msg://possibleUsersHelp" themeNames="tertiary-inline">
+                            <prefix>
+                                <icon icon="INFO_CIRCLE_O"/>
+                            </prefix>
+                        </button>
+                    </hbox>
+                </suffix>
+            </textField>
+
             <passwordField id="passwordField"
                            label="msg://loginForm.password"
                            required="true"

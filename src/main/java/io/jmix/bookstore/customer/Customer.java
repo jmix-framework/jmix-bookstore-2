@@ -19,7 +19,8 @@ import static com.google.common.base.Strings.nullToEmpty;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_CUSTOMER", indexes = {
-        @Index(name = "IDX_BOOKSTORE_CUSTOMER_ASSOCIATED_REGION", columnList = "ASSOCIATED_REGION_ID")
+        @Index(name = "IDX_BOOKSTORE_CUSTOMER_ASSOCIATED_REGION", columnList = "ASSOCIATED_REGION_ID"),
+        @Index(name = "IDX_BOOKSTORE_CUSTOMER_TENANT", columnList = "TENANT")
 })
 @Entity(name = "bookstore_Customer")
 public class Customer extends StandardTenantEntity {

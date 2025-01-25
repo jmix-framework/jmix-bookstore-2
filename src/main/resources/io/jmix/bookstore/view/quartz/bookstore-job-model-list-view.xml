@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://io.jmix.quartzflowui.view.jobs/jobModelListView.title"
+      messagesGroup="io.jmix.quartzflowui.view.jobs"
+      extends="io/jmix/quartzflowui/view/jobs/job-model-list-view.xml">
+    <layout>
+        <dataGrid id="jobModelsTable">
+            <actions>
+                <action id="executeNow" enabled="false"/>
+                <action id="activate" enabled="false"/>
+                <action id="deactivate" enabled="false"/>
+            </actions>
+        </dataGrid>
+    </layout>
+</view>

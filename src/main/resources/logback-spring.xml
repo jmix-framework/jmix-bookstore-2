@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%t] [%X{jmixUser}] %.40logger{39} : %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger name="org.springframework.web" level="WARN"/>
+    <logger name="org.atmosphere" level="WARN"/>
+
+    <logger name="io.jmix" level="INFO"/>
+    <logger name="io.jmix.core.datastore" level="INFO"/>
+    <logger name="eclipselink.logging.sql" level="INFO"/>
+    <logger name="io.jmix.core.AccessLogger" level="INFO"/>
+
+</configuration>

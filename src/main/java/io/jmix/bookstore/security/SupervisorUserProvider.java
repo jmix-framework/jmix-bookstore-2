@@ -41,7 +41,9 @@ public class SupervisorUserProvider {
                 .optional();
 
         if (reviewedByEmployee.isPresent()) {
-            return reviewedByEmployee.get().getReportsTo().getUser().getUsername();
+            Employee employee = reviewedByEmployee.get();
+            if (employee.getReportsTo() != null)
+                return employee.getReportsTo().getUser().getUsername();
         }
 
         return "";

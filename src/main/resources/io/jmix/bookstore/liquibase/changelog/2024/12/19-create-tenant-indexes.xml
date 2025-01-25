@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_CUSTOMER_TENANT" tableName="BOOKSTORE_CUSTOMER">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_EMPLOYEE_TENANT" tableName="BOOKSTORE_EMPLOYEE">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="3" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_FULFILLMENT_CENTER_TENANT" tableName="BOOKSTORE_FULFILLMENT_CENTER">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="4" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_ORDER_TENANT" tableName="BOOKSTORE_ORDER">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="5" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_POSITION_TENANT" tableName="BOOKSTORE_POSITION">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="6" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_POSITION_TRANSLATION_TENANT" tableName="BOOKSTORE_POSITION_TRANSLATION">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="7" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_PRODUCT_CATEGORY_TENANT" tableName="BOOKSTORE_PRODUCT_CATEGORY">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="8" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_PRODUCT_TENANT" tableName="BOOKSTORE_PRODUCT">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="9" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_REGION_TENANT" tableName="BOOKSTORE_REGION">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="10" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_SUPPLIER_ORDER_REQUEST_TENANT"
+                     tableName="BOOKSTORE_SUPPLIER_ORDER_REQUEST">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="11" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_SUPPLIER_ORDER_TENANT" tableName="BOOKSTORE_SUPPLIER_ORDER">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="12" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_SUPPLIER_TENANT" tableName="BOOKSTORE_SUPPLIER">
+            <column name="TENANT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="13" author="bookstore">
+        <createIndex indexName="IDX_BOOKSTORE_TERRITORY_TENANT" tableName="BOOKSTORE_TERRITORY">
+            <column name="TENANT"/>
+        </createIndex>
+</changeSet>
+</databaseChangeLog>

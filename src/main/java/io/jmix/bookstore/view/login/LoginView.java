@@ -5,6 +5,7 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.i18n.LocaleChangeEvent;
 import com.vaadin.flow.i18n.LocaleChangeObserver;
 import com.vaadin.flow.router.BeforeEnterEvent;
@@ -21,9 +22,10 @@ import io.jmix.flowui.component.checkbox.JmixCheckbox;
 import io.jmix.flowui.component.select.JmixSelect;
 import io.jmix.flowui.component.textfield.JmixPasswordField;
 import io.jmix.flowui.component.textfield.TypedTextField;
-import io.jmix.flowui.kit.action.ActionPerformedEvent;
 import io.jmix.flowui.kit.component.ComponentUtils;
 import io.jmix.flowui.kit.component.button.JmixButton;
+import io.jmix.flowui.kit.component.dropdownbutton.DropdownButton;
+import io.jmix.flowui.kit.component.dropdownbutton.DropdownButtonItem;
 import io.jmix.flowui.view.*;
 import io.jmix.multitenancy.MultitenancyProperties;
 import io.jmix.multitenancyflowui.MultitenancyUiSupport;
@@ -40,6 +42,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -50,6 +53,18 @@ import java.util.stream.Collectors;
 public class LoginView extends StandardView implements LocaleChangeObserver {
 
     private static final Logger log = LoggerFactory.getLogger(LoginView.class);
+
+    public static final String[] TEST_USERS = {
+            "admin", "Administrator",
+            "lois", "Sales Representative",
+            "jessica", "Sales Representative",
+            "adrian", "Order Fulfillment Manager",
+            "hikari", "Order Fulfillment Specialist",
+            "melissa", "Order Fulfillment Specialist",
+            "nicole", "Procurement Manager",
+            "sophia", "Procurement Specialist",
+            "william", "Procurement Specialist"
+    };
 
     @ViewComponent
     private TypedTextField<String> usernameField;
@@ -68,9 +83,13 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
     @ViewComponent
     private Paragraph errorMessageDescription;
     @ViewComponent
-    private TypedTextField<Object> tenantField;
+    private TypedTextField<String> tenantField;
     @ViewComponent
     private JmixButton possibleUsersBtn;
+    @ViewComponent
+    private DropdownButton testUsersBtn;
+    @ViewComponent
+    private JmixButton editTenantBtn;
 
     @Autowired
     private Dialogs dialogs;
@@ -103,6 +122,18 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         initDefaultCredentials();
         // TODO replace with action when https://github.com/jmix-framework/jmix/issues/3213 is fixed
         submitBtn.addClickShortcut(Key.ENTER);
+
+        for (int i = 0; i < TEST_USERS.length; i = i + 2) {
+            String username = TEST_USERS[i];
+            String role = TEST_USERS[i + 1];
+
+            DropdownButtonItem item = testUsersBtn.addItem(username, username + " (" + role + ")");
+            item.addClickListener(clickEvent -> {
+                String selectedUser = clickEvent.getSource().getId();
+                usernameField.setValue(selectedUser);
+                passwordField.setValue(selectedUser);
+            });
+        }
     }
 
     @Subscribe
@@ -209,12 +240,17 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         submitBtn.setText(messageBundle.getMessage("loginForm.submit"));
 
         tenantField.setLabel(messageBundle.getMessage("tenant"));
-        possibleUsersBtn.setText(messageBundle.getMessage("possibleUsersHelp"));
+        possibleUsersBtn.setTitle(messageBundle.getMessage("possibleUsersHelp"));
     }
 
     @Subscribe(id = "editTenantBtn", subject = "clickListener")
     public void onEditTenantBtnClick(final ClickEvent<JmixButton> event) {
-        tenantField.setReadOnly(false);
+        if (tenantField.isReadOnly()) {
+            tenantField.setReadOnly(false);
+            editTenantBtn.setIcon(new Icon("vaadin", "refresh"));
+        } else {
+            tenantField.setTypedValue(testEnvironmentTenants.generateRandomTenantId());
+        }
     }
 
     @Subscribe("tenantField")

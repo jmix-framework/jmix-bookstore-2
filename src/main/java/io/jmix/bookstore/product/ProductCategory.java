@@ -8,7 +8,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @JmixEntity
-@Table(name = "BOOKSTORE_PRODUCT_CATEGORY", uniqueConstraints = {
+@Table(name = "BOOKSTORE_PRODUCT_CATEGORY", indexes = {
+        @Index(name = "IDX_BOOKSTORE_PRODUCT_CATEGORY_TENANT", columnList = "TENANT")
+}, uniqueConstraints = {
         @UniqueConstraint(name = "IDX_BOOKSTORE_PRODUCT_CATEGORY_UNQ", columnNames = {"NAME", "TENANT"})
 })
 @Entity(name = "bookstore_ProductCategory")

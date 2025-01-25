@@ -28,7 +28,8 @@
             expand="contentBox">
 
         <vbox id="contentBox" classNames="overflow-auto">
-            <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
+            <details id="customerDetailDemoInfo" summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info"
+                     width="100%">
                 <html content="msg://customerDetailView.demoInfo"/>
             </details>
 

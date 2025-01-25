@@ -18,7 +18,8 @@ import java.util.List;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_SUPPLIER_ORDER", indexes = {
-        @Index(name = "IDX_BOOKSTORE_SUPPLIER_ORDER_SUPPLIER", columnList = "SUPPLIER_ID")
+        @Index(name = "IDX_BOOKSTORE_SUPPLIER_ORDER_SUPPLIER", columnList = "SUPPLIER_ID"),
+        @Index(name = "IDX_BOOKSTORE_SUPPLIER_ORDER_TENANT", columnList = "TENANT")
 })
 @Entity(name = "bookstore_SupplierOrder")
 public class SupplierOrder extends StandardTenantEntity {

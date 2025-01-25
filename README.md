@@ -18,6 +18,7 @@ The online demo of the Jmix Bookstore is available at <https://demo.jmix.io/book
     * [Add-ons](#add-ons)
     * [Running Locally](#running-locally)
     * [Building Locally](#building-locally)
+  * [Performance Testing](#performance-testing)
 - [Application Overview](#application-overview)
    * [Sales](#sales)
       + [Placing Customer Orders](#placing-customer-orders)
@@ -110,6 +111,9 @@ The application also features various add-ons available on the [Jmix Marketplace
 * BPM (commercial)
 * Notifications (commercial)
 * Maps (commercial)
+* Pessimistic Locking
+* Grid Export Actions
+* German Translation
 
 ### Running Locally
 
@@ -156,6 +160,10 @@ repositories {
 ```
 
 Note that the Bookstore project must be based on exactly the same Jmix version as the commercial add-ons sample project.
+
+### Performance Testing
+
+See [PERFORMANCE_TESTING](performance_testing/PERFORMANCE_TESTING.md) for the description of performance tests executed for this application. The document includes the required configuration, information about infrastructure, tooling and test scenario. The test results demonstrate the behavior of the application with 1000 concurrent users.
 
 ## Application Overview
 
@@ -243,7 +251,7 @@ The procurement specialist reviews the aggregated requests and can potentially m
 
 ![](img/4-procurement-specialist-supplier-order-review-task.png)
 
-Once the review is finished, sometimes an approval is required. The system decides based on cooperation status with that supplier if the order is send for approval to the procurement manager.
+Once the review is finished, an approval is required if the cooperation status of the supplier is not "Important". 
 
 ![](img/5-procurement-manager-supplier-order-approval-task.png)
 

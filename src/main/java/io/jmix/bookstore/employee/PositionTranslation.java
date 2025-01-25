@@ -10,7 +10,8 @@ import java.util.Locale;
 
 @JmixEntity
 @Table(name = "BOOKSTORE_POSITION_TRANSLATION", indexes = {
-        @Index(name = "IDX_BOOKSTORE_POSITION_TRANSLATION_POSITION", columnList = "POSITION_ID")
+        @Index(name = "IDX_BOOKSTORE_POSITION_TRANSLATION_POSITION", columnList = "POSITION_ID"),
+        @Index(name = "IDX_BOOKSTORE_POSITION_TRANSLATION_TENANT", columnList = "TENANT")
 })
 @Entity(name = "bookstore_PositionTranslation")
 public class PositionTranslation extends StandardTenantEntity {

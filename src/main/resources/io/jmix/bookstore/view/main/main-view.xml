@@ -49,8 +49,8 @@
                 </footer>
             </section>
         </drawerLayout>
-        <initialLayout>
-            <vbox expand="welcomeBox" alignItems="CENTER">
+        <initialLayout height="100%">
+            <vbox expand="welcomeBox" alignItems="CENTER" height="100%">
                 <image id="mainLogoImage" classNames="bookstore-main-screen-logo mb-xl"
                        width="100%" maxWidth="32em"
                        resource="branding/main-screen-logo-grey.png" themeNames="contain"/>
@@ -59,8 +59,16 @@
                        themeNames="contain"
                        resource="avatars/unknown.png"/>
                 <hbox spacing="true" id="welcomeBox">
-                    <h2 id="welcomeMessage" alignSelf="CENTER"/>
+                    <h2 id="welcomeMessage"/>
                 </hbox>
+                <anchor href="https://github.com/jmix-framework/jmix-bookstore-2?tab=readme-ov-file#application-overview"
+                        target="BLANK"
+                        themeNames="tertiary">
+                    <hbox alignItems="CENTER" themeNames="spacing-s">
+                        <icon icon="INFO_CIRCLE_O"/>
+                        <span text="msg://appOverviewBtnText"/>
+                    </hbox>
+                </anchor>
             </vbox>
         </initialLayout>
     </appLayout>

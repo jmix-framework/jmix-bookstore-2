@@ -5,6 +5,10 @@ import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
+import io.jmix.bookstore.perftests.BookstoreListMenu;
+import io.jmix.flowui.component.main.JmixListMenu;
+import io.jmix.flowui.sys.registration.ComponentRegistration;
+import io.jmix.flowui.sys.registration.ComponentRegistrationBuilder;
 import io.jmix.notifications.NotificationType;
 import io.jmix.notifications.NotificationTypesRepository;
 import org.slf4j.LoggerFactory;
@@ -16,6 +20,7 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
@@ -29,6 +34,7 @@ import javax.sql.DataSource;
 @EnableAsync
 @SpringBootApplication
 public class JmixBookstoreApplication implements AppShellConfigurator {
+    public static final String PERFORMANCE_TESTS_PROFILE = "perf-tests";
 
     @Autowired
     private Environment environment;
@@ -68,5 +74,13 @@ public class JmixBookstoreApplication implements AppShellConfigurator {
                 + "http://localhost:"
                 + environment.getProperty("local.server.port")
                 + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));
+    }
+
+    @Bean
+    @Profile(PERFORMANCE_TESTS_PROFILE)
+    protected ComponentRegistration bookstoreListMenu() {
+        return ComponentRegistrationBuilder.create(BookstoreListMenu.class)
+                .replaceComponent(JmixListMenu.class)
+                .build();
     }
 }

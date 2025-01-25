@@ -11,9 +11,6 @@ jobs:
     name: CI pipeline
     runs-on: ubuntu-latest
 
-    container:
-      image: ubuntu:latest
-
     steps:
       - name: Git Checkout
         uses: actions/checkout@v1
@@ -36,9 +33,25 @@ jobs:
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
 
-      - name: Build Docker Image
-        if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Build JAR
         env:
-          DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
-          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-        run: ./gradlew -Pvaadin.productionMode=true bootBuildImage
+          PREMIUM_REPO_USER: ${{ secrets.PREMIUM_REPO_USER }}
+          PREMIUM_REPO_PASS: ${{ secrets.PREMIUM_REPO_PASS }}
+        run: ./gradlew -Pvaadin.productionMode=true bootJar
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_LOGIN }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: jmix/jmix-bookstore:latest
