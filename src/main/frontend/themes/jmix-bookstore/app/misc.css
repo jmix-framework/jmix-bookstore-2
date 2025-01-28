@@ -109,3 +109,15 @@
 .user-avatar-border-position-blue {
     border-color: var(--turquoise-light-2) !important;
 }
+
+.applied-task-filters-counter {
+    border-radius: 50%;
+    width: 1.75em;
+    position: relative;
+    z-index: 1;
+    left: -0.75em;
+}
+
+.my-tasks-filter-panel {
+   background-color: var(--secondary-base-color);
+}

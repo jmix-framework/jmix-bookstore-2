@@ -11,11 +11,11 @@ import io.jmix.bookstore.employee.PositionTranslation;
 import io.jmix.bookstore.entity.User;
 import io.jmix.bookstore.multitenancy.TestEnvironmentTenants;
 import io.jmix.bookstore.security.session.BookstoreSessionData;
+import io.jmix.bookstore.view.mytasklistview.MyProcessTasksListView;
 import io.jmix.bpm.entity.UserGroup;
 import io.jmix.bpm.multitenancy.BpmTenantProvider;
 import io.jmix.bpm.service.BpmTaskService;
 import io.jmix.bpm.service.UserGroupService;
-import io.jmix.bpmflowui.view.mytasks.MyTasksListView;
 import io.jmix.core.security.CurrentAuthentication;
 import io.jmix.core.usersubstitution.CurrentUserSubstitution;
 import io.jmix.flowui.DialogWindows;
@@ -187,9 +187,9 @@ public class MainView extends StandardMainView {
 
     @Subscribe(id = "taskBtn", subject = "clickListener")
     public void onTaskBtnClick(final ClickEvent<JmixButton> event) {
-        DialogWindow<MyTasksListView> dialogWindow = dialogWindows.view(this, MyTasksListView.class).build();
-        dialogWindow.setHeight("80%");
-        dialogWindow.setWidth("80%");
+        DialogWindow<MyProcessTasksListView> dialogWindow = dialogWindows.view(this, MyProcessTasksListView.class).build();
+        dialogWindow.setHeight("90%");
+        dialogWindow.setWidth("90%");
         dialogWindow.open();
     }
 
@@ -199,10 +199,10 @@ public class MainView extends StandardMainView {
     }
 
     private void updateTaskCounter() {
-        int myTaskCount = bpmTaskService.createTaskQuery()
+        long myTaskCount = bpmTaskService.createTaskQuery()
                 .taskAssignee(currentUserName)
                 .active()
-                .list().size();
+                .count();
 
         TaskQuery candidatesTaskQuery = bpmTaskService.createTaskQuery();
         if (bpmTenantProvider != null && bpmTenantProvider.isMultitenancyActive()) {
@@ -212,13 +212,11 @@ public class MainView extends StandardMainView {
             candidatesTaskQuery.taskCandidateGroupIn(getUserGroupCodes());
         }
         candidatesTaskQuery.taskCandidateUser(currentUserName);
-        int allGroupTasksCount = candidatesTaskQuery
+        long allGroupTasksCount = candidatesTaskQuery
                 .active()
-                .orderByTaskCreateTime()
-                .desc()
-                .list().size();
+                .count();
 
-        int taskCount = myTaskCount + allGroupTasksCount;
+        long taskCount = myTaskCount + allGroupTasksCount;
         taskBtn.setText("%s".formatted(taskCount));
         if (taskCount > 0) {
             taskBtn.removeClassName("button-counter-empty");

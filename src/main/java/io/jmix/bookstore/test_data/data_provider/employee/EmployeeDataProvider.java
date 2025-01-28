@@ -2,6 +2,7 @@ package io.jmix.bookstore.test_data.data_provider.employee;
 
 import io.jmix.bookstore.employee.Employee;
 import io.jmix.bookstore.entity.User;
+import io.jmix.bookstore.security.BpmProcessTaskPerformerRole;
 import io.jmix.bookstore.security.EmployeeRole;
 import io.jmix.bookstore.security.UiMinimalRole;
 import io.jmix.bookstore.test_data.AddressGenerator;
@@ -98,6 +99,7 @@ public class EmployeeDataProvider {
                 UiMinimalRole.CODE,
                 UiFilterRole.CODE,
                 BpmProcessActorRole.CODE,
+                BpmProcessTaskPerformerRole.CODE,
                 ReportsRunRole.CODE,
                 InAppNotificationReaderAccessRole.CODE,
                 EmployeeRole.CODE
