@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://employeeListView.title"
       focusComponent="employeesDataGrid">
     <data>
@@ -34,10 +33,14 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="employeesDataGrid.create"/>
-            <button id="editBtn" action="employeesDataGrid.edit"/>
-            <button id="removeBtn" action="employeesDataGrid.remove"/>
-            <simplePagination id="pagination" dataLoader="employeesDl"/>
+            <startSlot>
+                <button id="createBtn" action="employeesDataGrid.create"/>
+                <button id="editBtn" action="employeesDataGrid.edit"/>
+                <button id="removeBtn" action="employeesDataGrid.remove"/>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="employeesDl"/>
+            </endSlot>
         </hbox>
         <dataGrid id="employeesDataGrid"
                   width="100%"

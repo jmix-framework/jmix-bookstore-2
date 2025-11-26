@@ -59,7 +59,7 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-<!--            <genericFilter component="genericFilter"/>-->
+            <!--            <genericFilter component="genericFilter"/>-->
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -105,10 +105,14 @@
                         </formLayout>
                     </details>
                     <hbox id="buttonsPanel" classNames="buttons-panel">
-                        <button id="orderCreateBtn" action="ordersDataGrid.create"/>
-                        <button id="editBtn" action="ordersDataGrid.edit"/>
-                        <button id="confirmBtn" action="ordersDataGrid.confirm"/>
-                        <simplePagination id="pagination" dataLoader="newOrdersDl"/>
+                        <startSlot>
+                            <button id="orderCreateBtn" action="ordersDataGrid.create"/>
+                            <button id="editBtn" action="ordersDataGrid.edit"/>
+                            <button id="confirmBtn" action="ordersDataGrid.confirm"/>
+                        </startSlot>
+                        <endSlot>
+                            <simplePagination id="pagination" dataLoader="newOrdersDl"/>
+                        </endSlot>
                     </hbox>
                     <dataGrid id="ordersDataGrid"
                               width="100%"
@@ -165,12 +169,16 @@
                         </configurations>
                     </genericFilter>
                     <hbox id="confirmedOrdersButtonsPanel" classNames="buttons-panel">
-                        <button action="confirmedOrdersDataGrid.edit"/>
-                        <button action="confirmedOrdersDataGrid.remove"/>
-                        <button action="confirmedOrdersDataGrid.markAsInDelivery"/>
-                        <button action="confirmedOrdersDataGrid.trackDelivery"/>
-                        <button action="confirmedOrdersDataGrid.markAsDelivered"/>
-                        <simplePagination id="confirmedOrdersPagination" dataLoader="confirmedOrdersDl"/>
+                        <startSlot>
+                            <button action="confirmedOrdersDataGrid.edit"/>
+                            <button action="confirmedOrdersDataGrid.remove"/>
+                            <button action="confirmedOrdersDataGrid.markAsInDelivery"/>
+                            <button action="confirmedOrdersDataGrid.trackDelivery"/>
+                            <button action="confirmedOrdersDataGrid.markAsDelivered"/>
+                        </startSlot>
+                        <endSlot>
+                            <simplePagination id="confirmedOrdersPagination" dataLoader="confirmedOrdersDl"/>
+                        </endSlot>
                     </hbox>
                     <dataGrid id="confirmedOrdersDataGrid"
                               width="100%"
@@ -228,9 +236,6 @@
                             </configuration>
                         </configurations>
                     </genericFilter>
-                    <hbox id="finishedOrdersButtonsPanel" classNames="buttons-panel">
-
-                    </hbox>
                     <dataGrid id="finishedOrdersDataGrid"
                               width="100%"
                               dataContainer="finishedOrdersDc">

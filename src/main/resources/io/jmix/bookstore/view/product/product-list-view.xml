@@ -70,12 +70,16 @@
             </configurations>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="productsDataGrid.create"/>
-            <button id="editBtn" action="productsDataGrid.edit"/>
-            <button id="removeBtn" action="productsDataGrid.remove"/>
-            <button action="productsDataGrid.fillUpInventory"/>
-            <simplePagination id="pagination" dataLoader="productsDl" classNames="ms-auto"/>
-            <gridColumnVisibility dataGrid="productsDataGrid" icon="COG" themeNames="icon"/>
+            <startSlot>
+                <button id="createBtn" action="productsDataGrid.create"/>
+                <button id="editBtn" action="productsDataGrid.edit"/>
+                <button id="removeBtn" action="productsDataGrid.remove"/>
+                <button action="productsDataGrid.fillUpInventory"/>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="productsDl"/>
+                <gridColumnVisibility dataGrid="productsDataGrid" icon="COG"/>
+            </endSlot>
         </hbox>
         <dataGrid id="productsDataGrid"
                   width="100%"

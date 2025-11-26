@@ -30,13 +30,18 @@
         <details summaryText="msg://io.jmix.bookstore/demoInfo" themeNames="demo-info" width="100%">
             <html content="msg://territoryListView.demoInfo"/>
         </details>
-        <div classNames="grid-panel" height="100%" minHeight="30em">
+        <gridLayout width="100%" height="100%" minHeight="30em"
+                    gap="var(--lumo-space-m)" columnMinWidth="25rem">
             <vbox classNames="contrast-panel">
                 <hbox classNames="buttons-panel" id="buttonsPanel">
-                    <button id="createBtn" action="territoriesDataGrid.create"/>
-                    <button id="editBtn" action="territoriesDataGrid.edit"/>
-                    <button id="removeBtn" action="territoriesDataGrid.remove"/>
-                    <simplePagination dataLoader="territoriesDl" id="pagination"/>
+                    <startSlot>
+                        <button id="createBtn" action="territoriesDataGrid.create"/>
+                        <button id="editBtn" action="territoriesDataGrid.edit"/>
+                        <button id="removeBtn" action="territoriesDataGrid.remove"/>
+                    </startSlot>
+                    <endSlot>
+                        <simplePagination dataLoader="territoriesDl" id="pagination"/>
+                    </endSlot>
                 </hbox>
                 <dataGrid columnReorderingAllowed="true" dataContainer="territoriesDc" id="territoriesDataGrid"
                           width="100%">
@@ -52,7 +57,7 @@
                 </dataGrid>
             </vbox>
             <vbox classNames="contrast-panel">
-                <checkbox id="zoomCheckbox" label="Zoom on selection" value="true"/>
+                <switch id="zoomCheckbox" label="Zoom on selection" value="true"/>
                 <maps:geoMap height="100%" width="100%" id="map" minHeight="20em">
                     <maps:layers>
                         <maps:tile>
@@ -69,7 +74,7 @@
                     <maps:mapView centerX="-99.755859" centerY="39.164141" zoom="4.0"/>
                 </maps:geoMap>
             </vbox>
-        </div>
+        </gridLayout>
         <hbox id="lookupActions" visible="false">
             <button id="selectBtn" action="selectAction"/>
             <button id="discardBtn" action="discardAction"/>

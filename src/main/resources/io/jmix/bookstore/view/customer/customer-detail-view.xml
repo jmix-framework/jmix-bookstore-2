@@ -33,7 +33,7 @@
                 <html content="msg://customerDetailView.demoInfo"/>
             </details>
 
-            <div classNames="grid-panel">
+            <gridLayout width="100%" gap="var(--lumo-space-m)" columnMinWidth="25rem">
                 <vbox classNames="contrast-panel">
                     <h5 text="msg://personalInformation"/>
                     <formLayout id="personalInfoForm" dataContainer="customerDc">
@@ -57,7 +57,7 @@
                         <textField id="associatedRegionField" property="associatedRegion"/>
                     </formLayout>
                 </vbox>
-            </div>
+            </gridLayout>
 
             <vbox classNames="contrast-panel" height="100%" minHeight="30em">
                 <h5 text="msg://io.jmix.bookstore.customer/Customer.orders"/>

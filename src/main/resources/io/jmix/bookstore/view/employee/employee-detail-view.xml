@@ -34,7 +34,7 @@
             </details>
             <tabSheet width="100%" height="100%" minHeight="40em">
                 <tab id="generalInfoTab" label="msg://generalInfoTab.label">
-                    <div classNames="grid-panel">
+                    <gridLayout width="100%" gap="var(--lumo-space-m)" columnMinWidth="25rem">
                         <vbox classNames="contrast-panel">
                             <h5 text="msg://employeeDetailView.personalInformation"/>
                             <formLayout dataContainer="employeeDc" width="100%">
@@ -63,7 +63,7 @@
                                 <textField id="addressCountryField" property="address.country"/>
                             </formLayout>
                         </vbox>
-                    </div>
+                    </gridLayout>
                 </tab>
                 <tab id="positionTab" label="msg://positionTab.label">
                     <vbox classNames="contrast-panel">

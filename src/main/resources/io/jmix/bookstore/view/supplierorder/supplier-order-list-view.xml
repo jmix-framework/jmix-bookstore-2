@@ -39,14 +39,24 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="readBtn" action="supplierOrdersDataGrid.read"/>
-            <simplePagination id="pagination" dataLoader="supplierOrdersDl"/>
+            <startSlot>
+                <button id="readBtn" action="supplierOrdersDataGrid.read"/>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="supplierOrdersDl"/>
+            </endSlot>
         </hbox>
         <dataGrid id="supplierOrdersDataGrid"
                   width="100%"
                   minHeight="20em"
                   dataContainer="supplierOrdersDc"
                   columnReorderingAllowed="true">
+            <emptyStateComponent>
+                <flexLayout width="100%" height="100%"
+                            justifyContent="CENTER" alignItems="CENTER">
+                    <h4 text="msg://supplierOrdersDataGrid.emptyStateText"/>
+                </flexLayout>
+            </emptyStateComponent>
             <actions>
                 <action id="read" type="list_read"/>
             </actions>

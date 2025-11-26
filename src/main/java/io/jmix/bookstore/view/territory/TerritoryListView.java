@@ -4,6 +4,7 @@ import com.vaadin.flow.router.Route;
 import io.jmix.bookstore.employee.Territory;
 import io.jmix.bookstore.view.main.MainView;
 import io.jmix.flowui.component.checkbox.JmixCheckbox;
+import io.jmix.flowui.component.checkbox.Switch;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.model.InstanceContainer;
 import io.jmix.flowui.view.*;
@@ -33,7 +34,7 @@ public class TerritoryListView extends StandardListView<Territory> {
     private DataVectorSource<Territory> territoriesSource;
 
     @ViewComponent
-    private JmixCheckbox zoomCheckbox;
+    private Switch zoomCheckbox;
     @ViewComponent
     private DataGrid<Territory> territoriesDataGrid;
 

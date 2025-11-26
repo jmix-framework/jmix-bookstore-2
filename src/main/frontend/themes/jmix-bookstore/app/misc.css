@@ -11,14 +11,6 @@
     background-color: var(--lumo-base-color);
 }
 
-/* Creates a 2 column grid that is converted into 1 column if width is less then 25rem */
-.grid-panel {
-    display: grid;
-    width: 100%;
-    grid-gap: var(--lumo-space-m);
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-}
-
 .spinner {
     height: var(--lumo-size-xs);
     width: var(--lumo-size-xs);

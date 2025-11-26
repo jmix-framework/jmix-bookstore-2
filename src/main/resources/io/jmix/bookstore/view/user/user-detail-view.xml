@@ -23,7 +23,7 @@
             padding="false" spacing="false"
             expand="contentBox">
         <vbox id="contentBox" classNames="overflow-auto">
-            <div classNames="grid-panel">
+            <gridLayout width="100%" gap="var(--lumo-space-m)" columnMinWidth="25rem">
                 <vbox classNames="contrast-panel">
                     <h4 text="msg://personalInformation"/>
                     <formLayout dataContainer="userDc">
@@ -49,7 +49,7 @@
                         <checkbox id="activeField" property="active"/>
                     </formLayout>
                 </vbox>
-            </div>
+            </gridLayout>
 
             <vbox classNames="contrast-panel">
                 <h4 text="msg://io.jmix.bookstore.entity/User.associatedRegions"/>

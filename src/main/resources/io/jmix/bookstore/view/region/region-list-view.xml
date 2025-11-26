@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://regionListView.title"
       focusComponent="regionsDataGrid">
     <data>
@@ -26,10 +25,14 @@
     </actions>
     <layout>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="regionsDataGrid.create"/>
-            <button id="editBtn" action="regionsDataGrid.edit"/>
-            <button id="removeBtn" action="regionsDataGrid.remove"/>
-            <simplePagination id="pagination" dataLoader="regionsDl"/>
+            <startSlot>
+                <button id="createBtn" action="regionsDataGrid.create"/>
+                <button id="editBtn" action="regionsDataGrid.edit"/>
+                <button id="removeBtn" action="regionsDataGrid.remove"/>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="regionsDl"/>
+            </endSlot>
         </hbox>
         <dataGrid id="regionsDataGrid"
                   width="100%"

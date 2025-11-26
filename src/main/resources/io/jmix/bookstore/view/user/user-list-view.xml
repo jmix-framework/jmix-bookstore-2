@@ -25,17 +25,21 @@
     </facets>
     <layout expand="usersTable">
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="usersTable.create"/>
-            <button id="editBtn" action="usersTable.edit"/>
-            <button id="removeBtn" action="usersTable.remove"/>
-            <button id="showRoleAssignmentsBtn" action="usersTable.showRoleAssignments"/>
-            <dropdownButton id="additionalBtn" text="msg://additionalMenu" icon="COG">
-                <items>
-                    <actionItem id="changePasswordItem" ref="usersTable.changePassword"/>
-                    <actionItem id="resetPasswordItem" ref="usersTable.resetPassword"/>
-                </items>
-            </dropdownButton>
-            <simplePagination id="pagination" dataLoader="usersDl"/>
+            <startSlot>
+                <button id="createBtn" action="usersTable.create"/>
+                <button id="editBtn" action="usersTable.edit"/>
+                <button id="removeBtn" action="usersTable.remove"/>
+                <button id="showRoleAssignmentsBtn" action="usersTable.showRoleAssignments"/>
+                <dropdownButton id="additionalBtn" text="msg://additionalMenu" icon="COG">
+                    <items>
+                        <actionItem id="changePasswordItem" ref="usersTable.changePassword"/>
+                        <actionItem id="resetPasswordItem" ref="usersTable.resetPassword"/>
+                    </items>
+                </dropdownButton>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="usersDl"/>
+            </endSlot>
         </hbox>
         <dataGrid id="usersTable"
                   width="100%"

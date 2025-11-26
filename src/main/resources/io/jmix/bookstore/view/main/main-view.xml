@@ -5,7 +5,8 @@
         <timer id="taskNotificationTimer" delay="2000" autostart="true" repeating="true"/>
     </facets>
     <actions>
-        <action id="logout" type="logout"/>
+        <action id="logoutAction" type="logout"
+                text="msg:///actions.logout.text"/>
     </actions>
     <appLayout>
         <navigationBar touchOptimized="false">
@@ -19,13 +20,19 @@
                     <button id="taskBtn" icon="CHECK_SQUARE_O" text="0"
                             themeNames="tertiary" classNames="button-counter me-m"/>
                     <ntf:notificationsIndicator classNames="me-m" id="notificationsIndicator"/>
-                    <avatar image="avatars/unknown.png" id="userAvatar"/>
-                    <userIndicator id="userIndicator"/>
-                    <span id="positionLabel" themeNames="badge"/>
-                    <button id="logoutButton"
-                            classNames="jmix-logout-button"
-                            themeNames="tertiary"
-                            action="logout"/>
+
+                    <userMenu id="userMenu" themeNames="tertiary">
+                        <items>
+                            <separator/>
+                            <actionItem id="substituteUserMenuItem"
+                                        themeNames="non-checkable">
+                                <action id="substituteUserAction" type="sec_userMenuSubstituteUser"/>
+                            </actionItem>
+                            <separator/>
+                            <actionItem id="logoutMenuItem" ref="logoutAction"
+                                        themeNames="non-checkable"/>
+                        </items>
+                    </userMenu>
                 </hbox>
             </header>
         </navigationBar>

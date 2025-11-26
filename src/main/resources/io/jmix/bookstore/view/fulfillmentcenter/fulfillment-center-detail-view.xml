@@ -49,7 +49,8 @@
                 </tab>
                 <tab id="locationTab"
                      label="msg://io.jmix.bookstore.view.fulfillmentcenter/fulfillmentCenterDetailView.address">
-                    <div classNames="grid-panel" height="100%">
+                    <gridLayout width="100%" height="100%"
+                                gap="var(--lumo-space-m)" columnMinWidth="25rem">
                         <vbox classNames="contrast-panel">
                             <formLayout dataContainer="fulfillmentCenterDc" id="locationForm">
                                 <textField id="addressStreetField" property="address.street"/>
@@ -74,7 +75,7 @@
                                 <maps:mapView centerX="-99.755859" centerY="39.164141" zoom="4.0"/>
                             </maps:geoMap>
                         </vbox>
-                    </div>
+                    </gridLayout>
                 </tab>
             </tabSheet>
         </vbox>

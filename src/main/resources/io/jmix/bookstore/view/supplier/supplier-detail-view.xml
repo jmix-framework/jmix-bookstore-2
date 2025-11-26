@@ -19,7 +19,7 @@
         <action id="closeAction" type="detail_close"/>
     </actions>
     <layout>
-        <div classNames="grid-panel">
+        <gridLayout width="100%" gap="var(--lumo-space-m)" columnMinWidth="25rem">
             <vbox classNames="contrast-panel">
                 <h4 text="msg://generalInformation"/>
                 <formLayout id="generalForm" dataContainer="supplierDc">
@@ -42,7 +42,7 @@
                     <textField id="websiteField" property="website"/>
                 </formLayout>
             </vbox>
-        </div>
+        </gridLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>

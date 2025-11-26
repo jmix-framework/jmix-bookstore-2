@@ -26,7 +26,7 @@
         <vbox id="contentBox" classNames="overflow-auto">
             <tabSheet width="100%" height="100%" minHeight="20em">
                 <tab id="generalTab" label="msg://io.jmix.bookstore.product/generalInformation">
-                    <div classNames="grid-panel">
+                    <gridLayout width="100%" gap="var(--lumo-space-m)" columnMinWidth="25rem">
                         <vbox classNames="contrast-panel">
                             <h4 text="msg://productInformation"/>
                             <formLayout id="productInfoForm" dataContainer="productDc">
@@ -64,7 +64,7 @@
                                 <checkbox id="activeField" property="active"/>
                             </formLayout>
                         </vbox>
-                    </div>
+                    </gridLayout>
                 </tab>
                 <tab id="descriptionTab" label="msg://io.jmix.bookstore.product/Product.description">
                     <vbox classNames="contrast-panel" height="100%">

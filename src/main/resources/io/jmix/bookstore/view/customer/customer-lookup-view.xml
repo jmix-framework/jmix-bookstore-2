@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://customerLookupView.title"
       focusComponent="customersDataGrid">
     <data>
@@ -31,8 +30,12 @@
                    label="msg://searchForCustomers"
                    helperText="msg://searchByAttributes" datatype="string"/>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="customersDataGrid.create"/>
-            <simplePagination id="pagination" dataLoader="customersDl"/>
+            <startSlot>
+                <button id="createBtn" action="customersDataGrid.create"/>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="customersDl"/>
+            </endSlot>
         </hbox>
         <dataGrid id="customersDataGrid"
                   width="100%"

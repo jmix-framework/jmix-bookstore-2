@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://productCategoryListView.title"
       focusComponent="productCategoriesDataGrid">
     <data>
@@ -27,10 +26,14 @@
     </actions>
     <layout>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="productCategoriesDataGrid.create"/>
-            <button id="editBtn" action="productCategoriesDataGrid.edit"/>
-            <button id="removeBtn" action="productCategoriesDataGrid.remove"/>
-            <simplePagination id="pagination" dataLoader="productCategoriesDl"/>
+            <startSlot>
+                <button id="createBtn" action="productCategoriesDataGrid.create"/>
+                <button id="editBtn" action="productCategoriesDataGrid.edit"/>
+                <button id="removeBtn" action="productCategoriesDataGrid.remove"/>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="productCategoriesDl"/>
+            </endSlot>
         </hbox>
         <dataGrid id="productCategoriesDataGrid"
                   width="100%"
