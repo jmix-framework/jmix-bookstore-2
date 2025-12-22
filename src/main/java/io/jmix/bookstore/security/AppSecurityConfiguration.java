@@ -29,4 +29,15 @@ public class AppSecurityConfiguration {
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/actuator/**").permitAll());
         return http.build();
     }
+
+    @Bean
+    @Order(JmixSecurityFilterChainOrder.CUSTOM)
+    SecurityFilterChain publicFilterChain(HttpSecurity http) throws Exception {
+        http.securityMatcher("/healthcheck")
+                .authorizeHttpRequests(authorize ->
+                        authorize.anyRequest().permitAll()
+                );
+
+        return http.build();
+    }
 }
