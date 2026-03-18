@@ -9,17 +9,16 @@
     <moduleSettings>
       <entry key="io.jmix.jmix-bookstore.main">
         <ModuleSettings>
-          <option name="dataStoreOptions">
+          <option name="dataStoreOptionsV2">
             <map>
               <entry key="main">
                 <value>
-                  <DataStoreSettings>
+                  <DataStoreSettingsV2>
                     <option name="generateDdlType" value="CREATE_AND_UPDATE" />
-                    <option name="nameLengthMode" value="POSTGRES" />
                     <option name="supportedTypes">
                       <option value="hsql" />
                     </option>
-                  </DataStoreSettings>
+                  </DataStoreSettingsV2>
                 </value>
               </entry>
             </map>
@@ -78,8 +77,5 @@
         </SavedDbProperties>
       </list>
     </option>
-  </component>
-  <component name="TranslationAddonsNotifySettings">
-    <option name="dontShowAgain" value="true" />
   </component>
 </project>

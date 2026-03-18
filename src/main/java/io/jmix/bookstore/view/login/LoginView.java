@@ -235,7 +235,9 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         UI.getCurrent().getPage().setTitle(messageBundle.getMessage("LoginView.title"));
 
         usernameField.setLabel(messageBundle.getMessage("loginForm.username"));
+        usernameField.setRequiredMessage(messageBundle.getMessage("loginForm.username.requiredMessage"));
         passwordField.setLabel(messageBundle.getMessage("loginForm.password"));
+        passwordField.setRequiredMessage(messageBundle.getMessage("loginForm.password.requiredMessage"));
         rememberMe.setLabel(messageBundle.getMessage("loginForm.rememberMe"));
         submitBtn.setText(messageBundle.getMessage("loginForm.submit"));
 
