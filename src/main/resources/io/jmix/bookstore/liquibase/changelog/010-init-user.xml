@@ -79,7 +79,7 @@
 
     </changeSet>
 
-    <changeSet id="5" author="appjava273" context="!cuba">
+    <changeSet id="5" author="jmix-bookstore" context="!cuba">
 
         <insert tableName="USER_" dbms="h2">
             <column name="ID" value="60885987-1b61-4247-94c7-dff348347f93"/>
