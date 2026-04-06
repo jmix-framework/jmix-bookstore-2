@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://jmix.io/schema/flowui/fragment"
+          xmlns:c="http://jmix.io/schema/flowui/jpql-condition">
+    <data>
+        <collection id="finishedOrdersDc"
+                    class="io.jmix.bookstore.order.entity.Order">
+            <fetchPlan extends="_base">
+                <property name="fulfilledBy" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="finishedOrdersDl">
+                <query>
+                    <![CDATA[select e from bookstore_Order e
+                    order by e.orderNumber desc]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where><![CDATA[e.status = 'DELIVERED']]></c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <fragmentDataLoadCoordinator auto="true"/>
+        <fragmentSettings auto="true"/>
+    </facets>
+    <content>
+        <vbox id="root" height="100%" padding="false">
+            <genericFilter id="finishedOrdersFilter"
+                           dataLoader="finishedOrdersDl" opened="false">
+                <properties include=".*"/>
+                <configurations>
+                    <configuration id="defaultFinishedOrdersFilter"
+                                   operation="AND"
+                                   default="true"
+                                   name="msg://io.jmix.bookstore.filter/defaultFilter">
+                        <propertyFilter property="orderNumber" operation="EQUAL" operationEditable="true"/>
+                        <jpqlFilter parameterClass="io.jmix.bookstore.product.Product"
+                                    label="msg://containsProduct">
+                            <condition>
+                                <c:jpql>
+                                    <c:join>join {E}.orderLines o</c:join>
+                                    <c:where>o.product.id = ?</c:where>
+                                </c:jpql>
+                            </condition>
+                        </jpqlFilter>
+                        <propertyFilter property="customer.associatedRegion"
+                                        operation="EQUAL"
+                                        operationEditable="true"
+                                        label="msg://customerRegion"/>
+                        <propertyFilter property="shippingAddress.postCode"
+                                        operation="STARTS_WITH"
+                                        operationEditable="true"
+                                        label="msg://shippingAddressPostCode"/>
+                    </configuration>
+                </configurations>
+            </genericFilter>
+            <dataGrid id="finishedOrdersDataGrid"
+                      width="100%"
+                      dataContainer="finishedOrdersDc">
+                <columns>
+                    <column property="orderNumber"/>
+                    <column property="orderDate"/>
+                    <column property="customer"/>
+                    <column property="shippingDate"/>
+                    <column property="status"/>
+                    <column property="fulfilledBy"/>
+                    <column property="shippingAddress"/>
+                </columns>
+            </dataGrid>
+        </vbox>
+    </content>
+</fragment>

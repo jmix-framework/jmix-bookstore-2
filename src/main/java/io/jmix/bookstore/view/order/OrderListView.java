@@ -62,9 +62,9 @@ public class OrderListView extends StandardListView<Order> {
     @ViewComponent
     private CollectionLoader<Order> confirmedOrdersDl;
     @ViewComponent
-    private CollectionLoader<Order> finishedOrdersDl;
-    @ViewComponent
     private JmixTabSheet orderListTabSheet;
+    @ViewComponent
+    private DeliveredOrderListFragment finishedOrdersFragment;
 
 
     @Subscribe
@@ -136,7 +136,7 @@ public class OrderListView extends StandardListView<Order> {
             dataContext.save();
             notifications.create(messageBundle.getMessage("orderMarkedAsInDelivery")).show();
             confirmedOrdersDl.load();
-            finishedOrdersDl.load();
+            finishedOrdersFragment.load();
         }
     }
 
@@ -147,7 +147,7 @@ public class OrderListView extends StandardListView<Order> {
             dataContext.save();
             notifications.create(messageBundle.getMessage("orderMarkedAsDelivered")).show();
             confirmedOrdersDl.load();
-            finishedOrdersDl.load();
+            finishedOrdersFragment.load();
         }
     }
 
