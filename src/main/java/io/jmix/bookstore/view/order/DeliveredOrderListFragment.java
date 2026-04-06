@@ -8,10 +8,10 @@ import io.jmix.flowui.view.Subscribe;
 @FragmentDescriptor("delivered-order-list-fragment.xml")
 public class DeliveredOrderListFragment extends Fragment<VerticalLayout> {
 
-    /*@Subscribe
+    @Subscribe
     public void onReady(final ReadyEvent event) {
         load();
-    }*/
+    }
 
     public void load() {
         getFragmentData().loadAll();

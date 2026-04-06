@@ -22,10 +22,6 @@
             </loader>
         </collection>
     </data>
-    <facets>
-        <fragmentDataLoadCoordinator auto="true"/>
-        <fragmentSettings auto="true"/>
-    </facets>
     <content>
         <vbox id="root" height="100%" padding="false">
             <genericFilter id="finishedOrdersFilter"
