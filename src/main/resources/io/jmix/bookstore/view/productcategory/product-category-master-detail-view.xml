@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://productCategoryMasterDetailView.title"
+      focusComponent="productCategoriesDataGrid">
+    <data>
+        <collection id="productCategoriesDc"
+                    class="io.jmix.bookstore.product.ProductCategory">
+            <fetchPlan extends="_base"/>
+            <loader id="productCategoriesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bookstore_ProductCategory e]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="productCategoryDc"
+                  class="io.jmix.bookstore.product.ProductCategory">
+            <fetchPlan extends="_base"/>
+            <loader id="productCategoryDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="productCategoriesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel" alignItems="CENTER">
+            <startSlot>
+                <button id="createButton" action="productCategoriesDataGrid.createAction"/>
+                <button id="editButton" action="productCategoriesDataGrid.editAction"/>
+                <button id="removeButton" action="productCategoriesDataGrid.removeAction"/>
+            </startSlot>
+            <middleSlot>
+                <select id="positionSelect" noVerticalOverlap="true"/>
+                <checkbox id="overlayCheckbox" label="Overlay" value="true"/>
+                <checkbox id="modalCheckbox" label="Modal" value="true"/>
+            </middleSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="productCategoriesDl"/>
+            </endSlot>
+        </hbox>
+        <sidePanelLayout id="sidePanelLayout"
+                         width="100%"
+                         height="100%">
+            <vbox id="contentBox" height="100%" padding="false">
+                <dataGrid id="productCategoriesDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="productCategoriesDc"
+                          columnReorderingAllowed="true">
+                    <actions>
+                        <action id="createAction" type="list_create"/>
+                        <action id="editAction" type="list_edit"/>
+                        <action id="removeAction" type="list_remove"/>
+                    </actions>
+                    <columns resizable="true">
+                        <column property="name"/>
+                        <column property="description"/>
+                    </columns>
+                </dataGrid>
+                <hbox id="lookupActions" visible="false">
+                    <button id="selectButton" action="selectAction"/>
+                    <button id="discardButton" action="discardAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="sidePanelBox" height="100%">
+                <hbox id="headerBox" width="100%" justifyContent="BETWEEN" alignItems="CENTER">
+                    <h2 text="msg://io.jmix.bookstore.view.productcategory/productCategoryDetailView.title"/>
+                    <sidePanelLayoutCloser sidePanelLayoutId="sidePanelLayout"/>
+                </hbox>
+
+                <vbox id="sidePanelContent" height="100%" width="100%" padding="false"/>
+            </vbox>
+        </sidePanelLayout>
+    </layout>
+</view>
