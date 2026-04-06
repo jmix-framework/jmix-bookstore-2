@@ -22,10 +22,12 @@ import io.jmix.flowui.component.checkbox.JmixCheckbox;
 import io.jmix.flowui.component.select.JmixSelect;
 import io.jmix.flowui.component.textfield.JmixPasswordField;
 import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.icon.Icons;
 import io.jmix.flowui.kit.component.ComponentUtils;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.kit.component.dropdownbutton.DropdownButton;
 import io.jmix.flowui.kit.component.dropdownbutton.DropdownButtonItem;
+import io.jmix.flowui.kit.icon.JmixFontIcon;
 import io.jmix.flowui.view.*;
 import io.jmix.multitenancy.MultitenancyProperties;
 import io.jmix.multitenancyflowui.MultitenancyUiSupport;
@@ -245,11 +247,14 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         possibleUsersBtn.setTitle(messageBundle.getMessage("possibleUsersHelp"));
     }
 
+    @Autowired
+    private Icons icons;
+
     @Subscribe(id = "editTenantBtn", subject = "clickListener")
     public void onEditTenantBtnClick(final ClickEvent<JmixButton> event) {
         if (tenantField.isReadOnly()) {
             tenantField.setReadOnly(false);
-            editTenantBtn.setIcon(new Icon("vaadin", "refresh"));
+            editTenantBtn.setIcon(icons.get(JmixFontIcon.REFRESH));
         } else {
             tenantField.setTypedValue(testEnvironmentTenants.generateRandomTenantId());
         }

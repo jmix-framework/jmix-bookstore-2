@@ -20,7 +20,7 @@
                     <button id="helpTenantBtn" icon="QUESTION_CIRCLE_O" themeNames="tertiary-inline"/>
                 </suffix>
                 <prefix>
-                    <button id="editTenantBtn" icon="vaadin:edit" themeNames="tertiary-inline"/>
+                    <button id="editTenantBtn" icon="EDIT" themeNames="tertiary-inline"/>
                 </prefix>
             </textField>
 
