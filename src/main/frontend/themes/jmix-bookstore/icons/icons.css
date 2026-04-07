@@ -1,13 +1,13 @@
 @import url('./material-symbols/material-symbols.css');
 
 html {
-    /*--jmix-font-icon-create-action: "\e145";*/
-    /*--jmix-font-icon-edit-action: "\f097";*/
-    /*--jmix-font-icon-remove-action: "\e92e";*/
+    --jmix-font-icon-create-action: "\e145";
+    --jmix-font-icon-edit-action: "\f097";
+    --jmix-font-icon-remove-action: "\e92e";
 }
 
 .jmix-font-icon-create-action,
 .jmix-font-icon-edit-action,
 .jmix-font-icon-remove-action {
-    /*--jmix-font-icon-font-family: 'Material-Symbols';*/
+    --jmix-font-icon-font-family: 'Material-Symbols';
 }

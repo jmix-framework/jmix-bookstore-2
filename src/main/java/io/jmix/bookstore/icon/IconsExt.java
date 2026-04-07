@@ -5,8 +5,8 @@ import com.vaadin.flow.theme.lumo.LumoIcon;
 import io.jmix.flowui.icon.impl.IconsImpl;
 import org.springframework.context.annotation.Primary;
 
-//@Primary
-//@org.springframework.stereotype.Component("IconsExt")
+@Primary
+@org.springframework.stereotype.Component("IconsExt")
 public class IconsExt extends IconsImpl {
 
     @Override
