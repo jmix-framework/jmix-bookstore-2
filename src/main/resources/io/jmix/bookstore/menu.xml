@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
-    <item view="bookstore_Order.list" title="msg://io.jmix.bookstore.view.order/orderListView.title">
-        <icon>
-            <svgIcon resource="icons/menu/shopping-cart.svg"/>
-        </icon>
-    </item>
-    <item view="bookstore_Customer.list" title="msg://io.jmix.bookstore.view.customer/customerListView.title">
-        <icon>
-            <svgIcon resource="icons/menu/id-card.svg"/>
-        </icon>
-    </item>
-    <menu id="products" title="msg://io.jmix.bookstore/menu.products">
-        <icon>
-            <svgIcon resource="icons/menu/book.svg"/>
-        </icon>
+    <item view="bookstore_Order.list" title="msg://io.jmix.bookstore.view.order/orderListView.title" icon="vaadin:cart"/>
+    <item view="bookstore_Customer.list" title="msg://io.jmix.bookstore.view.customer/customerListView.title" icon="vaadin:user-card"/>
+    <menu id="products" title="msg://io.jmix.bookstore/menu.products" icon="vaadin:book">
         <item view="bookstore_Product.list" title="msg://io.jmix.bookstore.view.product/productListView.title"/>
         <item view="bookstore_ProductCategory.md"
               title="msg://io.jmix.bookstore.view.productcategory/productCategoryMasterDetailView.title"/>
@@ -22,10 +11,7 @@
         <item view="bookstore_SupplierOrder.list"
               title="msg://io.jmix.bookstore.view.supplierorder/supplierOrderListView.title"/>
     </menu>
-    <menu id="hr" title="msg://io.jmix.bookstore/menu.hr">
-        <icon>
-            <svgIcon resource="icons/menu/users.svg"/>
-        </icon>
+    <menu id="hr" title="msg://io.jmix.bookstore/menu.hr" icon="vaadin:users">
         <item view="bookstore_Employee.list" title="msg://io.jmix.bookstore.view.employee/employeeListView.title"/>
         <item view="bookstore_User.list" title="msg://io.jmix.bookstore.view.user/UserListView.title"/>
         <item view="bookstore_Position.list" title="msg://io.jmix.bookstore.view.position/positionListView.title"/>

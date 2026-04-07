@@ -247,14 +247,11 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
         possibleUsersBtn.setTitle(messageBundle.getMessage("possibleUsersHelp"));
     }
 
-    @Autowired
-    private Icons icons;
-
     @Subscribe(id = "editTenantBtn", subject = "clickListener")
     public void onEditTenantBtnClick(final ClickEvent<JmixButton> event) {
         if (tenantField.isReadOnly()) {
             tenantField.setReadOnly(false);
-            editTenantBtn.setIcon(icons.get(JmixFontIcon.REFRESH));
+            editTenantBtn.setIcon(new Icon("vaadin", "refresh"));
         } else {
             tenantField.setTypedValue(testEnvironmentTenants.generateRandomTenantId());
         }
