@@ -5,11 +5,18 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.avatar.AvatarVariant;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.markdown.Markdown;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.lumo.LumoIcon;
 import io.jmix.bookstore.employee.Employee;
 import io.jmix.bookstore.employee.PositionTranslation;
 import io.jmix.bookstore.entity.User;
@@ -30,8 +37,11 @@ import io.jmix.flowui.app.main.StandardMainView;
 import io.jmix.flowui.backgroundtask.BackgroundTask;
 import io.jmix.flowui.backgroundtask.TaskLifeCycle;
 import io.jmix.flowui.component.image.JmixImage;
+import io.jmix.flowui.component.sidedialog.SideDialog;
 import io.jmix.flowui.facet.Timer;
 import io.jmix.flowui.kit.component.button.JmixButton;
+import io.jmix.flowui.kit.component.usermenu.TextUserMenuItem;
+import io.jmix.flowui.kit.component.usermenu.UserMenuItem;
 import io.jmix.flowui.view.*;
 import io.jmix.multitenancy.core.TenantProvider;
 import org.flowable.task.api.TaskQuery;
@@ -324,5 +334,69 @@ public class MainView extends StandardMainView {
 
     private String getOriginalUsername(User user) {
         return user.getUsername().replaceAll(currentTenant() + "\\|", "");
+    }
+
+    @Subscribe("userMenu.infoUSerMenuItem")
+    public void onUserMenuInfoUSerMenuItemClick(final UserMenuItem.HasClickListener.ClickEvent<TextUserMenuItem> event) {
+        dialogs.createSideDialog()
+                .withHeaderProvider(this::createHeader)
+                .withContentComponents(createInfoContent())
+                .withHorizontalMaxSize("30em")
+                .open();
+    }
+
+    private Component createHeader(SideDialog sideDialog) {
+        HorizontalLayout header = new HorizontalLayout();
+        header.setWidthFull();
+        header.setPadding(true);
+        header.setAlignItems(FlexComponent.Alignment.CENTER);
+        header.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+
+        Button closeButton = new Button(LumoIcon.CROSS.create(), event -> sideDialog.close());
+        closeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY, ButtonVariant.LUMO_ICON, ButtonVariant.LUMO_CONTRAST);
+
+        header.add(new H1("Information"), closeButton);
+
+        return header;
+    }
+
+    private Component createInfoContent() {
+        String markdownContent = """
+                # Jmix Bookstore
+                
+                This application is a sample project demonstrating the capabilities of the Jmix framework.
+                
+                ## Overview
+                
+                Jmix Bookstore is a comprehensive business application showcasing:
+                
+                - **Multi-tenancy support** - Isolated data for different organizations
+                - **Business Process Management** - Flowable BPM integration for order fulfillment workflows
+                - **User Management** - Authentication, authorization, and user substitution
+                - **Employee Management** - Position-based roles and permissions
+                - **Task Management** - BPM task tracking and notifications
+                - **Localization** - Multi-language support with translations
+                - **Modern UI** - Vaadin Flow-based responsive interface
+                
+                ## Technology Stack
+                
+                - Jmix Framework
+                - Spring Boot
+                - Vaadin Flow
+                - Flowable BPM
+                - Jakarta EE
+                - Java 17
+                
+                ## Features
+                
+                - Customer and order management
+                - Automated test data generation
+                - Real-time task notifications
+                - Role-based access control
+                - Multi-tenant data isolation
+                - Business process automation
+                """;
+
+        return new Markdown(markdownContent);
     }
 }

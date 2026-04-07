@@ -29,6 +29,10 @@
                                 <action id="substituteUserAction" type="sec_userMenuSubstituteUser"/>
                             </actionItem>
                             <separator/>
+                            <textItem id="infoUSerMenuItem"
+                                      text="Info" icon="INFO_CIRCLE_O"
+                                      themeNames="non-checkable"/>
+                            <separator/>
                             <actionItem id="logoutMenuItem" ref="logoutAction"
                                         themeNames="non-checkable"/>
                         </items>
