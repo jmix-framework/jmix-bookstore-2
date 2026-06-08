@@ -8,7 +8,6 @@ import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.OnDelete;
 import io.jmix.core.metamodel.annotation.*;
-import io.jmix.maps.Geometry;
 import org.locationtech.jts.geom.Point;
 
 import jakarta.persistence.*;
@@ -64,7 +63,6 @@ public class Customer extends StandardTenantEntity {
         this.associatedRegion = associatedRegion;
     }
 
-    @Geometry
     @JmixProperty
     public Point getGeometry() {
         return address != null? address.getPosition() : null;

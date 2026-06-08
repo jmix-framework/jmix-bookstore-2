@@ -1,7 +1,7 @@
 package io.jmix.bookstore.test_data;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 import io.jmix.bookstore.entity.Address;
 import io.jmix.core.DataManager;
 import org.locationtech.jts.geom.Coordinate;

@@ -4,7 +4,6 @@ import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.PropertyDatatype;
-import io.jmix.maps.Geometry;
 import org.locationtech.jts.geom.Point;
 
 import jakarta.persistence.Column;
@@ -24,7 +23,6 @@ public class Address {
     @Column(name = "CITY")
     private String city;
 
-    @Geometry
     @PropertyDatatype("geoPoint")
     @Column(name = "POSITION_")
     private Point position;

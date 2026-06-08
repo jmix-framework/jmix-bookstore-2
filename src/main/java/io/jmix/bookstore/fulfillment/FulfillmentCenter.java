@@ -7,7 +7,6 @@ import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.JmixProperty;
-import io.jmix.maps.Geometry;
 import org.locationtech.jts.geom.Point;
 
 import jakarta.persistence.*;
@@ -26,7 +25,6 @@ public class FulfillmentCenter extends StandardTenantEntity {
     private String name;
 
 
-    @Geometry
     @JmixProperty
     public Point getGeometry() {
         return address != null? address.getPosition() : null;
