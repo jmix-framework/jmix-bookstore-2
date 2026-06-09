@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '3.0.0-M2'
+    id 'io.jmix' version '3.0.0-M3'
     id 'java'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.9'
     id 'com.github.fhermansson.assertj-generator' version '1.1.5'
@@ -90,6 +90,10 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+
+    // Spring Boot 4 modularized the test-autoconfigure slices into per-domain modules;
+    // @AutoConfigureTestDatabase now lives in spring-boot-jdbc-test (org.springframework.boot.jdbc.test.autoconfigure)
+    testImplementation 'org.springframework.boot:spring-boot-jdbc-test'
 
     testImplementation 'org.jetbrains:annotations:24.1.0'
 

@@ -45,7 +45,7 @@ public class ViewInteractions {
 
     @SuppressWarnings("unchecked")
     public <T extends StandardView> T navigate(Class<T> viewClass) {
-        viewNavigators.view(viewClass).navigate();
+        viewNavigators.view(UiTestUtils.getCurrentView(), viewClass).navigate();
         View<?> currentView = UiTestUtils.getCurrentView();
         assertThat(currentView).isInstanceOf(viewClass);
         return (T) currentView;

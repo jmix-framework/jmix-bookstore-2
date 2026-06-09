@@ -13,6 +13,7 @@ import io.jmix.core.DataManager;
 import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.flowui.DialogWindows;
 import io.jmix.flowui.ViewNavigators;
+import io.jmix.flowui.testassist.UiTestUtils;
 import io.jmix.flowui.util.OperationResult;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ class CustomerDetailViewTest extends WebIntegrationTest {
         databaseCleanup.removeAllEntities(Customer.class);
 
         // and:
-        viewNavigators.view(MainView.class).navigate();
+        viewNavigators.view(UiTestUtils.getCurrentView(), MainView.class).navigate();
         ViewInteractions viewInteractions = ViewInteractions.forDialog(dialogWindows);
         CustomerDetailView customerEdit = viewInteractions.openDetailForCreation(CustomerDetailView.class, Customer.class);
         formInteractions = FormInteractions.of(customerEdit);

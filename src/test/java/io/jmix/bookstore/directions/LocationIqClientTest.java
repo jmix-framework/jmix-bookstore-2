@@ -73,7 +73,9 @@ class LocationIqClientTest {
                                                [ -0.161606, 51.522557 ]
                                              ],
                                              "type": "LineString"
-                                           }
+                                           },
+                                           "duration": 138.8,
+                                           "distance": 844.5
                                          }
                                        ]
                                      }
