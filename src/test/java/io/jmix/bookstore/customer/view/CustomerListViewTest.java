@@ -52,10 +52,12 @@ class CustomerListViewTest extends WebIntegrationTest {
 
 
     @Test
-    @Disabled("Jmix 3.0-M2 test-assist: EditAction navigation calls UiComponentUtils.getView(customersDataGrid), " +
-            "but the grid is inside a TabSheet tab whose content (vbox) is not attached to the TabSheet/view in the " +
-            "mock UI, so the parent chain stops at the vbox and getView() throws 'not attached to a view'. " +
-            "Re-enable once the test-assist TabSheet tab-content attachment is fixed.")
+    @Disabled("Jmix 3.0-M2 test-assist: EditAction navigation (UiComponentUtils.getView on the grid) walks " +
+            "Component.getParent() and stops at the tab's vbox - TabSheet tab content is not attached in the headless " +
+            "UI. Confirmed: invoking JmixTabSheet.ensureSelectedTabContentAttached() fixes the parent chain, but the " +
+            "public setSelectedIndex/setSelectedTab API does not trigger it in tests; afterwards a separate " +
+            "detached-entity issue surfaces (Customer.createdBy unfetched). Re-enable once test-assist attaches " +
+            "selected-tab content on navigation.")
     void given_oneCustomerExists_when_editCustomer_then_editCustomerEditorIsShown() {
         // given:
         Customer firstCustomer = customerDataGrid.firstItem();
