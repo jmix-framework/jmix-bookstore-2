@@ -1,10 +1,12 @@
 package io.jmix.bookstore;
 
 import com.google.common.base.Strings;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 import io.jmix.bookstore.perftests.BookstoreListMenu;
 import io.jmix.flowui.component.main.JmixListMenu;
 import io.jmix.flowui.sys.registration.ComponentRegistration;
@@ -15,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.jdbc.autoconfigure.DataSourceProperties;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -30,9 +32,10 @@ import javax.sql.DataSource;
 
 @Push
 @Theme(value = "jmix-bookstore")
-@PWA(name = "Jmix Bookstore", shortName = "Jmix Bookstore")
+@PWA(name = "Jmix Bookstore", shortName = "Jmix Bookstore", offline = false)
 @EnableAsync
 @SpringBootApplication
+@StyleSheet(Lumo.UTILITY_STYLESHEET)
 public class JmixBookstoreApplication implements AppShellConfigurator {
     public static final String PERFORMANCE_TESTS_PROFILE = "perf-tests";
 

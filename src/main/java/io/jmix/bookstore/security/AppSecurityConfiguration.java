@@ -16,8 +16,12 @@ public class AppSecurityConfiguration {
     @Bean
     @Order(JmixSecurityFilterChainOrder.FLOWUI - 10)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/branding/**")
-                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/branding/**").permitAll());
+        http.securityMatcher("/branding/**", "/icons/**", "/avatars/**")
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/branding/**").permitAll()
+                        .requestMatchers("/icons/**").authenticated()
+                        .requestMatchers("/avatars/**").authenticated()
+                );
         return http.build();
     }
 

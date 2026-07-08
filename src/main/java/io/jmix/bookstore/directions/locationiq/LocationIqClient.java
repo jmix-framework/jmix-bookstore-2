@@ -1,6 +1,6 @@
 package io.jmix.bookstore.directions.locationiq;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import io.jmix.bookstore.directions.AddressInformation;
 import io.jmix.bookstore.directions.CalculatedRoute;
 import io.jmix.bookstore.directions.Geocoding;

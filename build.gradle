@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '2.8.2'
+    id 'io.jmix' version '3.0.0'
     id 'java'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.9'
     id 'com.github.fhermansson.assertj-generator' version '1.1.5'
@@ -9,7 +9,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'com.vaadin'
 
 jmix {
-    bomVersion = '2.8.2'
+    bomVersion = '3.0.0'
     projectId = 'bookstore'
 }
 
@@ -24,16 +24,17 @@ repositories {
     maven {
         url = 'https://global.repo.jmix.io/repository/premium'
         credentials {
-            username(rootProject.hasProperty('premiumRepoUser') ?
-                    rootProject['premiumRepoUser'] : System.getenv('PREMIUM_REPO_USER'))
-            password(rootProject.hasProperty('premiumRepoPass') ?
-                    rootProject['premiumRepoPass'] : System.getenv('PREMIUM_REPO_PASS'))
+            username = rootProject.hasProperty('premiumRepoUser') ?
+                    rootProject['premiumRepoUser'] : System.getenv('PREMIUM_REPO_USER')
+            password = rootProject.hasProperty('premiumRepoPass') ?
+                    rootProject['premiumRepoPass'] : System.getenv('PREMIUM_REPO_PASS')
         }
     }
 }
 
 vaadin {
     optimizeBundle = false
+    productionMode = false
 }
 
 dependencies {
@@ -72,6 +73,7 @@ dependencies {
     implementation 'io.jmix.flowui:jmix-flowui-kit'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-restclient'
 
     implementation 'org.postgresql:postgresql'
 
@@ -90,6 +92,10 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
+    // Spring Boot 4 modularized the test-autoconfigure slices into per-domain modules;
+    // @AutoConfigureTestDatabase now lives in spring-boot-jdbc-test (org.springframework.boot.jdbc.test.autoconfigure)
+    testImplementation 'org.springframework.boot:spring-boot-jdbc-test'
+
     testImplementation 'org.jetbrains:annotations:24.1.0'
 
     // used for tests that check @Async annotated methods
@@ -104,6 +110,7 @@ dependencies {
     testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
 
     testImplementation 'org.hsqldb:hsqldb'
+    implementation 'com.vaadin:vaadin-dev'
 
 }
 

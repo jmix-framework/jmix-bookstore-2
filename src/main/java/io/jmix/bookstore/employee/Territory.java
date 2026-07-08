@@ -4,7 +4,6 @@ import io.jmix.bookstore.entity.StandardTenantEntity;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.PropertyDatatype;
-import io.jmix.maps.Geometry;
 import org.locationtech.jts.geom.Polygon;
 
 import jakarta.persistence.*;
@@ -35,7 +34,6 @@ public class Territory extends StandardTenantEntity {
     private List<Employee> employees;
 
 
-    @Geometry
     @PropertyDatatype("geoPolygon")
     @Column(name = "GEOGRAPHICAL_AREA")
     private Polygon geographicalArea;
